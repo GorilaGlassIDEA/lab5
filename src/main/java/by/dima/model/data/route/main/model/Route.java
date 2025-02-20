@@ -6,13 +6,17 @@ import by.dima.model.data.route.sub.model.LocationTo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 @AllArgsConstructor
 @Data
-public class Route implements Comparable<Route> {
-    private long id;
+public class Route {
+    //Решить проблему генерации id для ключа Map<id, Route>
+    //проблема в том, когда и как получать id элемента из json, чтобы
+    //id элемента не начинался каждый раз с единицы
+    private static long id = 1;
     private String name;
     private Coordinates coordinates;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -21,9 +25,4 @@ public class Route implements Comparable<Route> {
     private LocationTo to;
     private double distance;
 
-
-    @Override
-    public int compareTo(Route o) {
-        return id - o.getId() < 0 ? -1 : 1;
-    }
 }

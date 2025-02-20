@@ -28,6 +28,7 @@
                             <mainClass>by.dima.model.Main</mainClass>
                         </manifest>
                     </archive>
+
                 </configuration>
             </plugin>
         </plugins>

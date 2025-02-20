@@ -8,8 +8,11 @@ import by.dima.model.data.route.sub.model.LocationFrom;
 import by.dima.model.data.route.sub.model.LocationTo;
 import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.time.ZonedDateTime;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +21,6 @@ public class Main {
         commandManager.executeCommand(args);
 
         Route route = new Route(
-                10,
                 "name",
                 new Coordinates(10, 10.3),
                 ZonedDateTime.now(),
@@ -27,8 +29,16 @@ public class Main {
                 10.0
         );
 
-        ParserToJson parser = new ParserToJsonJacksonImpl();
-        System.out.println(parser.getJson(new Model(route)));
+        Coordinates coordinates = new Coordinates(10, 10d);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+
+        ParserToJson<Coordinates> parserCoordinates = new ParserToJsonJacksonImpl<>(objectMapper);
+        System.out.println(parserCoordinates.getJson(new Model<>(coordinates)));
+
+        ParserToJson<Route> parserRoute = new ParserToJsonJacksonImpl<>(objectMapper);
+        System.out.println(parserRoute.getJson(new Model<>(route)));
 
 
     }
