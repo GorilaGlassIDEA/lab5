@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ReadFileBufferReader implements ReadableFile {
+public class ReadFileBufferReader extends ReadModel {
     @Override
     public String getContent(String filePath) {
 

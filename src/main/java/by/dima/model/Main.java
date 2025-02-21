@@ -33,11 +33,9 @@ public class Main {
 //       // Чтение файла работает, но нужно переписать под BufferedReader
 //        System.out.println(readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/route.json"));
         // работает запись в файл
-        String path = "/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/example.txt";
-        WriteableFile writeableFile = new WriteFileFiles(path);
-        writeableFile.write("some content)");
-
-
+//        String path = "/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/example.txt";
+//        WriteableFile writeableFile = new WriteFileFiles(path);
+//        writeableFile.write("some content)");
 
     }
 }

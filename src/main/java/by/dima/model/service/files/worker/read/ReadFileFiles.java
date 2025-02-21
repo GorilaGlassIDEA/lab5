@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ReadFileFiles implements ReadableFile {
+public class ReadFileFiles extends ReadModel {
     String contentFile;
 
     @Override
