@@ -1,15 +1,14 @@
-package by.dima.model.data.route.main.model;
+package by.dima.model.data.route.model.main;
 
-import by.dima.model.data.route.sub.model.Coordinates;
-import by.dima.model.data.route.sub.model.LocationFrom;
-import by.dima.model.data.route.sub.model.LocationTo;
+import by.dima.model.data.route.model.sub.Coordinates;
+import by.dima.model.data.route.model.sub.LocationFrom;
+import by.dima.model.data.route.model.sub.LocationTo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 @AllArgsConstructor
 @Data
 public class Route {

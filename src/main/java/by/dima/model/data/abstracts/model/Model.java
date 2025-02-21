@@ -1,4 +1,4 @@
-package by.dima.model.data.abstracts;
+package by.dima.model.data.abstracts.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

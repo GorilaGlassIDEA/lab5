@@ -1,4 +1,4 @@
-package by.dima.model.data.route.sub.model;
+package by.dima.model.data.route.model.sub;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
