@@ -1,7 +1,6 @@
 package by.dima.model.service.generate.id;
 
 import junit.framework.TestCase;
-import org.junit.Test;
 
 public class IdGenerateMyTest extends TestCase {
 

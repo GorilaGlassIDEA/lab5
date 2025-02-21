@@ -5,9 +5,7 @@ import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
 import by.dima.model.service.generate.id.IdGenerateble;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.ZonedDateTime;
 

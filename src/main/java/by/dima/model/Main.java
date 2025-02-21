@@ -1,8 +1,5 @@
 package by.dima.model;
 
-import by.dima.model.service.files.worker.write.WriteFileFiles;
-import by.dima.model.service.files.worker.write.WriteableFile;
-
 
 public class Main {
     public static void main(String[] args) {
