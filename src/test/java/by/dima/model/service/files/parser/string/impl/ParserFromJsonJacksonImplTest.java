@@ -1,5 +1,6 @@
 package by.dima.model.service.files.parser.string.impl;
 
+import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
@@ -12,10 +13,10 @@ import by.dima.model.service.files.worker.write.WriteFileFiles;
 import by.dima.model.service.files.worker.write.WriteableFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Test;
 
-import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParserFromJsonJacksonImplTest {
     @Test
@@ -31,17 +32,21 @@ public class ParserFromJsonJacksonImplTest {
                 new LocationTo(10d, 10d, "That coordinates"),
                 10d);
 
+        ArrayList<Route> routes = new ArrayList<>();
+        routes.add(route);
+        Models models = new Models(routes);
+
         WriteableFile writeableFile = new WriteFileFiles("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/route.json");
         ParserToJson parser = new ParserToJsonJacksonImpl(mapper);
-        writeableFile.write(parser.getJson(route));
+        writeableFile.write(parser.getJson(models));
 
 
         ReadableFile readableFile = new ReadFileFiles();
         String content = readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/route.json");
 
 
-        ParserFromJson<Route> parserFrom = new ParserFromJsonJacksonImpl(mapper);
-        Route route1 = parserFrom.getModel(content);
-        System.out.println(route1.getCreationDate());
+        ParserFromJson<Models> parserFrom = new ParserFromJsonJacksonImpl(mapper);
+        models = parserFrom.getModels(content);
+        System.out.println(models.getRoutes().getFirst().getCreationDate());
     }
 }
