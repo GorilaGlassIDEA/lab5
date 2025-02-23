@@ -1,4 +1,4 @@
-package by.dima.model.service.files.worker.read;
+package by.dima.model.service.files.io.read;
 
 abstract class ReadModel implements ReadableFile {
 

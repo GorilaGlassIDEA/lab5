@@ -7,16 +7,15 @@ import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
 import by.dima.model.service.files.parser.string.model.ParserFromJson;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
-import by.dima.model.service.files.worker.read.ReadFileFiles;
-import by.dima.model.service.files.worker.read.ReadableFile;
-import by.dima.model.service.files.worker.write.WriteFileFiles;
-import by.dima.model.service.files.worker.write.WriteableFile;
+import by.dima.model.service.files.io.read.ReadFileFiles;
+import by.dima.model.service.files.io.read.ReadableFile;
+import by.dima.model.service.files.io.write.WriteFileFiles;
+import by.dima.model.service.files.io.write.WriteableFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ParserFromJsonJacksonImplTest {
     @Test

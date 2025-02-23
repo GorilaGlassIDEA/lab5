@@ -1,4 +1,4 @@
-package by.dima.model.service.files.worker.read;
+package by.dima.model.service.files.io.read;
 
 import java.io.IOException;
 import java.nio.file.Files;
