@@ -1,5 +1,8 @@
 package by.dima.model.data.route.model.main;
 
+
+import by.dima.model.data.abstracts.model.Model;
+import by.dima.model.data.route.model.exceptions.IncorrectDataModel;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
@@ -10,9 +13,9 @@ import lombok.Data;
 import java.time.ZonedDateTime;
 
 @Data
-public class Route implements Comparable<Route> {
-    private long id;
-    private String name;
+public class Route implements Comparable<Route>, Model {
+    private final long id;
+    private final String name;
     private Coordinates coordinates;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private ZonedDateTime creationDate;
@@ -21,10 +24,19 @@ public class Route implements Comparable<Route> {
     private double distance;
 
 
-    public Route(IdGenerateble idGenerateble, String name, Coordinates coordinates, ZonedDateTime creationDate, LocationFrom from, LocationTo to, double distance) {
+    public Route(IdGenerateble idGenerateble, String name, Coordinates coordinates, LocationFrom from, LocationTo to, double distance) {
+        if (
+                name == null || name.isEmpty() ||
+                        coordinates == null ||
+                        from == null ||
+                        to == null ||
+                        distance < 1.0
+        ) {
+            throw new IncorrectDataModel();
+        }
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = creationDate;
+        this.creationDate = ZonedDateTime.now();
         this.from = from;
         this.to = to;
         this.distance = distance;
