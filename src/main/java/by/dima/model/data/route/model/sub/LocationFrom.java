@@ -2,8 +2,10 @@ package by.dima.model.data.route.model.sub;
 
 import by.dima.model.data.route.model.sub.exceptions.IncorrectDataLocationException;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class LocationFrom {
     private double x;
     private Float y;

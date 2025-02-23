@@ -1,28 +1,28 @@
 package by.dima.model.service.files.parser.string.impl;
 
 import by.dima.model.data.abstracts.model.Model;
-import by.dima.model.service.files.parser.string.exceptions.JsonSerializationException;
+import by.dima.model.service.files.parser.string.exceptions.JsonException;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-//Dependency injection
-public class ParserToJsonJacksonImpl<T> implements ParserToJson<T> {
+public class ParserToJsonJacksonImpl implements ParserToJson {
     ObjectMapper objectMapper;
 
+    //Dependency injection
     public ParserToJsonJacksonImpl(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
 
     }
 
     @Override
-    public String getJson(Model<T> model) {
+    public String getJson(Model model) {
         try {
             objectMapper.registerModule(new JavaTimeModule());
-            return objectMapper.writeValueAsString(model.getT());
-        } catch (JsonProcessingException e){
-            throw new JsonSerializationException("Ошибка сериализации объекта",e);
+            return objectMapper.writeValueAsString(model);
+        } catch (JsonProcessingException e) {
+            throw new JsonException("Ошибка сериализации объекта", e);
         }
     }
 }
