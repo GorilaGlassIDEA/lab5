@@ -16,8 +16,10 @@ public class CommandManager {
         commandMap.put(helpCommand.getKey(), helpCommand);
     }
 
-    public void executeCommand(String key){
-        commandMap.get(key).execute();
+    public void executeCommand(String... keys) {
+        for (String key : keys) {
+            commandMap.get(key).execute();
+        }
     }
 
 }
