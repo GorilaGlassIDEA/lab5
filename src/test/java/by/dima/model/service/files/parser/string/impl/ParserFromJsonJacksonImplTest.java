@@ -12,12 +12,16 @@ import by.dima.model.service.files.worker.write.WriteFileFiles;
 import by.dima.model.service.files.worker.write.WriteableFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Test;
+
+import java.time.ZonedDateTime;
 
 public class ParserFromJsonJacksonImplTest {
     @Test
     public void testGetContentTest() {
         ObjectMapper mapper = new ObjectMapper();
+//        mapper.registerModule(new JavaTimeModule());
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         Route route = new Route(
                 10,
@@ -36,8 +40,8 @@ public class ParserFromJsonJacksonImplTest {
         String content = readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/route.json");
 
 
-        ParserFromJson parserFrom = new ParserFromJsonJacksonImpl(mapper);
-        parserFrom.getModel(content);
-
+        ParserFromJson<Route> parserFrom = new ParserFromJsonJacksonImpl(mapper);
+        Route route1 = parserFrom.getModel(content);
+        System.out.println(route1.getCreationDate());
     }
 }

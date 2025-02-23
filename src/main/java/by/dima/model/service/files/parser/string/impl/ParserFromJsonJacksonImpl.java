@@ -7,7 +7,7 @@ import by.dima.model.service.files.parser.string.model.ParserFromJson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ParserFromJsonJacksonImpl implements ParserFromJson {
+public class ParserFromJsonJacksonImpl implements ParserFromJson<Route> {
 
     ObjectMapper mapper;
 
