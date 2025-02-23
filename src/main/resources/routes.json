@@ -62,5 +62,5 @@
     }
   ],
   "zonedDateTime": 1740343157.911139000,
-  "type": "by.dima.model.data.route.model.main.Route"
+  "type": "Route"
 }
