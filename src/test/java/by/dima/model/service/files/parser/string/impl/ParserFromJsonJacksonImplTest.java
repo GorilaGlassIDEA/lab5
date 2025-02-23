@@ -35,13 +35,13 @@ public class ParserFromJsonJacksonImplTest {
         routes.add(route);
         Models models = new Models(routes);
 
-        WriteableFile writeableFile = new WriteFileFiles("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/route.json");
+        WriteableFile writeableFile = new WriteFileFiles("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json");
         ParserToJson parser = new ParserToJsonJacksonImpl(mapper);
         writeableFile.write(parser.getJson(models));
 
 
         ReadableFile readableFile = new ReadFileFiles();
-        String content = readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/route.json");
+        String content = readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json");
 
 
         ParserFromJson<Models> parserFrom = new ParserFromJsonJacksonImpl(mapper);
