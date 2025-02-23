@@ -3,5 +3,5 @@ package by.dima.model.service.files.io.read;
 abstract class ReadModel implements ReadableFile {
 
     @Override
-    public abstract String getContent(String filePath);
+    public abstract String getContent();
 }

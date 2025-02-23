@@ -14,8 +14,8 @@ import java.util.Map;
 public class CollectionsManager {
     private final Map<Long, Route> routeMap = new HashMap<>();
 
-    public CollectionsManager(ReadableFile readableFile, String filePath, ParserFromJson<Models> parser) {
-        Models models = parser.getModels(readableFile.getContent(filePath));
+    public CollectionsManager(ReadableFile readableFile, ParserFromJson<Models> parser) {
+        Models models = parser.getModels(readableFile.getContent());
         for (Route route : models.getRoutes()) {
             routeMap.put(route.getId(), route);
         }

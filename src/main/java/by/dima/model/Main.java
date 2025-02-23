@@ -18,11 +18,11 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         final String FILE_PATH = System.getProperty("user.dir") + System.getenv("DATA_FILE");
-        ReadableFile readableFile = new ReadFileFiles();
+        ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        CollectionsManager collectionsManager = new CollectionsManager(new ReadFileFiles(), FILE_PATH, new ParserFromJsonJacksonImpl(mapper));
+        CollectionsManager collectionsManager = new CollectionsManager(readableFile, new ParserFromJsonJacksonImpl(mapper));
         Map<Long, Route> routeMap = collectionsManager.getRouteMap();
 
         long key = 10;
