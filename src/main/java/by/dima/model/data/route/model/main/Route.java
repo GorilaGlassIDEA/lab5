@@ -1,14 +1,11 @@
 package by.dima.model.data.route.model.main;
 
 
-import by.dima.model.data.abstracts.model.Model;
+import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.route.model.exceptions.IncorrectDataModel;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
-import by.dima.model.service.generate.id.IdGenerateble;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +13,7 @@ import java.time.ZonedDateTime;
 
 @Data
 @NoArgsConstructor
-public class Route implements Comparable<Route>, Model {
+public class Route implements Comparable<Route> {
     private long id;
     private String name;
     private Coordinates coordinates;

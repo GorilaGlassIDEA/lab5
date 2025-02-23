@@ -1,14 +1,24 @@
-package by.dima.model.service.files.worker.read;
+package by.dima.model.service.files.io.read;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ReadFileFiles extends ReadModel {
-    String contentFile;
+    private String contentFile;
+    @Setter
+    @Getter
+    private String filePath;
+
+    public ReadFileFiles(String filePath) {
+        this.filePath = filePath;
+    }
 
     @Override
-    public String getContent(String filePath) {
+    public String getContent() {
         try {
             contentFile = Files.readString(Paths.get(filePath));
         } catch (IOException e) {
