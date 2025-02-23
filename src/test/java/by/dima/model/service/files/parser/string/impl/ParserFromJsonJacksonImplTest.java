@@ -22,6 +22,7 @@ public class ParserFromJsonJacksonImplTest {
     public void testGetContentTest() {
         ObjectMapper mapper = new ObjectMapper();
 //        mapper.registerModule(new JavaTimeModule());
+        String FILE_PATH = "/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json";
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         Route route = new Route(
                 10,
@@ -35,13 +36,13 @@ public class ParserFromJsonJacksonImplTest {
         routes.add(route);
         Models models = new Models(routes);
 
-        WriteableFile writeableFile = new WriteFileFiles("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json");
+        WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ParserToJson parser = new ParserToJsonJacksonImpl(mapper);
         writeableFile.write(parser.getJson(models));
 
 
-        ReadableFile readableFile = new ReadFileFiles();
-        String content = readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json");
+        ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
+        String content = readableFile.getContent();
 
 
         ParserFromJson<Models> parserFrom = new ParserFromJsonJacksonImpl(mapper);
