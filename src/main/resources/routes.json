@@ -1,66 +1,26 @@
 {
   "routes": [
     {
-      "id": 1,
-      "name": "Route One",
+      "id": 10,
+      "name": "йу",
       "coordinates": {
-        "x": 10,
-        "y": 20.5
+        "x": 1,
+        "y": 23.0
       },
-      "creationDate": 1740343157.910632000,
+      "creationDate": 1740424837.023658000,
       "from": {
-        "x": 1.1,
-        "y": 2.2,
-        "name": "Start Point A"
+        "x": 3.0,
+        "y": 3.0,
+        "name": ""
       },
       "to": {
-        "x": 3.3,
-        "y": 4.4,
-        "name": "End Point B"
-      },
-      "distance": 100.0
-    },
-    {
-      "id": 2,
-      "name": "Second Route",
-      "coordinates": {
-        "x": -5,
-        "y": 100.0
-      },
-      "creationDate": 1740343157.910704000,
-      "from": {
-        "x": -15.5,
-        "y": 0.5,
-        "name": "Departure X"
-      },
-      "to": {
-        "x": 12.2,
-        "y": 8.8,
-        "name": "Destination Y"
-      },
-      "distance": 50.7
-    },
-    {
-      "id": 3,
-      "name": "Third Long Route",
-      "coordinates": {
-        "x": 100,
-        "y": 5.0
-      },
-      "creationDate": 1740343157.910719000,
-      "from": {
-        "x": 100.0,
-        "y": -20.0,
-        "name": "Place 1"
-      },
-      "to": {
-        "x": 5.0,
+        "x": 4.0,
         "y": 6.0,
-        "name": "Place 2"
+        "name": "6"
       },
-      "distance": 1500.3
+      "distance": 6.0
     }
   ],
-  "zonedDateTime": 1740343157.911139000,
-  "type": "Route"
+  "zonedDateTime": 1740424837.024522000,
+  "type": "by.dima.model.data.route.model.main.Route"
 }

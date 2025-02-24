@@ -9,7 +9,9 @@ import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteFileFiles;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.impl.ParserFromJsonJacksonImpl;
+import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
 import by.dima.model.service.files.parser.string.model.ParserFromJson;
+import by.dima.model.service.files.parser.string.model.ParserToJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -22,13 +24,15 @@ public class Main {
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        ParserFromJson<Models> parser = new ParserFromJsonJacksonImpl(mapper);
+        ParserFromJson<Models> parserFromJson = new ParserFromJsonJacksonImpl(mapper);
+        ParserToJson parserToJson = new ParserToJsonJacksonImpl(mapper);
+
         String jsonContent = readableFile.getContent();
-        Models models = parser.getModels(jsonContent);
+        Models models = parserFromJson.getModels(jsonContent);
         CollectionsManager collectionsManager = new CollectionsManager(models);
         Map<Long, Route> routeMap = collectionsManager.getRouteMap();
 
-        InsertCommand insertCommand = new InsertCommand();
+        InsertCommand insertCommand = new InsertCommand(10, writeableFile, parserToJson);
         insertCommand.execute();
 
     }

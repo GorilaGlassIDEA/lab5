@@ -25,7 +25,6 @@ public class Route implements Comparable<Route> {
     private LocationFrom from;
     private LocationTo to;
     private double distance;
-    private CheckableValidateInfoUtil checkableValidateInfoUtil;
 
     public Route(long id, String name, Coordinates coordinates, LocationFrom from, LocationTo to, double distance) {
         this.name = name;
@@ -36,7 +35,7 @@ public class Route implements Comparable<Route> {
         this.distance = distance;
         // generate id
         this.id = id;
-        checkableValidateInfoUtil = new CheckValidateInfoUtilMyImpl(this);
+        CheckableValidateInfoUtil checkableValidateInfoUtil = new CheckValidateInfoUtilMyImpl(this);
         checkableValidateInfoUtil.checkable();
     }
 
