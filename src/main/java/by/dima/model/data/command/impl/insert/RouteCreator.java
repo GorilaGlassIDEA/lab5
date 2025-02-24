@@ -21,14 +21,14 @@ public class RouteCreator {
         this.scanner = scanner;
     }
 
-    public Route createRoute() {
-        readId();
+
+    public Route createRoute(long id) {
         readName();
         readCoordinates();
         readLocationFrom();
         readLocationTo();
         readDistance();
-        return new Route(route.getId(), route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
+        return new Route(id, route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
     }
 
     private void readId() {
