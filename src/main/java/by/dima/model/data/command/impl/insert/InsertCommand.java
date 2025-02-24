@@ -22,5 +22,6 @@ public class InsertCommand implements Command {
         RouteCreator routeCreator = new RouteCreator(scanner);
 
         route = routeCreator.createRoute();
+        System.out.println(route);
     }
 }
