@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        final String FILE_PATH = System.getProperty("user.dir") + System.getenv("DATA_FILE");
+        final  String FILE_PATH = System.getProperty("user.dir") + System.getenv("DATA_FILE");
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
