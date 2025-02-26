@@ -24,4 +24,9 @@ public class Models {
     public long sizeArray() {
         return routes.size();
     }
+
+    public void addNewElement(Route route) {
+        routes.add(route);
+    }
+
 }

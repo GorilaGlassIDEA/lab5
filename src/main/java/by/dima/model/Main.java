@@ -4,6 +4,8 @@ import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.collections.CollectionsManager;
 import by.dima.model.data.command.impl.insert.InsertCommand;
 import by.dima.model.data.route.model.main.Route;
+import by.dima.model.service.files.io.AddInfo;
+import by.dima.model.service.files.io.AddableInfo;
 import by.dima.model.service.files.io.read.ReadFileFiles;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteFileFiles;
@@ -27,12 +29,15 @@ public class Main {
         ParserFromJson<Models> parserFromJson = new ParserFromJsonJacksonImpl(mapper);
         ParserToJson parserToJson = new ParserToJsonJacksonImpl(mapper);
 
+
         String jsonContent = readableFile.getContent();
         Models models = parserFromJson.getModels(jsonContent);
+        AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
+
         CollectionsManager collectionsManager = new CollectionsManager(models);
         Map<Long, Route> routeMap = collectionsManager.getRouteMap();
 
-        InsertCommand insertCommand = new InsertCommand(10, writeableFile, parserToJson);
+        InsertCommand insertCommand = new InsertCommand(10, addableInfo, parserToJson);
         insertCommand.execute();
 
     }
