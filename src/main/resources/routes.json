@@ -1,46 +1,26 @@
 {
-  "routes": [
-    {
-      "id": 10,
-      "name": "йу",
-      "coordinates": {
-        "x": 1,
-        "y": 23.0
-      },
-      "creationDate": 1740424837.023658000,
-      "from": {
-        "x": 3.0,
-        "y": 3.0,
-        "name": ""
-      },
-      "to": {
-        "x": 4.0,
-        "y": 6.0,
-        "name": "6"
-      },
-      "distance": 6.0
-    },
-    {
+  "routesMap": {
+    "10": {
       "id": 10,
       "name": "123",
       "coordinates": {
-        "x": 123,
-        "y": 123.0
+        "x": 1,
+        "y": 1.0
       },
-      "creationDate": 1740557959.316456000,
+      "creationDate": 1740654850.169102000,
       "from": {
-        "x": 12.0,
-        "y": 123.0,
-        "name": "12"
+        "x": 1.0,
+        "y": 1.0,
+        "name": "1"
       },
       "to": {
-        "x": 123.0,
-        "y": 123.0,
-        "name": "12"
+        "x": 1.0,
+        "y": 1.0,
+        "name": "1"
       },
-      "distance": 13.0
+      "distance": 1.0
     }
-  ],
-  "zonedDateTime": 1740424837.024522000,
+  },
+  "zonedDateTime": 1740654846.282250000,
   "type": "by.dima.model.data.route.model.main.Route"
 }

@@ -1,7 +1,6 @@
 package by.dima.model;
 
 import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.collections.CollectionsManager;
 import by.dima.model.data.command.impl.insert.InsertCommand;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.AddInfo;
@@ -34,8 +33,7 @@ public class Main {
         Models models = parserFromJson.getModels(jsonContent);
         AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
 
-        CollectionsManager collectionsManager = new CollectionsManager(models);
-        Map<Long, Route> routeMap = collectionsManager.getRouteMap();
+        Map<Long, Route> routeMap = models.getRoutesMap();
 
         InsertCommand insertCommand = new InsertCommand(10, addableInfo, parserToJson);
         insertCommand.execute();

@@ -6,27 +6,28 @@ import lombok.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @NoArgsConstructor
 @Getter
 public class Models {
     @Setter
-    private List<Route> routes;
+    private Map<Long, Route> routesMap;
     private ZonedDateTime zonedDateTime;
     private final String type = Route.class.getName();
 
-    public Models(List<Route> routes) {
-        this.routes = routes;
+    public Models(Map<Long, Route> routesMap) {
+        this.routesMap = routesMap;
         this.zonedDateTime = ZonedDateTime.now();
     }
 
     public long sizeArray() {
-        return routes.size();
+        return routesMap.size();
     }
 
     public void addNewElement(Route route) {
-        routes.add(route);
+        routesMap.put(route.getId(), route);
     }
 
 }

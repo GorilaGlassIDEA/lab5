@@ -1,5 +1,7 @@
 DATA_FILE=/Users/dmitrijmartynov/Desktop
 
+хранить все Route в HashMap<Route> вместо List
+
         // Route 1
         Coordinates coordinates1 = new Coordinates(10, 20.5);
         LocationFrom from1 = new LocationFrom(1.1, 2.2f, "Start Point A");
