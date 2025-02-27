@@ -13,7 +13,11 @@ import by.dima.model.service.files.parser.string.impl.ParserFromJsonJacksonImpl;
 import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
 import by.dima.model.service.files.parser.string.model.ParserFromJson;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
+import by.dima.model.service.generate.id.IdGenerateMy;
+import by.dima.model.service.generate.id.IdGenerateble;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Map;
@@ -24,18 +28,19 @@ public class Main {
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.registerModule(new JavaTimeModule());
         ParserFromJson<Models> parserFromJson = new ParserFromJsonJacksonImpl(mapper);
         ParserToJson parserToJson = new ParserToJsonJacksonImpl(mapper);
-
 
         String jsonContent = readableFile.getContent();
         Models models = parserFromJson.getModels(jsonContent);
         AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
 
         Map<Long, Route> routeMap = models.getRoutesMap();
+        IdGenerateble idGenerateble = new IdGenerateMy(models);
 
-        InsertCommand insertCommand = new InsertCommand(10, addableInfo, parserToJson);
+        InsertCommand insertCommand = new InsertCommand(addableInfo, parserToJson, idGenerateble);
         insertCommand.execute();
 
     }

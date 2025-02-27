@@ -6,6 +6,7 @@ import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.AddableInfo;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
+import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,8 +24,8 @@ public class InsertCommand implements Command {
     private final AddableInfo addableInfo;
     private final ParserToJson parser;
 
-    public InsertCommand(long id, AddableInfo addableInfo, ParserToJson parser) {
-        this.id = id;
+    public InsertCommand(AddableInfo addableInfo, ParserToJson parser, IdGenerateble idGenerateble) {
+        this.id = idGenerateble.generateId();
         this.addableInfo = addableInfo;
         this.parser = parser;
     }
