@@ -1,26 +1,33 @@
 package by.dima.model.service.generate.id;
 
+import by.dima.model.data.abstracts.model.Models;
+import by.dima.model.data.route.model.main.Route;
 import lombok.Data;
+
+import java.util.*;
 
 @Data
 public class IdGenerateMy implements IdGenerateble {
-    private long newId = -1;
-    private long[] oldId;
+    private Models models;
 
-    public IdGenerateMy(long... oldId) {
-        this.oldId = oldId;
+    public IdGenerateMy(Models models) {
+        this.models = models;
     }
 
     @Override
     public long generateId() {
-        if (oldId.length == 0) {
-            newId = 1;
-        } else {
-            for (long l : oldId) {
-                newId = Math.max(newId, l);
+        Long newId = 1L;
+        try {
+            Map<Long, Route> routeMap = models.getRoutesMap();
+            List<Long> allId = new ArrayList<>(routeMap.keySet());
+            for (Long id : allId) {
+                if (id > newId) {
+                    newId = id;
+                }
             }
-            newId++;
+            return ++newId;
+        } catch (NoSuchElementException e) {
+            return newId;
         }
-        return newId;
     }
 }
