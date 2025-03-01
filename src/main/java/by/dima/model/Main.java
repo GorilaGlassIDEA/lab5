@@ -1,6 +1,7 @@
 package by.dima.model;
 
 import by.dima.model.data.abstracts.model.Models;
+import by.dima.model.data.command.impl.InfoCommand;
 import by.dima.model.data.command.impl.insert.InsertCommand;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.AddInfo;
@@ -40,8 +41,8 @@ public class Main {
         Map<Long, Route> routeMap = models.getRoutesMap();
         IdGenerateble idGenerateble = new IdGenerateMy(models);
 
-        InsertCommand insertCommand = new InsertCommand(addableInfo, parserToJson, idGenerateble);
-        insertCommand.execute();
+        InfoCommand command = new InfoCommand(models);
+        command.execute();
 
     }
 }
