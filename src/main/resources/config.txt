@@ -1,28 +1,7 @@
 DATA_FILE=/Users/dmitrijmartynov/Desktop
 
-разобраться с классом CheckableValidateInfoUtil
-        // Route 1
-        Coordinates coordinates1 = new Coordinates(10, 20.5);
-        LocationFrom from1 = new LocationFrom(1.1, 2.2f, "Start Point A");
-        LocationTo to1 = new LocationTo(3.3, 4.4, "End Point B");
-        Route route1 = new Route(1, "Route One", coordinates1, from1, to1, 100.0);
-        routes.add(route1);
 
-        // Route 2
-        Coordinates coordinates2 = new Coordinates(-5, 100.0);
-        LocationFrom from2 = new LocationFrom(-15.5, 0.5f, "Departure X");
-        LocationTo to2 = new LocationTo(12.2, 8.8, "Destination Y");
-        Route route2 = new Route(2, "Second Route", coordinates2, from2, to2, 50.7);
-        routes.add(route2);
+реализовать паттерн Builder для создания объекта
 
-        // Route 3
-        Coordinates coordinates3 = new Coordinates(100, 5.0);
-        LocationFrom from3 = new LocationFrom(100.0, -20.0f, "Place 1");
-        LocationTo to3 = new LocationTo(5.0, 6.0, "Place 2");
-        Route route3 = new Route(3, "Third Long Route", coordinates3, from3, to3, 1500.3);
-        routes.add(route3);
-
-        Models models = new Models(routes);
-        ParserToJson parser = new ParserToJsonJacksonImpl(new ObjectMapper());
-
-        writeableFile.write(parser.getJson(models));
+вынести получение следующего за вызываемым аргумента в отдельный метод
+ (update {id}) <- вынести реализацию чтения id с клавиатуры с помощью <T> объекта

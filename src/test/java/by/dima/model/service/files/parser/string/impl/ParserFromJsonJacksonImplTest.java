@@ -16,6 +16,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParserFromJsonJacksonImplTest {
     @Test
@@ -32,8 +34,8 @@ public class ParserFromJsonJacksonImplTest {
                 new LocationTo(10d, 10d, "That coordinates"),
                 10d);
 
-        ArrayList<Route> routes = new ArrayList<>();
-        routes.add(route);
+        Map<Long, Route> routes = new HashMap<>();
+        routes.put(route.getId(), route);
         Models models = new Models(routes);
 
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
@@ -47,6 +49,5 @@ public class ParserFromJsonJacksonImplTest {
 
         ParserFromJson<Models> parserFrom = new ParserFromJsonJacksonImpl(mapper);
         models = parserFrom.getModels(content);
-        System.out.println(models.getRoutes().getFirst().getCreationDate());
     }
 }

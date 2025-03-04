@@ -1,8 +1,10 @@
 package by.dima.model;
 
 import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.command.impl.InfoCommand;
-import by.dima.model.data.command.impl.insert.InsertCommand;
+import by.dima.model.data.command.CommandManager;
+import by.dima.model.data.command.impl.UpdateCommand;
+import by.dima.model.data.command.impl.creator.RouteCreator;
+import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.AddInfo;
 import by.dima.model.service.files.io.AddableInfo;
@@ -16,16 +18,16 @@ import by.dima.model.service.files.parser.string.model.ParserFromJson;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateMy;
 import by.dima.model.service.generate.id.IdGenerateble;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        final  String FILE_PATH = System.getProperty("user.dir") + System.getenv("DATA_FILE");
+        final String FILE_PATH = System.getProperty("user.dir") + System.getenv("DATA_FILE");
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
@@ -41,8 +43,11 @@ public class Main {
         Map<Long, Route> routeMap = models.getRoutesMap();
         IdGenerateble idGenerateble = new IdGenerateMy(models);
 
-        InfoCommand command = new InfoCommand(models);
-        command.execute();
+        Scanner scanner = new Scanner(System.in);
+        RouteCreator routeCreator = new RouteCreator(scanner);
+
+        CommandManager manager = new CommandManager(models, args, routeCreator, addableInfo, parserToJson, idGenerateble);
+        manager.executeCommand();
 
     }
 }
