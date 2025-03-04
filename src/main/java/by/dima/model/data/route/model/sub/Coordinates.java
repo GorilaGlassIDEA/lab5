@@ -18,4 +18,5 @@ public class Coordinates {
         this.x = x;
         this.y = y;
     }
+
 }

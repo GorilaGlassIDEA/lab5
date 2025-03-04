@@ -16,12 +16,15 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParserFromJsonJacksonImplTest {
     @Test
     public void testGetContentTest() {
         ObjectMapper mapper = new ObjectMapper();
 //        mapper.registerModule(new JavaTimeModule());
+        String FILE_PATH = "/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json";
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         Route route = new Route(
                 10,
@@ -31,21 +34,20 @@ public class ParserFromJsonJacksonImplTest {
                 new LocationTo(10d, 10d, "That coordinates"),
                 10d);
 
-        ArrayList<Route> routes = new ArrayList<>();
-        routes.add(route);
+        Map<Long, Route> routes = new HashMap<>();
+        routes.put(route.getId(), route);
         Models models = new Models(routes);
 
-        WriteableFile writeableFile = new WriteFileFiles("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json");
+        WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ParserToJson parser = new ParserToJsonJacksonImpl(mapper);
         writeableFile.write(parser.getJson(models));
 
 
-        ReadableFile readableFile = new ReadFileFiles();
-        String content = readableFile.getContent("/Users/dmitrijmartynov/IdeaProjects/lab5/src/main/resources/routes.json");
+        ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
+        String content = readableFile.getContent();
 
 
         ParserFromJson<Models> parserFrom = new ParserFromJsonJacksonImpl(mapper);
         models = parserFrom.getModels(content);
-        System.out.println(models.getRoutes().getFirst().getCreationDate());
     }
 }

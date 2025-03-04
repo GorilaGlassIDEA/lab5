@@ -1,19 +1,29 @@
 package by.dima.model;
 
 import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.collections.CollectionsManager;
 import by.dima.model.data.command.CommandManager;
+import by.dima.model.data.command.impl.UpdateCommand;
+import by.dima.model.data.command.impl.creator.RouteCreator;
+import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
+import by.dima.model.service.files.io.AddInfo;
+import by.dima.model.service.files.io.AddableInfo;
 import by.dima.model.service.files.io.read.ReadFileFiles;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteFileFiles;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.impl.ParserFromJsonJacksonImpl;
+import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
+import by.dima.model.service.files.parser.string.model.ParserFromJson;
+import by.dima.model.service.files.parser.string.model.ParserToJson;
+import by.dima.model.service.generate.id.IdGenerateMy;
+import by.dima.model.service.generate.id.IdGenerateble;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,13 +31,23 @@ public class Main {
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.registerModule(new JavaTimeModule());
-        CollectionsManager collectionsManager = new CollectionsManager(readableFile, new ParserFromJsonJacksonImpl(mapper));
-        Map<Long, Route> routeMap = collectionsManager.getRouteMap();
+        ParserFromJson<Models> parserFromJson = new ParserFromJsonJacksonImpl(mapper);
+        ParserToJson parserToJson = new ParserToJsonJacksonImpl(mapper);
 
-        long key = 10;
+        String jsonContent = readableFile.getContent();
+        Models models = parserFromJson.getModels(jsonContent);
+        AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
 
-        System.out.println(routeMap.get(key));
+        Map<Long, Route> routeMap = models.getRoutesMap();
+        IdGenerateble idGenerateble = new IdGenerateMy(models);
+
+        Scanner scanner = new Scanner(System.in);
+        RouteCreator routeCreator = new RouteCreator(scanner);
+
+        CommandManager manager = new CommandManager(models, args, routeCreator, addableInfo, parserToJson, idGenerateble);
+        manager.executeCommand();
 
     }
 }

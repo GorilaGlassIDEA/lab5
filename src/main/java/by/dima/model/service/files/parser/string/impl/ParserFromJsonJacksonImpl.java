@@ -7,6 +7,7 @@ import by.dima.model.service.files.parser.string.model.ParserFromJson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ParserFromJsonJacksonImpl implements ParserFromJson<Models> {
@@ -22,7 +23,7 @@ public class ParserFromJsonJacksonImpl implements ParserFromJson<Models> {
         try {
             return mapper.readValue(jsonContent, Models.class);
         } catch (JsonProcessingException e) {
-            throw new JsonException("Ошибка десериализации!", e);
+            return new Models(new HashMap<>());
         }
     }
 }
