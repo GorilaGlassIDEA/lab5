@@ -1,5 +1,7 @@
 package by.dima.model.service.files.io.read;
 
+import by.dima.model.service.files.io.create.Creatable;
+import by.dima.model.service.files.io.create.CreateFile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +20,11 @@ public class ReadFileFiles extends ReadModel {
     }
 
     @Override
-    public String getContent() {
+    public String getContent(){
         try {
             contentFile = Files.readString(Paths.get(filePath));
         } catch (IOException e) {
-            System.out.println("Не удается открыть файл!");
+            System.out.println("Не прочитать файл!");
         }
         return contentFile;
     }

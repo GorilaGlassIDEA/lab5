@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,10 @@ public class Models {
 
     public void addNewElement(Route route) {
         routesMap.put(route.getId(), route);
+    }
+
+    public void reset() {
+        routesMap = new HashMap<>();
     }
 
 }
