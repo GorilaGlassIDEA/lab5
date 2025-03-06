@@ -4,11 +4,9 @@ package by.dima.model.data.route.model.main;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.route.model.CheckValidateInfoUtilMyImpl;
 import by.dima.model.data.route.model.CheckableValidateInfoUtil;
-import by.dima.model.data.route.model.exceptions.IncorrectDataModel;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
-import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
