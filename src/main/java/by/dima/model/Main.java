@@ -2,12 +2,12 @@ package by.dima.model;
 
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.CommandManager;
-import by.dima.model.data.command.impl.UpdateCommand;
 import by.dima.model.data.command.impl.creator.RouteCreator;
-import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
-import by.dima.model.service.files.io.AddInfo;
-import by.dima.model.service.files.io.AddableInfo;
+import by.dima.model.service.files.io.add.AddInfo;
+import by.dima.model.service.files.io.add.AddableInfo;
+import by.dima.model.service.files.io.create.Creatable;
+import by.dima.model.service.files.io.create.CreateFile;
 import by.dima.model.service.files.io.read.ReadFileFiles;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteFileFiles;
@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class Main {
         final String FILE_PATH = System.getProperty("user.dir") + System.getenv("DATA_FILE");
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
+        Creatable creatable = new CreateFile(FILE_PATH);
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.registerModule(new JavaTimeModule());

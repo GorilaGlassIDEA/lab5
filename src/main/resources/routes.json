@@ -7,7 +7,7 @@
         "x" : 10,
         "y" : 10.0
       },
-      "creationDate" : 1740948668.200762000,
+      "creationDate" : 1741126269.067037000,
       "from" : {
         "x" : 10.0,
         "y" : 10.0,
@@ -21,6 +21,6 @@
       "distance" : 10.0
     }
   },
-  "zonedDateTime" : 1740948668.202329000,
+  "zonedDateTime" : 1741126269.067383000,
   "type" : "by.dima.model.data.route.model.main.Route"
 }
