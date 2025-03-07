@@ -28,10 +28,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         final String FILE_PATH = System.getenv("DATA_FILE");
-        Creatable creatable = new CreateFile(FILE_PATH);
-        creatable.createFile();
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
+        Creatable creatable = new CreateFile(writeableFile);
+        creatable.createFile();
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.registerModule(new JavaTimeModule());
