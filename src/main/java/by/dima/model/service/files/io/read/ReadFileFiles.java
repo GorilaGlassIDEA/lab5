@@ -20,7 +20,7 @@ public class ReadFileFiles extends ReadModel {
     }
 
     @Override
-    public String getContent(){
+    public String getContent() {
         try {
             contentFile = Files.readString(Paths.get(filePath));
         } catch (IOException e) {
