@@ -13,12 +13,13 @@ public class ScannerWrapper {
     }
 
     public String[] newLine() {
-        return scanner.nextLine().split(" ");
+        String nextLine = scanner.nextLine().trim();
+        return nextLine.split(" ");
     }
 
     public boolean getScannerStatus() {
         try {
-            return scanner.hasNext();
+            return scanner.hasNextLine();
         } catch (IllegalStateException e) {
             return false;
         }

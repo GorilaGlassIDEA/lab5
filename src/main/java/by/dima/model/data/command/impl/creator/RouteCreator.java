@@ -27,8 +27,6 @@ public class RouteCreator {
         readLocationTo();
         readDistance();
         route.setId(id);
-        System.out.println("New route was created:\n" + route);
-
         return route;
     }
 
