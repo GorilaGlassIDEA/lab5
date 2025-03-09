@@ -17,7 +17,15 @@ public class ScannerWrapper {
     }
 
     public boolean getScannerStatus() {
-        return scanner.hasNext();
+        try {
+            return scanner.hasNext();
+        } catch (IllegalStateException e) {
+            return false;
+        }
+    }
+
+    public void closeScanner() {
+        scanner.close();
     }
 
 }

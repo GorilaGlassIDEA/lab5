@@ -28,12 +28,14 @@ public class CommandManager {
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
         Command updateCommand = new UpdateCommand(routeMap, routeCreator, addableInfo.getWriteableFile(), parserToJson);
         Command clearCommand = new ClearCommand(addableInfo.getWriteableFile(), collectionController);
+        Command exitCommand = new ExitCommand(scannerWrapper);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(updateCommand.getKey(), updateCommand);
         commandMap.put(clearCommand.getKey(), clearCommand);
+        commandMap.put(exitCommand.getKey(), exitCommand);
 
     }
 
