@@ -1,9 +1,12 @@
 package by.dima.model;
 
+import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.CommandManager;
+import by.dima.model.data.command.impl.InsertCommand;
 import by.dima.model.data.command.impl.creator.RouteCreator;
 import by.dima.model.data.route.model.main.Route;
+import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.add.AddInfo;
 import by.dima.model.service.files.io.add.AddableInfo;
 import by.dima.model.service.files.io.create.Creatable;
@@ -45,11 +48,18 @@ public class Main {
         Map<Long, Route> routeMap = models.getRoutesMap();
         IdGenerateble idGenerateble = new IdGenerateMy(models);
 
+        CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);
+
         Scanner scanner = new Scanner(System.in);
         RouteCreator routeCreator = new RouteCreator(scanner);
 
-        CommandManager manager = new CommandManager(models, args, routeCreator, addableInfo, parserToJson, idGenerateble);
-        manager.executeCommand();
+        ScannerWrapper scannerWrapper = new ScannerWrapper(scanner);
+
+        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, addableInfo, parserToJson, idGenerateble);
+        while (scannerWrapper.getScannerStatus()) {
+            manager.executeCommand();
+        }
+
 
     }
 }
