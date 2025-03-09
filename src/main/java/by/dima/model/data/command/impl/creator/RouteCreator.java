@@ -27,33 +27,10 @@ public class RouteCreator {
         readLocationFrom();
         readLocationTo();
         readDistance();
-        System.out.println("New route was created");
-        return new Route(id, route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
-    }
+        route.setId(id);
+        System.out.println("New route was created:\n" + route);
 
-    private void readId() {
-        while (route.getId() == 0) {
-            try {
-                System.out.print("Route id: ");
-                long id = scanner.nextLong();
-                if (id == 0) {
-                    System.out.println("Id shouldn't be empty");
-                    scanner.next();
-                } else {
-                    route.setId(id);
-                    scanner.nextLine(); // Очистка буфера
-                    break;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect type! Try again");
-                scanner.next();
-                scanner.nextLine(); // Очистка буфера
-            } catch (IncorrectDataModel e) {
-                System.err.println(e);
-                scanner.next();
-                scanner.nextLine(); // Очистка буфера
-            }
-        }
+        return route;
     }
 
     private void readName() {

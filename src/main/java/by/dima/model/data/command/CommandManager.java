@@ -1,7 +1,6 @@
 package by.dima.model.data.command;
 
 import by.dima.model.data.CollectionController;
-import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.impl.*;
 import by.dima.model.data.command.impl.creator.RouteCreator;
 import by.dima.model.data.command.model.Command;
@@ -12,14 +11,12 @@ import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandManager {
     @Getter
     private final Map<String, Command> commandMap = new HashMap<>();
-    private String[] args;
     private final ScannerWrapper scannerWrapper;
 
     public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, RouteCreator routeCreator, AddableInfo addableInfo, ParserToJson parserToJson, IdGenerateble idGenerateble) {
@@ -41,7 +38,7 @@ public class CommandManager {
     }
 
     public void executeCommand() {
-        args = scannerWrapper.newLine();
+        String[] args = scannerWrapper.newLine();
         try {
             commandMap.get(args[0]).setArgs(args);
             commandMap.get(args[0]).execute();

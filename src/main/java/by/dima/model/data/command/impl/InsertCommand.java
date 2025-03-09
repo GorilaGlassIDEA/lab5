@@ -4,13 +4,10 @@ import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.impl.creator.RouteCreator;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
-import by.dima.model.service.files.io.add.AddableInfo;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.IOException;
 
 
 @Getter
