@@ -12,6 +12,7 @@ import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,4 @@ public class CommandManager {
             System.err.println("Incorrect command or you dont write any args!");
         }
     }
-
-
 }

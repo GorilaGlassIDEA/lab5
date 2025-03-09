@@ -22,7 +22,6 @@ public class InsertCommand implements Command {
     private final CollectionController collectionController;
     private final ParserToJson parser;
     private final RouteCreator routeCreator;
-    private String[] args;
     private final IdGenerateble idGenerateble;
 
     public InsertCommand(CollectionController collectionController, ParserToJson parser, IdGenerateble idGenerateble, RouteCreator routeCreator) {
@@ -41,10 +40,10 @@ public class InsertCommand implements Command {
 
     @Override
     public void setArgs(String[] args) {
-        this.args = args;
         try {
             id = idGenerateble.generateId(Long.parseLong(args[1]));
-        } catch (NumberFormatException e) {
+            System.out.println("This id uses. You start to record it!");
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             id = idGenerateble.generateId();
         }
     }

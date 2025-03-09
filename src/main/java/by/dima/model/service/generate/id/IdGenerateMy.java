@@ -17,7 +17,6 @@ public class IdGenerateMy implements IdGenerateble {
     @Override
     public long generateId(Long... ids) {
         if (ids == null || ids.length == 0) {
-            System.out.println(Arrays.toString(ids));
             Long newId = 1L;
             try {
                 Map<Long, Route> routeMap = models.getRoutesMap();
