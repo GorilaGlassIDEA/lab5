@@ -45,7 +45,6 @@ public class Main {
         Models models = parserFromJson.getModels(jsonContent);
         AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
 
-        Map<Long, Route> routeMap = models.getRoutesMap();
         IdGenerateble idGenerateble = new IdGenerateMy(models);
 
         CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);

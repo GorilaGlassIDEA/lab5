@@ -11,8 +11,7 @@ import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CommandManager {
     @Getter
@@ -25,25 +24,31 @@ public class CommandManager {
 
         Command helpCommand = new HelpCommand();
         Command infoCommand = new InfoCommand(collectionController);
+        Command showCommand = new ShowCommand(collectionController);
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
         Command updateCommand = new UpdateCommand(routeMap, routeCreator, addableInfo.getWriteableFile(), parserToJson);
         Command clearCommand = new ClearCommand(addableInfo.getWriteableFile(), collectionController);
         Command exitCommand = new ExitCommand(scannerWrapper);
 
+
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
+        commandMap.put(showCommand.getKey(), showCommand);
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(updateCommand.getKey(), updateCommand);
         commandMap.put(clearCommand.getKey(), clearCommand);
         commandMap.put(exitCommand.getKey(), exitCommand);
 
+
     }
 
     public void executeCommand() {
-        String[] args = scannerWrapper.newLine();
+        String[] arrArgs = scannerWrapper.newLine();
+        List<String> args = new ArrayList<>(List.of(arrArgs));
         try {
-            commandMap.get(args[0]).setArgs(args);
-            commandMap.get(args[0]).execute();
+            String key = args.get(0);
+            commandMap.get(key).setArgs(arrArgs);
+            commandMap.get(key).execute();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.err.println("Incorrect command or you dont write any args!");
         }

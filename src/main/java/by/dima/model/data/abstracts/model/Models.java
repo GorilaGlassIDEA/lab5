@@ -35,4 +35,10 @@ public class Models {
         routesMap = new HashMap<>();
     }
 
+    @Override
+    public String toString() {
+        return "Models{" +
+                "all routes=" + routesMap +
+                '}';
+    }
 }

@@ -33,16 +33,15 @@ public class InsertCommand implements Command {
     public void execute() {
         route = routeCreator.createRoute(id);
         collectionController.addElem(route);
+        System.out.println("New element added");
     }
 
     @Override
     public void setArgs(String[] args) {
         try {
             id = idGenerateble.generateId(Long.parseLong(args[1]));
-            System.out.println("This id uses. You start to record it!");
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             id = idGenerateble.generateId();
         }
     }
-
 }
