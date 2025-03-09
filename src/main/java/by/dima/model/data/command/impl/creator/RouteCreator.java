@@ -1,6 +1,5 @@
 package by.dima.model.data.command.impl.creator;
 
-import by.dima.model.data.route.model.exceptions.IncorrectDataModel;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
