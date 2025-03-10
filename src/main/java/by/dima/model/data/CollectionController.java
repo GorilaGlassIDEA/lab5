@@ -1,6 +1,7 @@
 package by.dima.model.data;
 
 import by.dima.model.data.abstracts.model.Models;
+import by.dima.model.data.command.impl.ClearCommand;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
@@ -24,9 +25,6 @@ public class CollectionController {
         this.collectionForControl = models.getRoutesMap();
     }
 
-    public void syncCollections() {
-        collectionForControl = models.getRoutesMap();
-    }
 
     public void addElem(Route route) {
         models.addNewElement(route);
@@ -34,4 +32,36 @@ public class CollectionController {
         writeableFile.write(parser.getJson(models));
     }
 
+    public void removeElem(Long key) {
+        if (key != null) {
+            if (collectionForControl.containsKey(key)) {
+                collectionForControl.remove(key);
+                syncModels();
+                if (models.sizeArray() == 0) {
+                    resetModels();
+                } else {
+                    writeableFile.write(parser.getJson(models));
+                }
+            } else {
+                System.err.println("This id is not exist");
+            }
+        } else {
+            System.err.println("Check your args!");
+        }
+
+    }
+
+    private void syncCollections() {
+        collectionForControl = models.getRoutesMap();
+    }
+
+    private void syncModels() {
+        models.setRoutesMap(collectionForControl);
+    }
+
+    public void resetModels() {
+        models.reset();
+        syncCollections();
+        writeableFile.write("");
+    }
 }

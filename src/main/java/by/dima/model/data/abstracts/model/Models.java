@@ -3,10 +3,9 @@ package by.dima.model.data.abstracts.model;
 import by.dima.model.data.route.model.main.Route;
 import lombok.*;
 
+
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -20,10 +19,13 @@ public class Models {
 
     public Models(Map<Long, Route> routesMap) {
         this.routesMap = routesMap;
-        this.zonedDateTime = ZonedDateTime.now();
+        if (!routesMap.isEmpty()) {
+            this.zonedDateTime = ZonedDateTime.now();
+        } else zonedDateTime = null;
     }
 
     public long sizeArray() {
+
         return routesMap.size();
     }
 
@@ -37,8 +39,7 @@ public class Models {
 
     @Override
     public String toString() {
-        return "Models{" +
-                "all routes=" + routesMap +
-                '}';
+        return "Models: \n" + routesMap;
+
     }
 }

@@ -5,6 +5,7 @@ import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
 
+import java.time.ZonedDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -27,6 +28,7 @@ public class RouteCreator {
         readLocationTo();
         readDistance();
         route.setId(id);
+        route.setCreationDate(ZonedDateTime.now());
         return route;
     }
 

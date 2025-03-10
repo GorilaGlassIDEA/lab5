@@ -14,18 +14,22 @@ import java.util.Map;
 @Setter
 public class InfoCommand implements Command {
     private String key = "info";
-    private Models models;
+    private CollectionController collectionController;
 
     public InfoCommand(CollectionController collectionController) {
-        this.models = collectionController.getModels();
+        this.collectionController = collectionController;
     }
 
 
     @Override
     public void execute() {
-        System.out.println("Type: " + models.getType());
-        System.out.println("Date: " + models.getZonedDateTime());
-        System.out.println("Size: " + models.sizeArray());
+        Models models = collectionController.getModels();
+        if (models.getZonedDateTime() == null) {
+            System.err.println("Your collections is Empty!\nYou can add new element between insert command!");
+        } else {
+            System.out.println("Type: " + models.getType());
+            System.out.println("Date: " + models.getZonedDateTime());
+            System.out.println("Size: " + models.sizeArray());
+        }
     }
-
 }

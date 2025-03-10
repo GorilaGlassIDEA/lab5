@@ -27,9 +27,9 @@ public class CommandManager {
         Command showCommand = new ShowCommand(collectionController);
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
         Command updateCommand = new UpdateCommand(routeMap, routeCreator, addableInfo.getWriteableFile(), parserToJson);
-        Command clearCommand = new ClearCommand(addableInfo.getWriteableFile(), collectionController);
+        Command clearCommand = new ClearCommand(collectionController);
         Command exitCommand = new ExitCommand(scannerWrapper);
-
+        Command removeKeyCommand = new RemoveKeyCommand(collectionController);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -38,6 +38,7 @@ public class CommandManager {
         commandMap.put(updateCommand.getKey(), updateCommand);
         commandMap.put(clearCommand.getKey(), clearCommand);
         commandMap.put(exitCommand.getKey(), exitCommand);
+        commandMap.put(removeKeyCommand.getKey(), removeKeyCommand);
 
 
     }
@@ -49,8 +50,10 @@ public class CommandManager {
             String key = args.get(0);
             commandMap.get(key).setArgs(arrArgs);
             commandMap.get(key).execute();
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-            System.err.println("Incorrect command or you dont write any args!");
+        } catch (NullPointerException e) {
+            System.err.println("Incorrect command or you dont write any args!" + " NULL POINTER");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Incorrect command or you dont write any args!" + " ARRAY BOUNDS");
         }
     }
 }

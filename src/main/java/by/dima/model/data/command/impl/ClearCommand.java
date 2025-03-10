@@ -11,18 +11,15 @@ public class ClearCommand implements Command {
     @Getter
     @Setter
     private String key = "clear";
-    private final WriteableFile writeableFile;
-    private final Models models;
+    private final CollectionController collectionController;
 
-    public ClearCommand(WriteableFile writeableFile, CollectionController collectionController) {
-        this.writeableFile = writeableFile;
-        this.models = collectionController.getModels();
+    public ClearCommand(CollectionController collectionController) {
+        this.collectionController = collectionController;
     }
 
     @Override
     public void execute() {
-        models.reset();
-        writeableFile.write("");
+        collectionController.resetModels();
     }
 
 }

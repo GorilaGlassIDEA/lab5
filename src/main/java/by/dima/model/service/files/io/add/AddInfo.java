@@ -20,7 +20,7 @@ public class AddInfo implements AddableInfo {
     }
 
     @Override
-    public void addInfo(Route route) {
+    public void infoAdd(Route route) {
         models.addNewElement(route);
         writeableFile.write(parser.getJson(models));
     }
