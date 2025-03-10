@@ -13,23 +13,21 @@ import java.util.Scanner;
 // TODO: переписать без костылей
 public class RouteCreator {
     private final Scanner scanner;
-    private final Route route;
+    private Route route;
 
     public RouteCreator(Scanner scanner) {
-        route = new Route();
         this.scanner = scanner;
     }
 
 
     public Route createRoute(long id) {
+        route = new Route();
         readName();
         readCoordinates();
         readLocationFrom();
         readLocationTo();
         readDistance();
-        route.setId(id);
-        route.setCreationDate(ZonedDateTime.now());
-        return route;
+        return new Route(id, route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
     }
 
     private void readName() {

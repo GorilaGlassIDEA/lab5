@@ -18,10 +18,4 @@ public class AddInfo implements AddableInfo {
         this.writeableFile = writeableFile;
         this.parser = parser;
     }
-
-    @Override
-    public void infoAdd(Route route) {
-        models.addNewElement(route);
-        writeableFile.write(parser.getJson(models));
-    }
 }

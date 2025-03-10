@@ -1,6 +1,5 @@
 package by.dima.model.service.files.io.create;
 
-import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.service.files.io.write.WriteableFile;
 import lombok.Setter;
 

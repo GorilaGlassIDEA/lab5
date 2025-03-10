@@ -13,3 +13,5 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
 сделаь команду info более информативной (то есть выводить название и id элементов коллекции)
 
 почистить ненужные файлы (exception)
+
+пофиксить баг с insert (insert 2 -> remove 2 -> insert ) баг идет

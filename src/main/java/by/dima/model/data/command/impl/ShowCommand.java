@@ -20,7 +20,7 @@ public class ShowCommand implements Command {
     @Override
     public void execute() {
         Models models = collectionController.getModels();
-        if (models.getZonedDateTime() == null) {
+        if (models.sizeArray() == 0) {
             System.err.println("Your collections is Empty!\nYou can add new element between insert command!");
         } else {
             System.out.println(collectionController.getModels());

@@ -19,13 +19,10 @@ public class Models {
 
     public Models(Map<Long, Route> routesMap) {
         this.routesMap = routesMap;
-        if (!routesMap.isEmpty()) {
-            this.zonedDateTime = ZonedDateTime.now();
-        } else zonedDateTime = null;
+        this.zonedDateTime = ZonedDateTime.now();
     }
 
     public long sizeArray() {
-
         return routesMap.size();
     }
 

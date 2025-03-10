@@ -1,9 +1,7 @@
 package by.dima.model.data.command.impl;
 
 import by.dima.model.data.CollectionController;
-import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.model.Command;
-import by.dima.model.service.files.io.write.WriteableFile;
 import lombok.Getter;
 import lombok.Setter;
 

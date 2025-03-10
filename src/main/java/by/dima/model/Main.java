@@ -3,7 +3,6 @@ package by.dima.model;
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.CommandManager;
-import by.dima.model.data.command.impl.ClearCommand;
 import by.dima.model.data.command.impl.creator.RouteCreator;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.add.AddInfo;
@@ -41,7 +40,6 @@ public class Main {
 
         String jsonContent = readableFile.getContent();
         Models models = parserFromJson.getModels(jsonContent);
-        AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
 
         IdGenerateble idGenerateble = new IdGenerateMy(models);
 
@@ -52,7 +50,7 @@ public class Main {
 
         ScannerWrapper scannerWrapper = new ScannerWrapper(scanner);
 
-        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, addableInfo, parserToJson, idGenerateble);
+        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, writeableFile, parserToJson, idGenerateble);
         while (scannerWrapper.getScannerStatus()) {
             manager.executeCommand();
         }
