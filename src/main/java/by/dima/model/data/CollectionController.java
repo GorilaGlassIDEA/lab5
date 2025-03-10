@@ -28,7 +28,6 @@ public class CollectionController {
     public void addElem(Route route) {
         models.addNewElement(route);
         syncCollections();
-        writeableFile.write(parser.getJson(models));
     }
 
     public void removeElem(Long key) {
@@ -38,8 +37,6 @@ public class CollectionController {
                 syncModels();
                 if (models.sizeArray() == 0) {
                     resetModels();
-                } else {
-                    writeableFile.write(parser.getJson(models));
                 }
             } else {
                 System.err.println("This id is not exist");
@@ -61,6 +58,9 @@ public class CollectionController {
     public void resetModels() {
         models.reset();
         syncCollections();
-        writeableFile.write("");
+    }
+
+    public void saveCollection() {
+        writeableFile.write(parser.getJson(models));
     }
 }

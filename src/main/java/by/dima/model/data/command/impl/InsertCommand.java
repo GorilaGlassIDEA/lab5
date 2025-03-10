@@ -33,7 +33,7 @@ public class InsertCommand implements Command {
     public void execute() {
         route = routeCreator.createRoute(id);
         collectionController.addElem(route);
-        System.out.println("New element added");
+        System.out.println("New element added in collection! You can save changes using save command!");
     }
 
     @Override
