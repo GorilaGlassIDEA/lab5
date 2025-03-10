@@ -5,22 +5,18 @@ import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
 
-import java.time.ZonedDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 // TODO: переписать без костылей
 public class RouteCreator {
-    private final Scanner scanner;
+    private Scanner scanner;
     private Route route;
-
-    public RouteCreator(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
 
     public Route createRoute(long id) {
+        scanner = new Scanner(System.in);
         route = new Route();
         readName();
         readCoordinates();
@@ -28,6 +24,7 @@ public class RouteCreator {
         readLocationTo();
         readDistance();
         return new Route(id, route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
+
     }
 
     private void readName() {
