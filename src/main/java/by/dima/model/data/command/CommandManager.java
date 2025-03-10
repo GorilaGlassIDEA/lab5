@@ -28,6 +28,7 @@ public class CommandManager {
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
         Command updateCommand = new UpdateCommand(routeMap, routeCreator, writeableFile, parserToJson);
         Command clearCommand = new ClearCommand(collectionController);
+        Command saveCommand = new SaveCommand(collectionController);
         Command exitCommand = new ExitCommand(scannerWrapper);
         Command removeKeyCommand = new RemoveKeyCommand(collectionController);
 
@@ -37,8 +38,9 @@ public class CommandManager {
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(updateCommand.getKey(), updateCommand);
         commandMap.put(clearCommand.getKey(), clearCommand);
-        commandMap.put(exitCommand.getKey(), exitCommand);
         commandMap.put(removeKeyCommand.getKey(), removeKeyCommand);
+        commandMap.put(exitCommand.getKey(), exitCommand);
+        commandMap.put(saveCommand.getKey(), saveCommand);
 
 
     }

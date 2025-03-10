@@ -17,6 +17,17 @@ public class ExitCommand implements Command {
 
     @Override
     public void execute() {
+        System.err.println("If you want to save change you can use a save command!\nDo you want to continue exit without save? y/n ");
+        String[] answer = scannerWrapper.newLine();
+        if (answer.length == 1) {
+            if (!answer[0].equals("y")){
+                System.err.println("Exit command rejected! Try again or save changes using save command!");
+                return;
+            }
+        } else {
+            System.err.println("Exit command rejected because you write invalid answer! Try again or save changes using save command!");
+            return;
+        }
         scannerWrapper.closeScanner();
     }
 }
