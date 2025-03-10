@@ -11,23 +11,20 @@ import java.util.Scanner;
 
 // TODO: переписать без костылей
 public class RouteCreator {
-    private final Scanner scanner;
-    private final Route route;
-
-    public RouteCreator(Scanner scanner) {
-        route = new Route();
-        this.scanner = scanner;
-    }
+    private Scanner scanner;
+    private Route route;
 
 
     public Route createRoute(long id) {
+        scanner = new Scanner(System.in);
+        route = new Route();
         readName();
         readCoordinates();
         readLocationFrom();
         readLocationTo();
         readDistance();
-        route.setId(id);
-        return route;
+        return new Route(id, route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
+
     }
 
     private void readName() {

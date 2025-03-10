@@ -6,23 +6,13 @@ import java.util.Scanner;
 
 @Getter
 public class ScannerWrapper {
-    private final Scanner scanner;
 
-    public ScannerWrapper(Scanner scanner) {
-        this.scanner = scanner;
-    }
+    private Scanner scanner;
 
     public String[] newLine() {
+        scanner = new Scanner(System.in);
         String nextLine = scanner.nextLine().trim();
         return nextLine.split(" ");
-    }
-
-    public boolean getScannerStatus() {
-        try {
-            return scanner.hasNextLine();
-        } catch (IllegalStateException e) {
-            return false;
-        }
     }
 
     public void closeScanner() {
