@@ -1,8 +1,12 @@
 package by.dima.model.data.command.impl;
 
+import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.impl.creator.RouteCreator;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
+
+import by.dima.model.service.files.io.write.WriteableFile;
+import by.dima.model.service.files.parser.string.model.ParserToJson;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,13 +18,17 @@ public class UpdateCommand implements Command {
     private String key = "update";
     private Long id;
     private final Map<Long, Route> routeMap;
-    private final String[] args;
+    @Setter
+    private String[] args;
     private final RouteCreator routeCreator;
+    private final WriteableFile writeableFile;
+    private final ParserToJson parser;
 
-    public UpdateCommand(Map<Long, Route> routeMap, String[] args, RouteCreator routeCreator) {
+    public UpdateCommand(Map<Long, Route> routeMap, RouteCreator routeCreator, WriteableFile writeableFile, ParserToJson parser) {
         this.routeMap = routeMap;
-        this.args = args;
         this.routeCreator = routeCreator;
+        this.writeableFile = writeableFile;
+        this.parser = parser;
     }
 
     @Override
@@ -32,7 +40,7 @@ public class UpdateCommand implements Command {
             Route newRoute = routeCreator.createRoute(id);
             routeMap.replace(newRoute.getId(), newRoute);
         }
-
+        writeableFile.write(parser.getJson(new Models(routeMap)));
     }
 
     private void initId() {

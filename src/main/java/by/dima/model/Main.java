@@ -1,11 +1,10 @@
 package by.dima.model;
 
+import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.CommandManager;
 import by.dima.model.data.command.impl.creator.RouteCreator;
-import by.dima.model.data.route.model.main.Route;
-import by.dima.model.service.files.io.add.AddInfo;
-import by.dima.model.service.files.io.add.AddableInfo;
+import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.create.Creatable;
 import by.dima.model.service.files.io.create.CreateFile;
 import by.dima.model.service.files.io.read.ReadFileFiles;
@@ -22,8 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.util.Map;
-import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,7 +29,7 @@ public class Main {
         ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         Creatable creatable = new CreateFile(writeableFile);
-        creatable.createFile();
+        creatable.fileCreator();
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.registerModule(new JavaTimeModule());
@@ -40,16 +38,25 @@ public class Main {
 
         String jsonContent = readableFile.getContent();
         Models models = parserFromJson.getModels(jsonContent);
-        AddableInfo addableInfo = new AddInfo(models, writeableFile, parserToJson);
 
-        Map<Long, Route> routeMap = models.getRoutesMap();
         IdGenerateble idGenerateble = new IdGenerateMy(models);
 
-        Scanner scanner = new Scanner(System.in);
-        RouteCreator routeCreator = new RouteCreator(scanner);
+        CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);
 
-        CommandManager manager = new CommandManager(models, args, routeCreator, addableInfo, parserToJson, idGenerateble);
-        manager.executeCommand();
+        RouteCreator routeCreator = new RouteCreator();
+
+        ScannerWrapper scannerWrapper = new ScannerWrapper();
+        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, writeableFile, parserToJson, idGenerateble);
+
+        try {
+            while (true) {
+                manager.executeCommand();
+            }
+        }catch (NoSuchElementException e){
+            System.err.println("Program stopped!");
+        }
+
+
 
     }
 }

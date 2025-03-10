@@ -15,19 +15,23 @@ public class IdGenerateMy implements IdGenerateble {
     }
 
     @Override
-    public long generateId() {
-        Long newId = 1L;
-        try {
-            Map<Long, Route> routeMap = models.getRoutesMap();
-            List<Long> allId = new ArrayList<>(routeMap.keySet());
-            for (Long id : allId) {
-                if (id > newId) {
-                    newId = id;
+    public long generateId(Long... ids) {
+        if (ids == null || ids.length == 0) {
+            Long newId = 0L;
+            try {
+                Map<Long, Route> routeMap = models.getRoutesMap();
+                List<Long> allId = new ArrayList<>(routeMap.keySet());
+                for (Long id : allId) {
+                    if (id > newId) {
+                        newId = id;
+                    }
                 }
+                return ++newId;
+            } catch (NoSuchElementException e) {
+                return newId;
             }
-            return ++newId;
-        } catch (NoSuchElementException e) {
-            return newId;
+        } else {
+            return ids[0];
         }
     }
 }

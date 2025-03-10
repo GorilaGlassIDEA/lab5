@@ -5,19 +5,20 @@ import by.dima.model.data.command.model.Command;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ClearCommand implements Command {
-    @Getter
-    @Setter
-    private String key = "clear";
+@Getter
+@Setter
+public class SaveCommand implements Command {
+
+    private String key = "save";
     private final CollectionController collectionController;
 
-    public ClearCommand(CollectionController collectionController) {
+    public SaveCommand(CollectionController collectionController) {
         this.collectionController = collectionController;
     }
 
     @Override
     public void execute() {
-        collectionController.resetModels();
+        collectionController.saveCollection();
+        System.err.println("Your changes was saving!");
     }
-
 }

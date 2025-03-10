@@ -1,18 +1,19 @@
 package by.dima.model.data.route.model.main;
 
 
-import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.route.model.CheckValidateInfoUtilMyImpl;
 import by.dima.model.data.route.model.CheckableValidateInfoUtil;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.ZonedDateTime;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Route implements Comparable<Route> {
     private long id;
@@ -41,4 +42,20 @@ public class Route implements Comparable<Route> {
     public int compareTo(Route o) {
         return Long.compare(o.getId(), this.id);
     }
+
+    @Override
+    public String toString() {
+
+
+        return "Route {" +
+                "\n\tID: " + id +
+                ",\n\tName: '" + name + '\'' +
+                ",\n\tCoordinates: " + coordinates +
+                ",\n\tCreation Date: " + creationDate +
+                ",\n\tFrom: " + from +
+                ",\n\tTo: " + to +
+                ",\n\tDistance: " + distance +
+                "\n}";
+    }
+
 }

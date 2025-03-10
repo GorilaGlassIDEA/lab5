@@ -8,14 +8,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InfoCommand implements Command {
-    private String key = "info";
+public class ShowCommand implements Command {
+
+    private String key = "show";
     private CollectionController collectionController;
 
-    public InfoCommand(CollectionController collectionController) {
+    public ShowCommand(CollectionController collectionController) {
         this.collectionController = collectionController;
     }
-
 
     @Override
     public void execute() {
@@ -23,9 +23,7 @@ public class InfoCommand implements Command {
         if (models.sizeArray() == 0) {
             System.err.println("Your collections is Empty!\nYou can add new element between insert command!");
         } else {
-            System.out.println("Type: " + models.getType());
-            System.out.println("Date: " + models.getZonedDateTime());
-            System.out.println("Size: " + models.sizeArray());
+            System.out.println(collectionController.getModels());
         }
     }
 }

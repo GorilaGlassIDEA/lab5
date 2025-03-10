@@ -3,10 +3,9 @@ package by.dima.model.data.abstracts.model;
 import by.dima.model.data.route.model.main.Route;
 import lombok.*;
 
+
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -35,4 +34,9 @@ public class Models {
         routesMap = new HashMap<>();
     }
 
+    @Override
+    public String toString() {
+        return "Models: \n" + routesMap;
+
+    }
 }
