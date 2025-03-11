@@ -17,9 +17,11 @@ public class CommandManager {
     @Getter
     private final Map<String, Command> commandMap = new HashMap<>();
     private final ScannerWrapper scannerWrapper;
+    private final LinkedList<String> historyCommandQueue;
 
     public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, RouteCreator routeCreator, WriteableFile writeableFile, ParserToJson parserToJson, IdGenerateble idGenerateble) {
         this.scannerWrapper = scannerWrapper;
+        this.historyCommandQueue = new LinkedList<>();
         Map<Long, Route> routeMap = collectionController.getCollectionForControl();
 
         Command helpCommand = new HelpCommand();
@@ -31,6 +33,7 @@ public class CommandManager {
         Command saveCommand = new SaveCommand(collectionController);
         Command exitCommand = new ExitCommand(scannerWrapper);
         Command removeKeyCommand = new RemoveKeyCommand(collectionController);
+        Command historyCommand = new HistoryCommand(historyCommandQueue);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -41,6 +44,7 @@ public class CommandManager {
         commandMap.put(removeKeyCommand.getKey(), removeKeyCommand);
         commandMap.put(exitCommand.getKey(), exitCommand);
         commandMap.put(saveCommand.getKey(), saveCommand);
+        commandMap.put(historyCommand.getKey(), historyCommand);
 
 
     }
@@ -50,8 +54,16 @@ public class CommandManager {
         List<String> args = new ArrayList<>(List.of(arrArgs));
         try {
             String key = args.get(0);
-            commandMap.get(key).setArgs(arrArgs);
-            commandMap.get(key).execute();
+            Command thisCommand = commandMap.get(key);
+            thisCommand.setArgs(arrArgs);
+            thisCommand.execute();
+            if (!(thisCommand instanceof HistoryCommand))
+                historyCommandQueue.addLast(key);
+            if (historyCommandQueue.size() > 8) {
+                historyCommandQueue.removeFirst();
+            }
+
+
         } catch (NullPointerException e) {
             System.err.println("Incorrect command or you dont write any args!" + " NULL POINTER");
         } catch (ArrayIndexOutOfBoundsException e) {
