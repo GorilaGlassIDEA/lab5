@@ -55,14 +55,13 @@ class CollectionControllerTest {
 
         routeMap.put(route1.getId(), route1);
         routeMap.put(route2.getId(), route2);
-        when(models.getRoutesMap()).thenReturn(routeMap);
-
+        models.setRoutesMap(new HashMap<>(routeMap));
     }
 
     @Test
     void addCollectionTest() {
         collectionController.addElem(route3);
         routeMap.put(route3.getId(), route3);
-        assertEquals(models, collectionController.getModels());
+        assertEquals(models.getRoutesMap(), collectionController.getModels().getRoutesMap());
     }
 }
