@@ -39,10 +39,10 @@ public class Main {
         String jsonContent = readableFile.getContent();
         Models models = parserFromJson.getModels(jsonContent);
 
-        IdGenerateble idGenerateble = new IdGenerateMy(models);
+
 
         CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);
-
+        IdGenerateble idGenerateble = new IdGenerateMy(collectionController);
         RouteCreator routeCreator = new RouteCreator();
 
         ScannerWrapper scannerWrapper = new ScannerWrapper();
