@@ -1,42 +1,40 @@
-package by.dima.model.data.command.impl.creator;
+package by.dima.model.data.route.model.main;
 
-import by.dima.model.data.route.model.main.Route;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
+import by.dima.model.service.generate.id.IdGenerateble;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 // TODO: переписать без костылей
-public class RouteCreator {
+public class FillOutRouteModelUsingScanner {
     private Scanner scanner;
-    private Route route;
 
 
-    public Route createRoute(long id) {
+    public Route createRoute(RouteBuildable routeBuildable, long id) {
         scanner = new Scanner(System.in);
-        route = new Route();
-        readName();
-        readCoordinates();
-        readLocationFrom();
-        readLocationTo();
-        readDistance();
-        return new Route(id, route.getName(), route.getCoordinates(), route.getFrom(), route.getTo(), route.getDistance());
+        routeBuildable.setId(id);
+        routeBuildable.setName(readName());
+        routeBuildable.setCoordinates(readCoordinates());
+        routeBuildable.setLocationFrom(readLocationFrom());
+        routeBuildable.setLocationTo(readLocationTo());
+        routeBuildable.setDistance(readDistance());
+        return routeBuildable.build();
 
     }
 
-    private void readName() {
-        while (route.getName() == null || route.getName().isEmpty()) {
+    private String readName() {
+        while (true) {
             try {
                 System.out.print("Route name: ");
                 String name = scanner.nextLine();
                 if (name == null || name.isEmpty()) {
                     System.out.println("Name shouldn't be empty");
                 } else {
-                    route.setName(name);
-                    break;
+                    return name;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect type! Try again");
@@ -45,9 +43,9 @@ public class RouteCreator {
         }
     }
 
-    private void readCoordinates() {
+    private Coordinates readCoordinates() {
         Coordinates coordinates = new Coordinates();
-        while (route.getCoordinates() == null) {
+        while (true) {
             try {
                 if (coordinates.getX() == 0) {
                     System.out.print("Coordinate X (int): ");
@@ -75,8 +73,8 @@ public class RouteCreator {
                     continue;
                 }
 
-                route.setCoordinates(coordinates);
-                break;
+                return coordinates;
+
 
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect input! Try again.");
@@ -87,9 +85,9 @@ public class RouteCreator {
         }
     }
 
-    private void readLocationFrom() {
+    private LocationFrom readLocationFrom() {
         LocationFrom locationFrom = new LocationFrom();
-        while (route.getFrom() == null) {
+        while (true) {
             try {
                 System.out.print("LocationFrom X (double): ");
                 if (scanner.hasNextDouble()) {
@@ -120,8 +118,7 @@ public class RouteCreator {
                 }
                 locationFrom.setName(name);
 
-                route.setFrom(locationFrom);
-                break;
+                return locationFrom;
 
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect input! Try again.");
@@ -132,9 +129,9 @@ public class RouteCreator {
         }
     }
 
-    private void readLocationTo() {
+    private LocationTo readLocationTo() {
         LocationTo locationTo = new LocationTo();
-        while (route.getTo() == null) {
+        while (true) {
             try {
                 System.out.print("LocationTo X (double): ");
                 if (scanner.hasNextDouble()) {
@@ -165,8 +162,8 @@ public class RouteCreator {
                 }
                 locationTo.setName(name);
 
-                route.setTo(locationTo);
-                break;
+                return locationTo;
+
 
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect input! Try again.");
@@ -177,8 +174,8 @@ public class RouteCreator {
         }
     }
 
-    private void readDistance() {
-        while (route.getDistance() == 0) {
+    private double readDistance() {
+        while (true) {
             try {
                 System.out.print("Route Distance: ");
                 double distance = scanner.nextDouble();
@@ -186,8 +183,7 @@ public class RouteCreator {
                     System.out.println("Distance should be positive");
                     scanner.next();
                 } else {
-                    route.setDistance(distance);
-                    break;
+                    return distance;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect type! Try again");

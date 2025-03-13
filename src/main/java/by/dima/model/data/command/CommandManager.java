@@ -2,7 +2,7 @@ package by.dima.model.data.command;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.impl.*;
-import by.dima.model.data.command.impl.creator.RouteCreator;
+import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.ScannerWrapper;
@@ -19,7 +19,7 @@ public class CommandManager {
     private final ScannerWrapper scannerWrapper;
     private final LinkedList<String> historyCommandQueue;
 
-    public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, RouteCreator routeCreator, WriteableFile writeableFile, ParserToJson parserToJson, IdGenerateble idGenerateble) {
+    public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, FillOutRouteModelUsingScanner routeCreator, WriteableFile writeableFile, ParserToJson parserToJson, IdGenerateble idGenerateble) {
         this.scannerWrapper = scannerWrapper;
         this.historyCommandQueue = new LinkedList<>();
         Map<Long, Route> routeMap = collectionController.getCollectionForControl();

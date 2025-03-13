@@ -1,10 +1,11 @@
 package by.dima.model.data.command.impl;
 
 import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.command.impl.creator.RouteCreator;
+import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
 
+import by.dima.model.data.route.model.main.RouteBuilder;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import lombok.Getter;
@@ -20,11 +21,11 @@ public class UpdateCommand implements Command {
     private final Map<Long, Route> routeMap;
     @Setter
     private String[] args;
-    private final RouteCreator routeCreator;
+    private final FillOutRouteModelUsingScanner routeCreator;
     private final WriteableFile writeableFile;
     private final ParserToJson parser;
 
-    public UpdateCommand(Map<Long, Route> routeMap, RouteCreator routeCreator, WriteableFile writeableFile, ParserToJson parser) {
+    public UpdateCommand(Map<Long, Route> routeMap, FillOutRouteModelUsingScanner routeCreator, WriteableFile writeableFile, ParserToJson parser) {
         this.routeMap = routeMap;
         this.routeCreator = routeCreator;
         this.writeableFile = writeableFile;
@@ -37,7 +38,7 @@ public class UpdateCommand implements Command {
         if (!routeMap.containsKey(id)) {
             System.err.println("This id does not exist in your collection!");
         } else {
-            Route newRoute = routeCreator.createRoute(id);
+            Route newRoute = routeCreator.createRoute(new RouteBuilder(), id);
             routeMap.replace(newRoute.getId(), newRoute);
         }
         writeableFile.write(parser.getJson(new Models(routeMap)));
