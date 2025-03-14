@@ -1,7 +1,5 @@
 package by.dima.model.service.files.io.read;
 
-import by.dima.model.service.files.io.create.Creatable;
-import by.dima.model.service.files.io.create.CreateFile;
 import lombok.Getter;
 import lombok.Setter;
 
