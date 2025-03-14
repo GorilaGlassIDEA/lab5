@@ -15,3 +15,5 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
 почистить ненужные файлы (exception)
 
 пофиксить баг с insert (insert 2 -> remove 2 -> insert ) баг идет
+
+написать парсер свой с помощью регулярных выражений для парсера

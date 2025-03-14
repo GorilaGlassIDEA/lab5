@@ -7,6 +7,7 @@ import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.create.Creatable;
 import by.dima.model.service.files.io.create.CreateFile;
+import by.dima.model.service.files.io.read.ReadFileBufferReader;
 import by.dima.model.service.files.io.read.ReadFileFiles;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteFileFiles;
@@ -26,7 +27,7 @@ import java.util.NoSuchElementException;
 public class Main {
     public static void main(String[] args) {
         final String FILE_PATH = System.getenv("DATA_FILE");
-        ReadableFile readableFile = new ReadFileFiles(FILE_PATH);
+        ReadableFile readableFile = new ReadFileBufferReader(FILE_PATH);
         WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
         Creatable creatable = new CreateFile(writeableFile);
         creatable.fileCreator();
@@ -40,7 +41,6 @@ public class Main {
         Models models = parserFromJson.getModels(jsonContent);
 
 
-
         CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);
         IdGenerateble idGenerateble = new IdGenerateMy(collectionController);
         FillOutRouteModelUsingScanner routeCreator = new FillOutRouteModelUsingScanner();
@@ -52,10 +52,9 @@ public class Main {
             while (true) {
                 manager.executeCommand();
             }
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.err.println("Program stopped!");
         }
-
 
 
     }

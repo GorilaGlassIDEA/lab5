@@ -1,19 +1,15 @@
 package by.dima.model.service.generate.id;
 
 import by.dima.model.data.CollectionController;
-import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.command.impl.HistoryCommand;
-import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
