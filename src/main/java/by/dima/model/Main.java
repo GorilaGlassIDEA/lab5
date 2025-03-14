@@ -11,6 +11,7 @@ import by.dima.model.service.files.io.read.ReadFileBufferReader;
 import by.dima.model.service.files.io.read.ReadFileFiles;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteFileFiles;
+import by.dima.model.service.files.io.write.WriteFileOutputStreamWriter;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.impl.ParserFromJsonJacksonImpl;
 import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
@@ -28,7 +29,7 @@ public class Main {
     public static void main(String[] args) {
         final String FILE_PATH = System.getenv("DATA_FILE");
         ReadableFile readableFile = new ReadFileBufferReader(FILE_PATH);
-        WriteableFile writeableFile = new WriteFileFiles(FILE_PATH);
+        WriteableFile writeableFile = new WriteFileOutputStreamWriter(FILE_PATH);
         Creatable creatable = new CreateFile(writeableFile);
         creatable.fileCreator();
         ObjectMapper mapper = new ObjectMapper();
