@@ -6,7 +6,6 @@ import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.ScannerWrapper;
-import by.dima.model.service.files.io.read.ReadFileBufferReader;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;

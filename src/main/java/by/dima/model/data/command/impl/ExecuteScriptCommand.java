@@ -1,15 +1,14 @@
-package by.dima.model.data.command;
+package by.dima.model.data.command.impl;
 
+import by.dima.model.data.command.CommandManager;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.service.files.io.read.ReadFileBufferReader;
 import by.dima.model.service.files.io.read.ReadableFile;
-import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.iterator.TextIterable;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
