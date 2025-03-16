@@ -1,6 +1,7 @@
 package by.dima.model.service.files.io.read;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

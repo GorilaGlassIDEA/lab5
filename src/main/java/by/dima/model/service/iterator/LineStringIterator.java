@@ -2,12 +2,17 @@ package by.dima.model.service.iterator;
 
 import java.util.Iterator;
 
-public class LineStringIterator implements Iterator<String> {
+class LineStringIterator implements Iterator<String> {
     private final String[] textArr;
     private int count = 0;
 
     public LineStringIterator(String text) {
-        this.textArr = text.split("\n");
+        if (text == null) {
+            System.err.println("Commands are not found!");
+            this.textArr = new String[0];
+        } else {
+            this.textArr = text.split("\n");
+        }
     }
 
     @Override

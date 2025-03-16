@@ -18,8 +18,7 @@ class LineStringIteratorTest {
 
 
         String defaultText = line1 + "\n" + line2 + "\n" + line3;
-        LineStringIterator lineStringIterator = new LineStringIterator(defaultText);
-        TextIterable textIterable = new TextIterable(lineStringIterator);
+        TextIterable textIterable = new TextIterable(defaultText);
         List<String> aArrWithLine = new ArrayList<>();
         for (String line : textIterable) {
             aArrWithLine.add(line);

@@ -1,4 +1,2 @@
-save
 clear
-show
-info
+save
