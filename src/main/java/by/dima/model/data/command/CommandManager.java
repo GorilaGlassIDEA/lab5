@@ -10,6 +10,7 @@ import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
+import by.dima.model.service.util.GetSecondArgFromArgsUtil;
 import lombok.Getter;
 
 import java.util.*;
@@ -29,7 +30,7 @@ public class CommandManager {
         Command infoCommand = new InfoCommand(collectionController);
         Command showCommand = new ShowCommand(collectionController);
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
-        Command updateCommand = new UpdateCommand(routeMap, routeCreator, writeableFile, parserToJson);
+        Command updateCommand = new UpdateCommand(routeCreator, collectionController);
         Command clearCommand = new ClearCommand(collectionController);
         Command saveCommand = new SaveCommand(collectionController);
         Command exitCommand = new ExitCommand(scannerWrapper);
@@ -58,7 +59,7 @@ public class CommandManager {
         try {
             String key = args.get(0);
             Command thisCommand = commandMap.get(key);
-            thisCommand.setArgs(arrArgs);
+            thisCommand.setArgs(GetSecondArgFromArgsUtil.getSecondArg(arrArgs));
             thisCommand.execute();
             if (!(thisCommand instanceof HistoryCommand))
                 historyCommandQueue.addLast(key);

@@ -38,10 +38,10 @@ public class InsertCommand implements Command {
     }
 
     @Override
-    public void setArgs(String[] args) {
+    public void setArgs(String arg) {
         try {
-            id = idGenerateble.generateId(Long.parseLong(args[1]));
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            id = idGenerateble.generateId(Long.parseLong(arg));
+        } catch (NumberFormatException e) {
             id = idGenerateble.generateId();
         }
     }

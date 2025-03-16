@@ -28,10 +28,10 @@ public class ExecuteScriptCommand implements Command {
     }
 
     @Override
-    public void setArgs(String... args) {
-        List<String> argsList = new ArrayList<>(List.of(args));
+    public void setArgs(String arg) {
+        List<String> argsList = new ArrayList<>(List.of(arg));
         if (!argsList.isEmpty() && argsList.size() > 1) {
-            String pathForOpening = args[1];
+            String pathForOpening = arg;
             readableFile = new ReadFileBufferReader(pathForOpening);
             content = readableFile.getContent();
         }
