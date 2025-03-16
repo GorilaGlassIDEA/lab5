@@ -1,6 +1,7 @@
 package by.dima.model.data.command.impl;
 
 import by.dima.model.data.command.model.Command;
+import by.dima.model.data.command.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,13 +10,14 @@ import java.util.List;
 
 @Getter
 @Setter
-public class HistoryCommand implements Command {
+public class HistoryCommand extends CommandAbstract {
 
-    private String key = "history";
     private List<String> historyCommandList;
 
     public HistoryCommand(LinkedList<String> historyCommandList) {
+        super("history", "Display the last 8 commands.");
         this.historyCommandList = historyCommandList;
+
     }
 
     @Override

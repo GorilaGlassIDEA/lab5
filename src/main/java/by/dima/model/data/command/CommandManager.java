@@ -19,11 +19,16 @@ public class CommandManager {
     private final ScannerWrapper scannerWrapper;
     private final LinkedList<String> historyCommandQueue;
 
-    public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, FillOutRouteModelUsingScanner routeCreator, ParserToJson parserToJson, IdGenerateble idGenerateble, ReadableFile readableFile) {
+    public CommandManager(CollectionController collectionController,
+                          ScannerWrapper scannerWrapper,
+                          FillOutRouteModelUsingScanner routeCreator,
+                          ParserToJson parserToJson,
+                          IdGenerateble idGenerateble,
+                          ReadableFile readableFile) {
         this.scannerWrapper = scannerWrapper;
         this.historyCommandQueue = new LinkedList<>();
 
-        Command helpCommand = new HelpCommand();
+        Command helpCommand = new HelpCommand(this);
         Command infoCommand = new InfoCommand(collectionController);
         Command showCommand = new ShowCommand(collectionController);
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
@@ -33,7 +38,7 @@ public class CommandManager {
         Command exitCommand = new ExitCommand(scannerWrapper);
         Command removeKeyCommand = new RemoveKeyCommand(collectionController);
         Command historyCommand = new HistoryCommand(historyCommandQueue);
-        Command executeScriptCommand = new ExecuteScriptCommand(this, readableFile);
+        Command executeScriptCommand = new ExecuteScriptCommand(this);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -46,8 +51,6 @@ public class CommandManager {
         commandMap.put(saveCommand.getKey(), saveCommand);
         commandMap.put(historyCommand.getKey(), historyCommand);
         commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
-
-
     }
 
     public void executeCommand() {
@@ -63,8 +66,6 @@ public class CommandManager {
             if (historyCommandQueue.size() > 8) {
                 historyCommandQueue.removeFirst();
             }
-
-
         } catch (NullPointerException e) {
             System.err.println("Incorrect command or you dont write any args!" + " NULL POINTER");
         } catch (ArrayIndexOutOfBoundsException e) {

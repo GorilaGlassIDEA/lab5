@@ -3,17 +3,18 @@ package by.dima.model.data.command.impl;
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.model.Command;
+import by.dima.model.data.command.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ShowCommand implements Command {
+public class ShowCommand extends CommandAbstract {
 
-    private String key = "show";
     private CollectionController collectionController;
 
     public ShowCommand(CollectionController collectionController) {
+        super("show", "Display all elements in the collection.");
         this.collectionController = collectionController;
     }
 

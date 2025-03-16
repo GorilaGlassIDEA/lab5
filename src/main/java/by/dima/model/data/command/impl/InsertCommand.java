@@ -1,6 +1,7 @@
 package by.dima.model.data.command.impl;
 
 import by.dima.model.data.CollectionController;
+import by.dima.model.data.command.model.CommandAbstract;
 import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
@@ -12,9 +13,8 @@ import lombok.Setter;
 
 
 @Getter
-public class InsertCommand implements Command {
+public class InsertCommand extends CommandAbstract {
     @Setter
-    private String key = "insert";
     private Route route;
     private long id;
     private final CollectionController collectionController;
@@ -23,6 +23,7 @@ public class InsertCommand implements Command {
     private final IdGenerateble idGenerateble;
 
     public InsertCommand(CollectionController collectionController, ParserToJson parser, IdGenerateble idGenerateble, FillOutRouteModelUsingScanner fillOutRouteModelUsingScanner) {
+        super("insert", "Add a new element with a specified key.");
         this.collectionController = collectionController;
         this.parser = parser;
         this.fillOutRouteModelUsingScanner = fillOutRouteModelUsingScanner;

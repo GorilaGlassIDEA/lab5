@@ -1,6 +1,6 @@
 package by.dima.model.data.command.model;
 
-public interface Command extends Nameable {
+public interface Command extends Nameable, Helpable {
     void execute();
 
     default void setArgs(String arg) {

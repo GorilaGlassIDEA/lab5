@@ -2,17 +2,18 @@ package by.dima.model.data.command.impl;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.model.Command;
+import by.dima.model.data.command.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class SaveCommand implements Command {
+public class SaveCommand extends CommandAbstract {
 
-    private String key = "save";
     private final CollectionController collectionController;
 
     public SaveCommand(CollectionController collectionController) {
+        super("save", "Save the collection to a file.");
         this.collectionController = collectionController;
     }
 

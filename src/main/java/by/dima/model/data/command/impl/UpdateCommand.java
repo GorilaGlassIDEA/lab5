@@ -1,6 +1,7 @@
 package by.dima.model.data.command.impl;
 
 import by.dima.model.data.CollectionController;
+import by.dima.model.data.command.model.CommandAbstract;
 import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.data.command.model.Command;
 import by.dima.model.data.route.model.main.Route;
@@ -9,15 +10,15 @@ import by.dima.model.data.route.model.main.RouteBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UpdateCommand implements Command {
+public class UpdateCommand extends CommandAbstract {
     @Getter
     @Setter
-    private String key = "update";
     private Long id;
     private final FillOutRouteModelUsingScanner routeCreator;
     private final CollectionController collectionController;
 
     public UpdateCommand(FillOutRouteModelUsingScanner routeCreator, CollectionController collectionController) {
+        super("update {id}", "Update an element by its ID.");
         this.routeCreator = routeCreator;
         this.collectionController = collectionController;
     }

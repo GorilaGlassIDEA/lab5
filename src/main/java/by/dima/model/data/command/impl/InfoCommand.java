@@ -3,16 +3,17 @@ package by.dima.model.data.command.impl;
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.model.Command;
+import by.dima.model.data.command.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class InfoCommand implements Command {
-    private String key = "info";
+public class InfoCommand extends CommandAbstract {
     private CollectionController collectionController;
 
     public InfoCommand(CollectionController collectionController) {
+        super("info", "Show collection details (type, initialization date, size).");
         this.collectionController = collectionController;
     }
 
