@@ -21,10 +21,9 @@ public class CommandManager {
     private final ScannerWrapper scannerWrapper;
     private final LinkedList<String> historyCommandQueue;
 
-    public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, FillOutRouteModelUsingScanner routeCreator, WriteableFile writeableFile, ParserToJson parserToJson, IdGenerateble idGenerateble, ReadableFile readableFile) {
+    public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, FillOutRouteModelUsingScanner routeCreator, ParserToJson parserToJson, IdGenerateble idGenerateble, ReadableFile readableFile) {
         this.scannerWrapper = scannerWrapper;
         this.historyCommandQueue = new LinkedList<>();
-        Map<Long, Route> routeMap = collectionController.getCollectionForControl();
 
         Command helpCommand = new HelpCommand();
         Command infoCommand = new InfoCommand(collectionController);

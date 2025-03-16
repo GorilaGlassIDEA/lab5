@@ -31,8 +31,7 @@ public class ExecuteScriptCommand implements Command {
     public void setArgs(String arg) {
         List<String> argsList = new ArrayList<>(List.of(arg));
         if (!argsList.isEmpty() && argsList.size() > 1) {
-            String pathForOpening = arg;
-            readableFile = new ReadFileBufferReader(pathForOpening);
+            readableFile = new ReadFileBufferReader(arg);
             content = readableFile.getContent();
         }
         textIterable = new TextIterable(content);
