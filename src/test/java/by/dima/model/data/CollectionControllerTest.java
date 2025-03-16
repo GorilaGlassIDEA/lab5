@@ -27,11 +27,6 @@ class CollectionControllerTest {
     @Mock
     Models models;
 
-    @Mock
-    WriteableFile writeableFile;
-
-    @Mock
-    ParserToJson parser;
 
     @Mock
     Route route1;

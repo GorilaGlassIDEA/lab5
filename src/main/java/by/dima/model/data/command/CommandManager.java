@@ -4,12 +4,11 @@ import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.impl.*;
 import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
 import by.dima.model.data.command.model.Command;
-import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.read.ReadableFile;
-import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
+import by.dima.model.service.util.GetSecondArgFromArgsUtil;
 import lombok.Getter;
 
 import java.util.*;
@@ -20,22 +19,26 @@ public class CommandManager {
     private final ScannerWrapper scannerWrapper;
     private final LinkedList<String> historyCommandQueue;
 
-    public CommandManager(CollectionController collectionController, ScannerWrapper scannerWrapper, FillOutRouteModelUsingScanner routeCreator, WriteableFile writeableFile, ParserToJson parserToJson, IdGenerateble idGenerateble, ReadableFile readableFile) {
+    public CommandManager(CollectionController collectionController,
+                          ScannerWrapper scannerWrapper,
+                          FillOutRouteModelUsingScanner routeCreator,
+                          ParserToJson parserToJson,
+                          IdGenerateble idGenerateble,
+                          ReadableFile readableFile) {
         this.scannerWrapper = scannerWrapper;
         this.historyCommandQueue = new LinkedList<>();
-        Map<Long, Route> routeMap = collectionController.getCollectionForControl();
 
         Command helpCommand = new HelpCommand();
         Command infoCommand = new InfoCommand(collectionController);
         Command showCommand = new ShowCommand(collectionController);
         Command insertCommand = new InsertCommand(collectionController, parserToJson, idGenerateble, routeCreator);
-        Command updateCommand = new UpdateCommand(routeMap, routeCreator, writeableFile, parserToJson);
+        Command updateCommand = new UpdateCommand(routeCreator, collectionController);
         Command clearCommand = new ClearCommand(collectionController);
         Command saveCommand = new SaveCommand(collectionController);
         Command exitCommand = new ExitCommand(scannerWrapper);
         Command removeKeyCommand = new RemoveKeyCommand(collectionController);
         Command historyCommand = new HistoryCommand(historyCommandQueue);
-        Command executeScriptCommand = new ExecuteScriptCommand(this, readableFile);
+        Command executeScriptCommand = new ExecuteScriptCommand(this);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -48,8 +51,6 @@ public class CommandManager {
         commandMap.put(saveCommand.getKey(), saveCommand);
         commandMap.put(historyCommand.getKey(), historyCommand);
         commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
-
-
     }
 
     public void executeCommand() {
@@ -58,15 +59,13 @@ public class CommandManager {
         try {
             String key = args.get(0);
             Command thisCommand = commandMap.get(key);
-            thisCommand.setArgs(arrArgs);
+            thisCommand.setArgs(GetSecondArgFromArgsUtil.getSecondArg(arrArgs));
             thisCommand.execute();
             if (!(thisCommand instanceof HistoryCommand))
                 historyCommandQueue.addLast(key);
             if (historyCommandQueue.size() > 8) {
                 historyCommandQueue.removeFirst();
             }
-
-
         } catch (NullPointerException e) {
             System.err.println("Incorrect command or you dont write any args!" + " NULL POINTER");
         } catch (ArrayIndexOutOfBoundsException e) {

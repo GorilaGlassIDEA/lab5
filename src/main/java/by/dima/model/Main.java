@@ -45,7 +45,7 @@ public class Main {
         FillOutRouteModelUsingScanner routeCreator = new FillOutRouteModelUsingScanner();
 
         ScannerWrapper scannerWrapper = new ScannerWrapper();
-        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, writeableFile, parserToJson, idGenerateble, readableFile);
+        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, parserToJson, idGenerateble, readableFile);
 
         try {
             while (true) {

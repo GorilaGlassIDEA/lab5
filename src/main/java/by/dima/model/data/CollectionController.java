@@ -63,4 +63,13 @@ public class CollectionController {
     public void saveCollection() {
         writeableFile.write(parser.getJson(models));
     }
+
+    public void updateElem(Route newRoute) {
+        if (collectionForControl.containsKey(newRoute.getId())) {
+            collectionForControl.replace(newRoute.getId(), newRoute);
+            syncModels();
+        } else {
+            System.err.println("Element which has this id doesn't exist!");
+        }
+    }
 }
