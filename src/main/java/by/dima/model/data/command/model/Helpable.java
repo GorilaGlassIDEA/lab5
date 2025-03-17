@@ -5,9 +5,5 @@ package by.dima.model.data.command.model;
  */
 
 public interface Helpable {
-
-    default String getHelp() {
-        return null;
-    }
-
+    String getHelp();
 }
