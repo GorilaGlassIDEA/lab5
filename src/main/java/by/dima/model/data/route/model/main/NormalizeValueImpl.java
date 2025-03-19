@@ -3,8 +3,6 @@ package by.dima.model.data.route.model.main;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class NormalizeValueImpl implements NormalisationValue {
@@ -34,13 +32,5 @@ public class NormalizeValueImpl implements NormalisationValue {
             normalizeList.add(normalize(number));
         }
         return normalizeList;
-    }
-
-    public void addAll(List<Number> collection) {
-        if (numbers == null) {
-            numbers = new ArrayList<>(collection);
-        } else {
-            numbers.addAll(collection);
-        }
     }
 }

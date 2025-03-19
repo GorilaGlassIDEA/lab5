@@ -19,43 +19,43 @@ public class RouteBuilder implements RouteBuildable {
 
 
     @Override
-    public RouteBuildable setId(long id) {
+    public RouteBuilder setId(long id) {
         this.id = id;
         return this;
     }
 
     @Override
-    public RouteBuildable setName(String name) {
+    public RouteBuilder setName(String name) {
         this.name = name;
         return this;
     }
 
     @Override
-    public RouteBuildable setCoordinates(Coordinates coordinates) {
+    public RouteBuilder setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
         return this;
     }
 
     @Override
-    public RouteBuildable setLocationFrom(LocationFrom locationFrom) {
+    public RouteBuilder setLocationFrom(LocationFrom locationFrom) {
         this.locationFrom = locationFrom;
         return this;
     }
 
     @Override
-    public RouteBuildable setLocationTo(LocationTo locationTo) {
+    public RouteBuilder setLocationTo(LocationTo locationTo) {
         this.locationTo = locationTo;
         return this;
     }
 
     @Override
-    public RouteBuildable setDistance(Double distance) {
+    public RouteBuilder setDistance(Double distance) {
         this.distance = distance;
         return this;
     }
 
     @Override
-    public RouteBuildable setCreationDate(ZonedDateTime creationDate) {
+    public RouteBuilder setCreationDate(ZonedDateTime creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -63,6 +63,9 @@ public class RouteBuilder implements RouteBuildable {
     @Override
     public Route build() {
         Route route = new Route(id, name, coordinates, locationFrom, locationTo, distance);
+        if (creationDate == null) {
+            creationDate = ZonedDateTime.now();
+        }
         route.setCreationDate(creationDate);
         return route;
     }
