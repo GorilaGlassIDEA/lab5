@@ -3,14 +3,13 @@ package by.dima.model.data.route.model.main;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
-import by.dima.model.service.generate.id.IdGenerateble;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 // TODO: переписать без костылей
-public class FillOutRouteModelUsingScanner {
+public class CreateRouteUsingScanner {
     private Scanner scanner;
 
 

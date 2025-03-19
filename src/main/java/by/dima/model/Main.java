@@ -3,7 +3,7 @@ package by.dima.model;
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.CommandManager;
-import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
+import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.create.Creatable;
 import by.dima.model.service.files.io.create.CreateFile;
@@ -42,7 +42,7 @@ public class Main {
 
         CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);
         IdGenerateble idGenerateble = new IdGenerateMy(collectionController);
-        FillOutRouteModelUsingScanner routeCreator = new FillOutRouteModelUsingScanner();
+        CreateRouteUsingScanner routeCreator = new CreateRouteUsingScanner();
 
         ScannerWrapper scannerWrapper = new ScannerWrapper();
         CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, parserToJson, idGenerateble, readableFile);
