@@ -38,8 +38,6 @@ public class CollectionController {
                 if (models.sizeArray() == 0) {
                     resetModels();
                 }
-            } else {
-                System.err.println("id = " + key + " This id is not exist");
             }
         } else {
             System.err.println("Check your args!");
