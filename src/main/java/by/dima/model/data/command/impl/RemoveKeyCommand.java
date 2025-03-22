@@ -10,22 +10,25 @@ import lombok.Setter;
 public class RemoveKeyCommand extends CommandAbstract {
 
     private final CollectionController collectionController;
-    private String[] args;
-    private Long removeKey;
+    private Long arg;
 
     public RemoveKeyCommand(CollectionController collectionController) {
-        super("remove_key {id}", "Remove an element by its key.");
+        super("remove_key", "Remove an element by its key.");
         this.collectionController = collectionController;
     }
 
 
     @Override
     public void execute() {
+        collectionController.removeElem(arg);
+    }
+
+    @Override
+    public void setArgs(String arg) {
         try {
-            removeKey = Long.parseLong(args[0]);
-            collectionController.removeElem(removeKey);
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.err.println("Incorrect args or you remember to write key for removing!");
+            this.arg = Long.parseLong(arg);
+        } catch (NumberFormatException e) {
+            System.err.println("Incorrect arg!");
         }
     }
 }

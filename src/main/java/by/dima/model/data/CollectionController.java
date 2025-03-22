@@ -39,7 +39,7 @@ public class CollectionController {
                     resetModels();
                 }
             } else {
-                System.err.println("This id is not exist");
+                System.err.println("id = " + key + " This id is not exist");
             }
         } else {
             System.err.println("Check your args!");

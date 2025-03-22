@@ -40,6 +40,7 @@ public class CommandManager {
         Command historyCommand = new HistoryCommand(historyCommandQueue);
         Command executeScriptCommand = new ExecuteScriptCommand(this);
         Command replaceIfLoweCommand = new ReplaceIfLoweCommand(idGenerateble, collectionController, routeCreator);
+        Command removeLowerKeyCommand = new RemoveLowerKeyCommand(collectionController);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -53,6 +54,7 @@ public class CommandManager {
         commandMap.put(historyCommand.getKey(), historyCommand);
         commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
         commandMap.put(replaceIfLoweCommand.getKey(), replaceIfLoweCommand);
+        commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
     }
 
     public void executeCommand() {
