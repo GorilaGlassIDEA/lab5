@@ -1,6 +1,7 @@
 package by.dima.model.data;
 
 import by.dima.model.data.abstracts.model.Models;
+import by.dima.model.data.counting.model.Groups;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
@@ -87,4 +88,9 @@ public class CollectionController {
         }
         return false;
     }
+
+    public Groups getObjGroup() {
+        return new Groups(this);
+    }
+
 }

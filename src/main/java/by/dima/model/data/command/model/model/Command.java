@@ -1,4 +1,4 @@
-package by.dima.model.data.command.model;
+package by.dima.model.data.command.model.model;
 
 public interface Command extends Nameable, Helpable {
     void execute();

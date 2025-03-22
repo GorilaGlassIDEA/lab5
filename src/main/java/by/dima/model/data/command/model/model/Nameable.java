@@ -1,4 +1,4 @@
-package by.dima.model.data.command.model;
+package by.dima.model.data.command.model.model;
 
 /** Данный класс нужен для хранения имени аргумента, для удобного сравнения и замены при желании
  * Например если у нас есть аргумент help и мы хотим поменять его имя на helping то достаточно вызвать метод

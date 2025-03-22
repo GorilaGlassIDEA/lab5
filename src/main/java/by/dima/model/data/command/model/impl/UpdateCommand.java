@@ -1,7 +1,7 @@
-package by.dima.model.data.command.impl;
+package by.dima.model.data.command.model.impl;
 
 import by.dima.model.data.CollectionController;
-import by.dima.model.data.command.model.CommandAbstract;
+import by.dima.model.data.command.model.model.CommandAbstract;
 import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
 import by.dima.model.data.route.model.main.Route;
 
@@ -17,7 +17,7 @@ public class UpdateCommand extends CommandAbstract {
     private final CollectionController collectionController;
 
     public UpdateCommand(CreateRouteUsingScanner routeCreator, CollectionController collectionController) {
-        super("update {id}", "Update an element by its ID.");
+        super("update", "Update an element by its ID.");
         this.routeCreator = routeCreator;
         this.collectionController = collectionController;
     }

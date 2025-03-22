@@ -2,7 +2,7 @@ package by.dima.model;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.command.CommandManager;
+import by.dima.model.data.command.model.CommandManager;
 import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.create.Creatable;

@@ -1,22 +1,21 @@
-package by.dima.model.data.command.impl;
+package by.dima.model.data.command.model.impl;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.command.model.Command;
-import by.dima.model.data.command.model.CommandAbstract;
+import by.dima.model.data.command.model.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ShowCommand extends CommandAbstract {
-
+public class InfoCommand extends CommandAbstract {
     private CollectionController collectionController;
 
-    public ShowCommand(CollectionController collectionController) {
-        super("show", "Display all elements in the collection.");
+    public InfoCommand(CollectionController collectionController) {
+        super("info", "Show collection details (type, initialization date, size).");
         this.collectionController = collectionController;
     }
+
 
     @Override
     public void execute() {
@@ -24,7 +23,9 @@ public class ShowCommand extends CommandAbstract {
         if (models.sizeArray() == 0) {
             System.err.println("Your collections is Empty!\nYou can add new element between insert command!");
         } else {
-            System.out.println(collectionController.getModels());
+            System.out.println("Type: " + models.getType());
+            System.out.println("Date: " + models.getZonedDateTime());
+            System.out.println("Size: " + models.sizeArray());
         }
     }
 }

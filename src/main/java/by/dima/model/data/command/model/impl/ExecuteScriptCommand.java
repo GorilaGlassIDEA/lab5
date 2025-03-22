@@ -1,8 +1,7 @@
-package by.dima.model.data.command.impl;
+package by.dima.model.data.command.model.impl;
 
-import by.dima.model.data.command.CommandManager;
-import by.dima.model.data.command.model.Command;
-import by.dima.model.data.command.model.CommandAbstract;
+import by.dima.model.data.command.model.CommandManager;
+import by.dima.model.data.command.model.model.CommandAbstract;
 import by.dima.model.service.files.io.read.ReadFileFiles;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.iterator.TextIterable;

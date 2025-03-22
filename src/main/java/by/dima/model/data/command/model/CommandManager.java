@@ -1,9 +1,9 @@
-package by.dima.model.data.command;
+package by.dima.model.data.command.model;
 
 import by.dima.model.data.CollectionController;
-import by.dima.model.data.command.impl.*;
+import by.dima.model.data.command.model.impl.*;
 import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
-import by.dima.model.data.command.model.Command;
+import by.dima.model.data.command.model.model.Command;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
@@ -41,6 +41,7 @@ public class CommandManager {
         Command executeScriptCommand = new ExecuteScriptCommand(this);
         Command replaceIfLoweCommand = new ReplaceIfLoweCommand(idGenerateble, collectionController, routeCreator);
         Command removeLowerKeyCommand = new RemoveLowerKeyCommand(collectionController);
+        Command groupCountingByIdCommand = new GroupCountingByIdCommand(collectionController);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -55,6 +56,7 @@ public class CommandManager {
         commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
         commandMap.put(replaceIfLoweCommand.getKey(), replaceIfLoweCommand);
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
+        commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
     }
 
     public void executeCommand() {

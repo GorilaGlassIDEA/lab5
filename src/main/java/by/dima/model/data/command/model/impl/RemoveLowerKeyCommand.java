@@ -1,7 +1,7 @@
-package by.dima.model.data.command.impl;
+package by.dima.model.data.command.model.impl;
 
 import by.dima.model.data.CollectionController;
-import by.dima.model.data.command.model.CommandAbstract;
+import by.dima.model.data.command.model.model.CommandAbstract;
 
 public class RemoveLowerKeyCommand extends CommandAbstract {
     private Long keyLowe = null;

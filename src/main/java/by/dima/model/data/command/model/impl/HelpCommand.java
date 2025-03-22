@@ -1,10 +1,8 @@
-package by.dima.model.data.command.impl;
+package by.dima.model.data.command.model.impl;
 
-import by.dima.model.data.command.CommandManager;
-import by.dima.model.data.command.model.Command;
-import by.dima.model.data.command.model.CommandAbstract;
-import lombok.Getter;
-import lombok.Setter;
+import by.dima.model.data.command.model.CommandManager;
+import by.dima.model.data.command.model.model.Command;
+import by.dima.model.data.command.model.model.CommandAbstract;
 
 public class HelpCommand extends CommandAbstract {
     private final CommandManager commandManager;
