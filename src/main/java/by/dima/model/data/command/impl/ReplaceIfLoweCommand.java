@@ -7,6 +7,11 @@ import by.dima.model.data.route.model.main.Route;
 import by.dima.model.data.route.model.main.RouteBuilder;
 import by.dima.model.service.generate.id.IdGenerateble;
 
+
+/**
+ * Класс реализующий команду, которая заменяет {@link Route} если значение нового Route меньше
+ * это проверка происходит с помощью реализации интерфейса {@link Comparable} в Route
+ */
 public class ReplaceIfLoweCommand extends CommandAbstract {
     private final CollectionController collectionController;
     private final CreateRouteUsingScanner routeCreator;
