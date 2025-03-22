@@ -72,4 +72,21 @@ public class CollectionController {
             System.err.println("Element which has this id doesn't exist!");
         }
     }
+
+    public boolean existId(Long id) {
+        return this.collectionForControl.containsKey(id);
+    }
+
+    public boolean replaceRouteForKey(Route route) {
+        Long id = route.getId();
+        if (existId(id)) {
+            Route routeFromCollection = collectionForControl.get(id);
+            if (route.compareTo(routeFromCollection) > 0) {
+                this.collectionForControl.replace(id, route);
+                syncModels();
+                return true;
+            }
+        }
+        return false;
+    }
 }

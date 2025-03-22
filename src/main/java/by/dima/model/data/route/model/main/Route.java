@@ -6,11 +6,14 @@ import by.dima.model.data.route.model.CheckableValidateInfoUtil;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,7 +43,36 @@ public class Route implements Comparable<Route> {
 
     @Override
     public int compareTo(Route o) {
-        return Long.compare(o.getId(), this.id);
+        NormalisationValue normalisationValue = new NormalizeValueImpl();
+
+        ArrayList<Number> valuesLocationListThis = new ArrayList<>(List.of(
+                this.to.getX(),
+                this.to.getY(),
+                this.from.getX(),
+                this.from.getY()
+        ));
+        ArrayList<Number> valuesLocationListThat = new ArrayList<>(List.of(
+                o.to.getX(),
+                o.to.getY(),
+                o.from.getX(),
+                o.from.getY()
+        ));
+        List<Number> allValues = new ArrayList<>();
+        allValues.addAll(valuesLocationListThat);
+        allValues.addAll(valuesLocationListThis);
+        normalisationValue.setNumbers(allValues);
+
+        double sumThat = 0;
+        double sumThis = 0;
+        for (Double num : normalisationValue.normalizeAll(valuesLocationListThis)) {
+            sumThis += num;
+        }
+        for (Double num : normalisationValue.normalizeAll(valuesLocationListThat)) {
+            sumThat += num;
+        }
+
+
+        return Double.compare(sumThis, sumThat);
     }
 
     @Override

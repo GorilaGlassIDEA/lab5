@@ -2,8 +2,7 @@ package by.dima.model.data.command.impl;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.model.CommandAbstract;
-import by.dima.model.data.route.model.main.FillOutRouteModelUsingScanner;
-import by.dima.model.data.command.model.Command;
+import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.data.route.model.main.RouteBuilder;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
@@ -19,10 +18,10 @@ public class InsertCommand extends CommandAbstract {
     private long id;
     private final CollectionController collectionController;
     private final ParserToJson parser;
-    private final FillOutRouteModelUsingScanner fillOutRouteModelUsingScanner;
+    private final CreateRouteUsingScanner fillOutRouteModelUsingScanner;
     private final IdGenerateble idGenerateble;
 
-    public InsertCommand(CollectionController collectionController, ParserToJson parser, IdGenerateble idGenerateble, FillOutRouteModelUsingScanner fillOutRouteModelUsingScanner) {
+    public InsertCommand(CollectionController collectionController, ParserToJson parser, IdGenerateble idGenerateble, CreateRouteUsingScanner fillOutRouteModelUsingScanner) {
         super("insert", "Add a new element with a specified key.");
         this.collectionController = collectionController;
         this.parser = parser;
