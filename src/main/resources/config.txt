@@ -27,3 +27,5 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
 выйти без сохранения
 
 влить ветку replace_if_lowe
+
+поработать над красотой вывода команды GroupCountingByIdCommand
