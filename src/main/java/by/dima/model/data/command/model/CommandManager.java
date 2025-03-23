@@ -5,7 +5,6 @@ import by.dima.model.data.command.model.impl.*;
 import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
 import by.dima.model.data.command.model.model.Command;
 import by.dima.model.service.files.io.ScannerWrapper;
-import by.dima.model.service.files.io.read.ReadableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
 import by.dima.model.service.generate.id.IdGenerateble;
 import by.dima.model.service.util.GetSecondArgFromArgsUtil;
