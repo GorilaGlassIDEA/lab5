@@ -41,6 +41,7 @@ public class CommandManager {
         Command removeLowerKeyCommand = new RemoveLowerKeyCommand(collectionController);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(collectionController);
         Command printAscendingCommand = new PrintAscendingCommand(collectionController);
+        Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(collectionController);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -57,6 +58,7 @@ public class CommandManager {
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
         commandMap.put(printAscendingCommand.getKey(), printAscendingCommand);
+        commandMap.put(printFieldDescendingDistanceCommand.getKey(), printFieldDescendingDistanceCommand);
 
     }
 

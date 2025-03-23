@@ -2,7 +2,7 @@ package by.dima.model.data.command.model.impl;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.model.model.CommandAbstract;
-import by.dima.model.service.iterator.RouteSortIterator;
+import by.dima.model.service.iterator.RouteIdSortIterator;
 
 public class PrintAscendingCommand extends CommandAbstract {
     private final CollectionController collectionController;
@@ -15,7 +15,8 @@ public class PrintAscendingCommand extends CommandAbstract {
     @Override
     public void execute() {
 
-        RouteSortIterator iterator = new RouteSortIterator(collectionController.getCollectionForControl());
+        RouteIdSortIterator iterator
+                = new RouteIdSortIterator(collectionController.getCollectionForControl());
 
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
