@@ -1,6 +1,7 @@
 package by.dima.model.data;
 
 import by.dima.model.data.abstracts.model.Models;
+import by.dima.model.data.group.model.Groups;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.files.io.write.WriteableFile;
 import by.dima.model.service.files.parser.string.model.ParserToJson;
@@ -38,8 +39,6 @@ public class CollectionController {
                 if (models.sizeArray() == 0) {
                     resetModels();
                 }
-            } else {
-                System.err.println("This id is not exist");
             }
         } else {
             System.err.println("Check your args!");
@@ -63,4 +62,35 @@ public class CollectionController {
     public void saveCollection() {
         writeableFile.write(parser.getJson(models));
     }
+
+    public void updateElem(Route newRoute) {
+        if (collectionForControl.containsKey(newRoute.getId())) {
+            collectionForControl.replace(newRoute.getId(), newRoute);
+            syncModels();
+        } else {
+            System.err.println("Element which has this id doesn't exist!");
+        }
+    }
+
+    public boolean existId(Long id) {
+        return this.collectionForControl.containsKey(id);
+    }
+
+    public boolean replaceRouteForKey(Route route) {
+        Long id = route.getId();
+        if (existId(id)) {
+            Route routeFromCollection = collectionForControl.get(id);
+            if (route.compareTo(routeFromCollection) > 0) {
+                this.collectionForControl.replace(id, route);
+                syncModels();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Groups getObjGroup() {
+        return new Groups(this);
+    }
+
 }

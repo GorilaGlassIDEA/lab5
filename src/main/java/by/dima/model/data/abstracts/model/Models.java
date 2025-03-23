@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 @NoArgsConstructor
@@ -37,6 +38,17 @@ public class Models {
     @Override
     public String toString() {
         return "Models: \n" + routesMap;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Models models = (Models) o;
+        return Objects.equals(routesMap, models.routesMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(routesMap);
     }
 }
