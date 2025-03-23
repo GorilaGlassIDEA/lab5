@@ -23,8 +23,7 @@ public class CommandManager {
                           ScannerWrapper scannerWrapper,
                           CreateRouteUsingScanner routeCreator,
                           ParserToJson parserToJson,
-                          IdGenerateble idGenerateble,
-                          ReadableFile readableFile) {
+                          IdGenerateble idGenerateble) {
         this.scannerWrapper = scannerWrapper;
         this.historyCommandQueue = new LinkedList<>();
 
@@ -42,6 +41,7 @@ public class CommandManager {
         Command replaceIfLoweCommand = new ReplaceIfLoweCommand(idGenerateble, collectionController, routeCreator);
         Command removeLowerKeyCommand = new RemoveLowerKeyCommand(collectionController);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(collectionController);
+        Command printAscendingCommand = new PrintAscendingCommand(collectionController);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -57,6 +57,8 @@ public class CommandManager {
         commandMap.put(replaceIfLoweCommand.getKey(), replaceIfLoweCommand);
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
+        commandMap.put(printAscendingCommand.getKey(), printAscendingCommand);
+
     }
 
     public void executeCommand() {

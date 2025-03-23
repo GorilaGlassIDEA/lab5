@@ -1,4 +1,4 @@
-package by.dima.model.data.counting.model;
+package by.dima.model.data.group.model;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.route.model.main.Route;

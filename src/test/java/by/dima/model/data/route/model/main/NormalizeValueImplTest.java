@@ -8,13 +8,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NormalizeValueImplTest {
-    List<Integer> numbers;
-    NormalizeValueImpl<Integer> normalizeValue;
+    List<Number> numbers;
+    NormalizeValueImpl normalizeValue;
 
     @BeforeEach
     void init() {
         numbers = List.of(1, 2, 3, 4, 5);
-        normalizeValue = new NormalizeValueImpl<>(numbers);
+        normalizeValue = new NormalizeValueImpl();
+        normalizeValue.setNumbers(numbers);
+
     }
 
     @Test
@@ -24,7 +26,7 @@ class NormalizeValueImplTest {
 
     @Test
     void normalizeValueWithOtherValues() {
-        List<? extends Number> numbers = List.of(10D, 2L, 100F);
+        List<Number> numbers = List.of(10D, 2L, 100F);
         normalizeValue.setNumbers(numbers);
 
         assertEquals(0D, normalizeValue.normalize(2));
