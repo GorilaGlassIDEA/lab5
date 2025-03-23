@@ -2,6 +2,11 @@ package by.dima.model.data.command.model.impl;
 
 import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.model.model.CommandAbstract;
+import by.dima.model.data.route.model.main.Route;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GroupCountingByIdCommand extends CommandAbstract {
     private final CollectionController collectionController;
@@ -13,6 +18,10 @@ public class GroupCountingByIdCommand extends CommandAbstract {
 
     @Override
     public void execute() {
-        System.out.println(collectionController.getObjGroup().getMapGroup());
+        Map<String, List<Route>> groups = collectionController.getObjGroup().getMapGroup();
+        Set<String> groupKeys = groups.keySet();
+        for (String key : groupKeys) {
+            System.out.println("Route object in group with name \"" + key + "\" : " + groups.get(key).size());
+        }
     }
 }

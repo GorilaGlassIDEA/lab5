@@ -29,3 +29,5 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
 влить ветку replace_if_lowe
 
 поработать над красотой вывода команды GroupCountingByIdCommand
+
+[-330, 414, 397, -38; 414, -567, -414, -119; 397, -414, -626, 340; -38, -119, 340, -588;]
