@@ -54,8 +54,11 @@ public class ExecuteScriptCommand extends CommandAbstract {
     public void execute() {
         if (content != null) {
             for (String command : textIterable) {
-                String actualCommand = command.trim();
-                commandManager.executeCommand(actualCommand);
+                if (!(command.split(" ").length > 1 || command.equals("insert") || command.equals("update") || command.equals("remove_key") || command.equals("remove_lower_key") || command.equals("exit"))) {
+                    System.out.println("Выполняется команда " + command);
+                    String actualCommand = command.trim();
+                    commandManager.executeCommand(actualCommand);
+                }
             }
         }
     }

@@ -6,18 +6,20 @@ import by.dima.model.data.route.model.sub.LocationTo;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Locale;
 
-/**
- * Реализация pattern Builder для ввода данных с консоли
- * @see RouteBuildable
- */
 public class CreateRouteUsingScanner {
     private Scanner scanner;
 
-    public Route createRoute(RouteBuildable routeBuildable, long id) {
+    public CreateRouteUsingScanner() {
         scanner = new Scanner(System.in);
+        // Устанавливаем локаль, которая понимает и точку, и запятую как разделитель
+        scanner.useLocale(Locale.US);
+    }
+
+    public Route createRoute(RouteBuildable routeBuildable, long id) {
         routeBuildable.setId(id);
-        routeBuildable.setName(readName());
+        routeBuildable.setName(readRequiredLine("Route name: ", "Name shouldn't be empty or contain only spaces"));
         routeBuildable.setCoordinates(readCoordinates());
         routeBuildable.setLocationFrom(readLocationFrom());
         routeBuildable.setLocationTo(readLocationTo());
@@ -25,59 +27,86 @@ public class CreateRouteUsingScanner {
         return routeBuildable.build();
     }
 
-    private String readName() {
+    private String readRequiredLine(String prompt, String errorMessage) {
         while (true) {
-            try {
-                System.out.println("Route name: ");
-                String name = scanner.nextLine();
-                if (name == null || name.isEmpty()) {
-                    System.out.println("Name shouldn't be empty");
-                } else {
-                    return name;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect type! Try again");
-                scanner.next();
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+            if (input == null || input.trim().isEmpty()) {
+                System.out.println(errorMessage);
+            } else {
+                return input;
             }
         }
     }
 
+    private String readRequiredLineWithMaxLength(String prompt, String errorMessage, int maxLength) {
+        while (true) {
+            String input = readRequiredLine(prompt, errorMessage);
+            if (input.length() > maxLength) {
+                System.out.println("Length must be less than or equal to " + maxLength + ". Try again.");
+            } else {
+                return input;
+            }
+        }
+    }
+
+    private double parseDoubleWithCommaSupport(String input) {
+        try {
+            // Заменяем запятую на точку перед парсингом
+            return Double.parseDouble(input.replace(',', '.'));
+        } catch (NumberFormatException e) {
+            throw new InputMismatchException("Invalid number format");
+        }
+    }
+
+    private float parseFloatWithCommaSupport(String input) {
+        try {
+            // Заменяем запятую на точку перед парсингом
+            return Float.parseFloat(input.replace(',', '.'));
+        } catch (NumberFormatException e) {
+            throw new InputMismatchException("Invalid number format");
+        }
+    }
     private Coordinates readCoordinates() {
         Coordinates coordinates = new Coordinates();
         while (true) {
             try {
-                System.out.println("Coordinate X (int): ");
-                if (scanner.hasNextInt()) {
-                    int x = scanner.nextInt();
+                System.out.print("Coordinate X (int): ");
+                String xInput = scanner.nextLine().trim();
+                if (xInput.isEmpty()) {
+                    System.out.println("Coordinate X cannot be empty");
+                    continue;
+                }
+                try {
+                    int x = Integer.parseInt(xInput);
                     coordinates.setX(x);
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    System.out.println("Incorrect type! Coordinate X must be an integer. Try again.");
-                    scanner.next();
+                } catch (NumberFormatException e) {
+                    System.out.println("Coordinate X must be an integer. Try again.");
                     continue;
                 }
 
-                System.out.println("Coordinate Y (double, greater than -749): ");
-                if (scanner.hasNextDouble()) {
-                    double y = scanner.nextDouble();
-                    if (y <= -749) {
-                        System.out.println("Coordinate Y must be greater than -749. Try again.");
-                        scanner.nextLine(); // Очистка буфера
+                while (true) {
+                    System.out.print("Coordinate Y (double, greater than -749): ");
+                    String yInput = scanner.nextLine().trim();
+                    if (yInput.isEmpty()) {
+                        System.out.println("Coordinate Y cannot be empty");
                         continue;
                     }
-                    coordinates.setY(y);
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    System.out.println("Incorrect type! Coordinate Y must be a double. Try again.");
-                    scanner.next();
-                    continue;
+                    try {
+                        double y = parseDoubleWithCommaSupport(yInput);
+                        if (y <= -749) {
+                            System.out.println("Coordinate Y must be greater than -749. Try again.");
+                            continue;
+                        }
+                        coordinates.setY(y);
+                        return coordinates;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Coordinate Y must be a number. Try again.");
+                    }
                 }
 
-                return coordinates;
-
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
-                scanner.next();
             }
         }
     }
@@ -86,41 +115,42 @@ public class CreateRouteUsingScanner {
         LocationFrom locationFrom = new LocationFrom();
         while (true) {
             try {
-                System.out.println("LocationFrom X (double): ");
-                if (scanner.hasNextDouble()) {
-                    double x = scanner.nextDouble();
+                System.out.print("LocationFrom X (double): ");
+                String xInput = scanner.nextLine().trim();
+                if (xInput.isEmpty()) {
+                    System.out.println("LocationFrom X cannot be empty");
+                    continue;
+                }
+                try {
+                    double x = parseDoubleWithCommaSupport(xInput);
                     locationFrom.setX(x);
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    System.out.println("Incorrect type! LocationFrom X must be a double. Try again.");
-                    scanner.next();
+                } catch (InputMismatchException e) {
+                    System.out.println("LocationFrom X must be a number. Try again.");
                     continue;
                 }
 
-                System.out.println("LocationFrom Y (float): ");
-                if (scanner.hasNextFloat()) {
-                    float y = scanner.nextFloat();
+                System.out.print("LocationFrom Y (float): ");
+                String yInput = scanner.nextLine().trim();
+                if (yInput.isEmpty()) {
+                    System.out.println("LocationFrom Y cannot be empty");
+                    continue;
+                }
+                try {
+                    float y = parseFloatWithCommaSupport(yInput);
                     locationFrom.setY(y);
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    System.out.println("Incorrect type! LocationFrom Y must be a float. Try again.");
-                    scanner.next();
+                } catch (InputMismatchException e) {
+                    System.out.println("LocationFrom Y must be a number. Try again.");
                     continue;
                 }
 
-                System.out.println("LocationFrom Name (can be empty, length <= 690): ");
-                String name = scanner.nextLine();
-                if (name.length() > 690) {
-                    System.out.println("Length of name must be less than or equal to 690. Try again.");
-                    continue;
-                }
+                String name = readRequiredLineWithMaxLength("LocationFrom Name: ",
+                        "Name shouldn't be empty or contain only spaces", 690);
                 locationFrom.setName(name);
 
                 return locationFrom;
 
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
-                scanner.next();
             }
         }
     }
@@ -129,41 +159,42 @@ public class CreateRouteUsingScanner {
         LocationTo locationTo = new LocationTo();
         while (true) {
             try {
-                System.out.println("LocationTo X (double): ");
-                if (scanner.hasNextDouble()) {
-                    double x = scanner.nextDouble();
+                System.out.print("LocationTo X (double): ");
+                String xInput = scanner.nextLine().trim();
+                if (xInput.isEmpty()) {
+                    System.out.println("LocationTo X cannot be empty");
+                    continue;
+                }
+                try {
+                    double x = parseDoubleWithCommaSupport(xInput);
                     locationTo.setX(x);
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    System.out.println("Incorrect type! LocationTo X must be a double. Try again.");
-                    scanner.next();
+                } catch (InputMismatchException e) {
+                    System.out.println("LocationTo X must be a number. Try again.");
                     continue;
                 }
 
-                System.out.println("LocationTo Y (double): ");
-                if (scanner.hasNextDouble()) {
-                    double y = scanner.nextDouble();
+                System.out.print("LocationTo Y (double): ");
+                String yInput = scanner.nextLine().trim();
+                if (yInput.isEmpty()) {
+                    System.out.println("LocationTo Y cannot be empty");
+                    continue;
+                }
+                try {
+                    double y = parseDoubleWithCommaSupport(yInput);
                     locationTo.setY(y);
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    System.out.println("Incorrect type! LocationTo Y must be a double. Try again.");
-                    scanner.next();
+                } catch (InputMismatchException e) {
+                    System.out.println("LocationTo Y must be a number. Try again.");
                     continue;
                 }
 
-                System.out.println("LocationTo Name (can be empty, length <= 330): ");
-                String name = scanner.nextLine();
-                if (name.length() > 330) {
-                    System.out.println("Length of name must be less than or equal to 330. Try again.");
-                    continue;
-                }
+                String name = readRequiredLineWithMaxLength("LocationTo Name: ",
+                        "Name shouldn't be empty or contain only spaces", 330);
                 locationTo.setName(name);
 
                 return locationTo;
 
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
-                scanner.next();
             }
         }
     }
@@ -171,18 +202,24 @@ public class CreateRouteUsingScanner {
     private double readDistance() {
         while (true) {
             try {
-                System.out.println("Route Distance: ");
-                double distance = scanner.nextDouble();
-                if (distance <= 0) {
-                    System.out.println("Distance should be positive");
-                    scanner.nextLine(); // Очистка буфера
-                } else {
-                    scanner.nextLine(); // Очистка буфера
-                    return distance;
+                System.out.print("Route Distance: ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Distance cannot be empty");
+                    continue;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect type! Try again");
-                scanner.next();
+                try {
+                    double distance = parseDoubleWithCommaSupport(input);
+                    if (distance <= 0) {
+                        System.out.println("Distance must be positive");
+                        continue;
+                    }
+                    return distance;
+                } catch (InputMismatchException e) {
+                    System.out.println("Distance must be a positive number. Try again.");
+                }
+            } catch (Exception e) {
+                System.out.println("Incorrect input! Try again.");
             }
         }
     }
