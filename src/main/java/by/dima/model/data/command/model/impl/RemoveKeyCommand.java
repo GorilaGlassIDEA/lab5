@@ -24,6 +24,7 @@ public class RemoveKeyCommand extends CommandAbstract {
     @Override
     public void execute() {
         collectionController.removeElem(arg);
+        System.out.println("Команда выполнена!");
     }
 
     @Override

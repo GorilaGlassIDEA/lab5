@@ -13,5 +13,5 @@ abstract class WriteFileModel implements WriteableFile {
     }
 
     @Override
-    public abstract void write(String content);
+    public abstract boolean write(String content);
 }

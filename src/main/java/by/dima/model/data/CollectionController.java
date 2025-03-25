@@ -59,8 +59,8 @@ public class CollectionController {
         syncCollections();
     }
 
-    public void saveCollection() {
-        writeableFile.write(parser.getJson(models));
+    public boolean saveCollection() {
+        return writeableFile.write(parser.getJson(models));
     }
 
     public void updateElem(Route newRoute) {

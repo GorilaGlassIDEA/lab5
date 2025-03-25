@@ -13,12 +13,13 @@ public class WriteFileFiles extends WriteFileModel {
     }
 
     @Override
-    public void write(String content) {
+    public boolean write(String content) {
         try {
             Files.writeString(Paths.get(getPathTo()), content);
-
+            return true;
         } catch (IOException e) {
             System.err.println("Не удалось записать контент в файл по пути " + getPathTo());
+            return false;
         }
     }
 }

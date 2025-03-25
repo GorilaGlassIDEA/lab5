@@ -23,6 +23,7 @@ public class CreateFile implements Creatable {
     public void fileCreator() {
         Path filePath = Paths.get(path);
 
+        System.out.println("CreateFile: " + path);
 
         if (!Files.exists(filePath)) {
             try {

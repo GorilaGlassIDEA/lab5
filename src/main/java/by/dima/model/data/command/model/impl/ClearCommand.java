@@ -26,6 +26,7 @@ public class ClearCommand extends CommandAbstract {
     @Override
     public void execute() {
         collectionController.resetModels();
+        System.out.println("Команда выполнена!");
     }
 
 }

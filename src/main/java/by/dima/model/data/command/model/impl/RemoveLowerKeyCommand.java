@@ -24,6 +24,8 @@ public class RemoveLowerKeyCommand extends CommandAbstract {
         } else {
             System.err.println("Проверьте аргумент команды!");
         }
+        System.out.println("Команда выполнена!");
+
     }
 
     @Override

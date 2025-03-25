@@ -14,6 +14,7 @@ import java.util.*;
 
 /**
  * Данный класс управляет всеми командами через реализацию паттерна команда
+ *
  * @see Command
  */
 public class CommandManager {
@@ -46,6 +47,7 @@ public class CommandManager {
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(collectionController);
         Command printAscendingCommand = new PrintAscendingCommand(collectionController);
         Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(collectionController);
+        Command addCommand = new AddCommand(collectionController, idGenerateble);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -63,6 +65,7 @@ public class CommandManager {
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
         commandMap.put(printAscendingCommand.getKey(), printAscendingCommand);
         commandMap.put(printFieldDescendingDistanceCommand.getKey(), printFieldDescendingDistanceCommand);
+        commandMap.put(addCommand.getKey(), addCommand);
 
     }
 
@@ -93,8 +96,9 @@ public class CommandManager {
     /**
      * Данный метод позволяет запускать командны, переданные в аргументы метода. Данный метод необходим
      * для реализации команды запуска команд из файла
-     * @see ExecuteScriptCommand
+     *
      * @param commands
+     * @see ExecuteScriptCommand
      */
 
     public void executeCommand(String... commands) {

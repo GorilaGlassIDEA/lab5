@@ -14,15 +14,17 @@ public class WriteFileOutputStreamWriter extends WriteFileModel {
     }
 
     @Override
-    public void write(String content) {
+    public boolean write(String content) {
 
         try (OutputStream outputStream = new FileOutputStream(getPathTo())) {
             if (Files.exists(Path.of(getPathTo()))) {
                 byte[] bytes = content.getBytes();
                 outputStream.write(bytes);
             }
+            return true;
         } catch (IOException e) {
             System.err.println("Не удается записать данные в файл!");
+            return false;
         }
 
 

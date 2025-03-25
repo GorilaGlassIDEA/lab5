@@ -8,7 +8,7 @@ class LineStringIterator implements Iterator<String> {
 
     public LineStringIterator(String text) {
         if (text == null) {
-            System.err.println("Commands are not found!");
+            System.err.println("Не найдены команды для исполнения!");
             this.textArr = new String[0];
         } else {
             this.textArr = text.split("\n");

@@ -1,2 +1,2 @@
-clear
-save
+insert 1
+insert 2

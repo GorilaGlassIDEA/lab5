@@ -21,7 +21,11 @@ public class SaveCommand extends CommandAbstract {
 
     @Override
     public void execute() {
-        collectionController.saveCollection();
-        System.err.println("Your changes was saving!");
+
+        if (collectionController.saveCollection()) {
+            System.err.println("Your changes was saving!");
+        } else {
+            System.err.println("Your changes wasn't saving!");
+        }
     }
 }

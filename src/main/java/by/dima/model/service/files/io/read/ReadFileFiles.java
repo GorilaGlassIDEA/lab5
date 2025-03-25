@@ -11,19 +11,16 @@ public class ReadFileFiles implements ReadableFile {
     private String contentFile;
     @Setter
     @Getter
-    private String filePath;
+    private String fileName;
 
-    public ReadFileFiles(String filePath) {
-        this.filePath = filePath;
+    public ReadFileFiles(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
-    public String getContent() {
-        try {
-            contentFile = Files.readString(Paths.get(filePath));
-        } catch (IOException e) {
-            System.err.println("Не прочитать файл!");
-        }
+    public String getContent() throws IOException{
+
+        contentFile = Files.readString(Paths.get(fileName));
         return contentFile;
     }
 }
