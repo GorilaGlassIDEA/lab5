@@ -4,6 +4,9 @@ import by.dima.model.data.CollectionController;
 import by.dima.model.data.command.model.model.CommandAbstract;
 import by.dima.model.service.iterator.RouteIdSortIterator;
 
+/**
+ * Данная команда выводит все элементы коллекции в порядке возрастания Id
+ */
 public class PrintAscendingCommand extends CommandAbstract {
     private final CollectionController collectionController;
 

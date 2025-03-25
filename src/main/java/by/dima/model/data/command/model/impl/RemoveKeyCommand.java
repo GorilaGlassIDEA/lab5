@@ -5,6 +5,9 @@ import by.dima.model.data.command.model.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Данная команда позволяет удалить элемент по id, если такой id существует в коллекции
+ */
 @Getter
 @Setter
 public class RemoveKeyCommand extends CommandAbstract {

@@ -6,6 +6,9 @@ import by.dima.model.data.route.model.sub.LocationTo;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Данных интерфейс является абстракцией паттерна Builder для создания объектов типа {@link Route}
+ */
 interface RouteBuildable {
     RouteBuildable setId(long id);
 

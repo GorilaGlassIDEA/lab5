@@ -6,7 +6,6 @@ import by.dima.model.data.route.model.CheckableValidateInfoUtil;
 import by.dima.model.data.route.model.sub.Coordinates;
 import by.dima.model.data.route.model.sub.LocationFrom;
 import by.dima.model.data.route.model.sub.LocationTo;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +14,11 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Данный класс представляет собой основную модель для хранения данных в коллекции
+ * @see by.dima.model.data.CollectionController
+ * @see by.dima.model.data.abstracts.model.Models
+ */
 @Getter
 @Setter
 @NoArgsConstructor

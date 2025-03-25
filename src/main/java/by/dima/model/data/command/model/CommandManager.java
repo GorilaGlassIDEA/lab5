@@ -12,6 +12,10 @@ import lombok.Getter;
 
 import java.util.*;
 
+/**
+ * Данный класс управляет всеми командами через реализацию паттерна команда
+ * @see Command
+ */
 public class CommandManager {
     @Getter
     private final Map<String, Command> commandMap = new HashMap<>();
@@ -62,6 +66,10 @@ public class CommandManager {
 
     }
 
+    /**
+     * Данный метод позволяет запустить команду из структуры Map, в которой хранятся пара
+     * {@link Long} и {@link Command}. Ключ получается с ввода в консоли через класс {@link ScannerWrapper}
+     */
     public void executeCommand() {
         String[] arrArgs = scannerWrapper.newLine();
         List<String> args = new ArrayList<>(List.of(arrArgs));
@@ -81,6 +89,13 @@ public class CommandManager {
             System.err.println("Incorrect command or you dont write any args!" + " ARRAY BOUNDS");
         }
     }
+
+    /**
+     * Данный метод позволяет запускать командны, переданные в аргументы метода. Данный метод необходим
+     * для реализации команды запуска команд из файла
+     * @see ExecuteScriptCommand
+     * @param commands
+     */
 
     public void executeCommand(String... commands) {
         String thisCommandString = "";

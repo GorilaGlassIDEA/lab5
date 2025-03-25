@@ -8,7 +8,10 @@ import by.dima.model.service.iterator.TextIterable;
 import lombok.Getter;
 import lombok.Setter;
 
-
+/**
+ * Данная команда позволяет запускать другие команды с помощью текстовых файлов, содержащих последовательность
+ * команд. Для правильного чтения данных из файла используется собственный класс-итератор {@link TextIterable}
+ */
 @Setter
 @Getter
 public class ExecuteScriptCommand extends CommandAbstract {

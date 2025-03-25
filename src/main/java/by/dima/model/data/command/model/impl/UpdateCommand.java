@@ -9,6 +9,9 @@ import by.dima.model.data.route.model.main.RouteBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Данная команда позволяет обновить элемент по указанному id
+ */
 public class UpdateCommand extends CommandAbstract {
     @Getter
     @Setter

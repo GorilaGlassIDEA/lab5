@@ -8,7 +8,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-// TODO: переписать без костылей
+/**
+ * Реализация pattern Builder для ввода данных с консоли
+ * @see RouteBuildable
+ */
 public class CreateRouteUsingScanner {
     private Scanner scanner;
 

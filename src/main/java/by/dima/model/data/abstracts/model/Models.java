@@ -9,7 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-
+/**
+ * Данный класс является оберткой структуры Map и используется для работы с элементами Map
+ * Этот класс также необходим для правильной сериализации и десериализации объектов в json формат
+ * @see by.dima.model.service.files.parser.string.model.ParserToJson
+ */
 @NoArgsConstructor
 @Getter
 public class Models {
@@ -23,14 +27,25 @@ public class Models {
         this.zonedDateTime = ZonedDateTime.now();
     }
 
+    /**
+     *
+     * @return количество элементов в Map
+     */
     public long sizeArray() {
         return routesMap.size();
     }
 
+    /**
+     *
+     * @param route элемент для добавления в Map структуру
+     */
     public void addNewElement(Route route) {
         routesMap.put(route.getId(), route);
     }
 
+    /**
+     * удаляет все элементы из структуры
+     */
     public void reset() {
         routesMap = new HashMap<>();
     }

@@ -6,6 +6,10 @@ import by.dima.model.data.route.model.sub.LocationTo;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Данный класс является реализацией паттерна Builder для создания объектов типа {@link Route}
+ * @see RouteBuildable
+ */
 public class RouteBuilder implements RouteBuildable {
 
     private long id;

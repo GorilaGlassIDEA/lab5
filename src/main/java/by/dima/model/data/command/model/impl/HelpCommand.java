@@ -4,6 +4,9 @@ import by.dima.model.data.command.model.CommandManager;
 import by.dima.model.data.command.model.model.Command;
 import by.dima.model.data.command.model.model.CommandAbstract;
 
+/**
+ * Команда, реализующая вывод информации для всех команд
+ */
 public class HelpCommand extends CommandAbstract {
     private final CommandManager commandManager;
 

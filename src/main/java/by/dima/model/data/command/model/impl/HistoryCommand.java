@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Команда показывающая историю использования последних 8 команд
+ */
 @Getter
 @Setter
 public class HistoryCommand extends CommandAbstract {

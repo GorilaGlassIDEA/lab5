@@ -5,6 +5,9 @@ import by.dima.model.data.command.model.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Данная команда позволяет сохранить все элементы коллекции в json формате по пути переменной окружения
+ */
 @Getter
 @Setter
 public class SaveCommand extends CommandAbstract {

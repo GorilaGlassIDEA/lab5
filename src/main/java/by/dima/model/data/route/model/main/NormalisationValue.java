@@ -13,5 +13,5 @@ public interface NormalisationValue {
 
     void setNumbers(List<Number> numbers);
 
-    List<Double> normalizeAll(List<? extends Number> numbers);
+    List<Double> normalizeAll(List<Number> numbers);
 }

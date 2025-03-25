@@ -5,6 +5,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Данный класс является одной из реализаций нормализации данных для сортировки {@link Route}
+ */
 public class NormalizeValueImpl implements NormalisationValue {
     private double max;
     private double min;
@@ -26,7 +29,7 @@ public class NormalizeValueImpl implements NormalisationValue {
         return (t.doubleValue() - min) / (max - min);
     }
 
-    public List<Double> normalizeAll(List<? extends Number> numbers) {
+    public List<Double> normalizeAll(List<Number> numbers) {
         List<Double> normalizeList = new ArrayList<>();
         for (Number number : numbers) {
             normalizeList.add(normalize(number));

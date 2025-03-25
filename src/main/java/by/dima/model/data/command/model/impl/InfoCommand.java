@@ -6,6 +6,9 @@ import by.dima.model.data.command.model.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Команда выводящая информацию по всем элементам коллекции на данный момент
+ */
 @Getter
 @Setter
 public class InfoCommand extends CommandAbstract {

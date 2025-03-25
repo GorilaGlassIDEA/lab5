@@ -5,6 +5,9 @@ import by.dima.model.data.command.model.model.CommandAbstract;
 import by.dima.model.data.route.model.main.Route;
 import by.dima.model.service.iterator.RouteDistanceSortIterator;
 
+/**
+ * Данная команда выводит все элементы коллекции отсортированные по убыванию поля distance модели {@link Route}
+ */
 public class PrintFieldDescendingDistanceCommand extends CommandAbstract {
     private final CollectionController collectionController;
 
