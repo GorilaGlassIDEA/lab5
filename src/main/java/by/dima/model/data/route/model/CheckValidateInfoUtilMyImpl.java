@@ -1,9 +1,13 @@
 package by.dima.model.data.route.model;
 
-import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.route.model.exceptions.IncorrectDataModel;
 import by.dima.model.data.route.model.main.Route;
 
+/**
+ * Данный класс используется для проверки валидности данных при создании модели {@link Route}
+ * в нормальной работе программы не должен быть создан. Он исключает возможность изменение элементов коллекции
+ * или создании с помощью рефлексии
+ */
 public class CheckValidateInfoUtilMyImpl implements CheckableValidateInfoUtil {
     Route route;
 

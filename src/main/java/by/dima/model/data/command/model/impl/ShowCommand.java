@@ -6,6 +6,9 @@ import by.dima.model.data.command.model.model.CommandAbstract;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Данная команда показывает полную информацию по всем элементам коллекции
+ */
 @Getter
 @Setter
 public class ShowCommand extends CommandAbstract {

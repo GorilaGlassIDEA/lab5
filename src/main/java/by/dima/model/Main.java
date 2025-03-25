@@ -25,7 +25,13 @@ import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) {
-        final String FILE_PATH = System.getenv("DATA_FILE");
+        final String FILE_PATH;
+
+        if (System.getenv("DATA_FILE") == null) {
+            FILE_PATH = "~/";
+        } else {
+            FILE_PATH = System.getenv("DATA_FILE");
+        }
         ReadableFile readableFile = new ReadFileBufferReader(FILE_PATH);
         WriteableFile writeableFile = new WriteFileOutputStreamWriter(FILE_PATH);
         Creatable creatable = new CreateFile(writeableFile);

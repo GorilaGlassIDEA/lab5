@@ -8,12 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Данная команда реализует группировку элементов коллекции по любому признаку, описание группировки
+ * можно узнать в классе {@link by.dima.model.data.group.model.Groups}
+ */
 public class GroupCountingByIdCommand extends CommandAbstract {
     private final CollectionController collectionController;
 
     public GroupCountingByIdCommand(CollectionController collectionController) {
         super("group_counting_by_id", "Group collection elements by the value of the id field and display the number of elements in each group.");
         this.collectionController = collectionController;
+
     }
 
     @Override

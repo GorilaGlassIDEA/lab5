@@ -10,7 +10,9 @@ import by.dima.model.service.generate.id.IdGenerateble;
 import lombok.Getter;
 import lombok.Setter;
 
-
+/**
+ * Команда позволяющая добавлять новые элементы в коллекцию
+ */
 @Getter
 public class InsertCommand extends CommandAbstract {
     @Setter

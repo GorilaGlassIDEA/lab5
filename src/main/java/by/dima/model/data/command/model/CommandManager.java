@@ -12,6 +12,10 @@ import lombok.Getter;
 
 import java.util.*;
 
+/**
+ * Данный класс управляет всеми командами через реализацию паттерна команда
+ * @see Command
+ */
 public class CommandManager {
     @Getter
     private final Map<String, Command> commandMap = new HashMap<>();
@@ -41,6 +45,7 @@ public class CommandManager {
         Command removeLowerKeyCommand = new RemoveLowerKeyCommand(collectionController);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(collectionController);
         Command printAscendingCommand = new PrintAscendingCommand(collectionController);
+        Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(collectionController);
 
         commandMap.put(helpCommand.getKey(), helpCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -57,9 +62,14 @@ public class CommandManager {
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
         commandMap.put(printAscendingCommand.getKey(), printAscendingCommand);
+        commandMap.put(printFieldDescendingDistanceCommand.getKey(), printFieldDescendingDistanceCommand);
 
     }
 
+    /**
+     * Данный метод позволяет запустить команду из структуры Map, в которой хранятся пара
+     * {@link Long} и {@link Command}. Ключ получается с ввода в консоли через класс {@link ScannerWrapper}
+     */
     public void executeCommand() {
         String[] arrArgs = scannerWrapper.newLine();
         List<String> args = new ArrayList<>(List.of(arrArgs));
@@ -79,6 +89,13 @@ public class CommandManager {
             System.err.println("Incorrect command or you dont write any args!" + " ARRAY BOUNDS");
         }
     }
+
+    /**
+     * Данный метод позволяет запускать командны, переданные в аргументы метода. Данный метод необходим
+     * для реализации команды запуска команд из файла
+     * @see ExecuteScriptCommand
+     * @param commands
+     */
 
     public void executeCommand(String... commands) {
         String thisCommandString = "";

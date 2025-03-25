@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Добавляет информации в абстракцию интерфейса {@link Command}
+ * Все команды наследуются от данного класса
+ */
 @Getter
 @Setter
 @AllArgsConstructor
