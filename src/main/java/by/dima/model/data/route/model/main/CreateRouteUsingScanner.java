@@ -7,14 +7,12 @@ import by.dima.model.data.route.model.sub.LocationTo;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 /**
  * Реализация pattern Builder для ввода данных с консоли
  * @see RouteBuildable
  */
 public class CreateRouteUsingScanner {
     private Scanner scanner;
-
 
     public Route createRoute(RouteBuildable routeBuildable, long id) {
         scanner = new Scanner(System.in);
@@ -25,13 +23,12 @@ public class CreateRouteUsingScanner {
         routeBuildable.setLocationTo(readLocationTo());
         routeBuildable.setDistance(readDistance());
         return routeBuildable.build();
-
     }
 
     private String readName() {
         while (true) {
             try {
-                System.out.print("Route name: ");
+                System.out.println("Route name: ");
                 String name = scanner.nextLine();
                 if (name == null || name.isEmpty()) {
                     System.out.println("Name shouldn't be empty");
@@ -49,26 +46,27 @@ public class CreateRouteUsingScanner {
         Coordinates coordinates = new Coordinates();
         while (true) {
             try {
-                if (coordinates.getX() == 0) {
-                    System.out.print("Coordinate X (int): ");
-                    if (scanner.hasNextInt()) {
-                        int x = scanner.nextInt();
-                        coordinates.setX(x);
-                    } else {
-                        System.out.println("Incorrect type! Coordinate X must be an integer. Try again.");
-                        scanner.next();
-                        continue;
-                    }
+                System.out.println("Coordinate X (int): ");
+                if (scanner.hasNextInt()) {
+                    int x = scanner.nextInt();
+                    coordinates.setX(x);
+                    scanner.nextLine(); // Очистка буфера
+                } else {
+                    System.out.println("Incorrect type! Coordinate X must be an integer. Try again.");
+                    scanner.next();
+                    continue;
                 }
 
-                System.out.print("Coordinate Y (double, greater than -749): ");
+                System.out.println("Coordinate Y (double, greater than -749): ");
                 if (scanner.hasNextDouble()) {
                     double y = scanner.nextDouble();
                     if (y <= -749) {
                         System.out.println("Coordinate Y must be greater than -749. Try again.");
+                        scanner.nextLine(); // Очистка буфера
                         continue;
                     }
                     coordinates.setY(y);
+                    scanner.nextLine(); // Очистка буфера
                 } else {
                     System.out.println("Incorrect type! Coordinate Y must be a double. Try again.");
                     scanner.next();
@@ -77,12 +75,9 @@ public class CreateRouteUsingScanner {
 
                 return coordinates;
 
-
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect input! Try again.");
                 scanner.next();
-            } finally {
-                scanner.nextLine();
             }
         }
     }
@@ -91,28 +86,29 @@ public class CreateRouteUsingScanner {
         LocationFrom locationFrom = new LocationFrom();
         while (true) {
             try {
-                System.out.print("LocationFrom X (double): ");
+                System.out.println("LocationFrom X (double): ");
                 if (scanner.hasNextDouble()) {
                     double x = scanner.nextDouble();
                     locationFrom.setX(x);
+                    scanner.nextLine(); // Очистка буфера
                 } else {
                     System.out.println("Incorrect type! LocationFrom X must be a double. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
+                    scanner.next();
                     continue;
                 }
 
-                System.out.print("LocationFrom Y (float): ");
+                System.out.println("LocationFrom Y (float): ");
                 if (scanner.hasNextFloat()) {
                     float y = scanner.nextFloat();
                     locationFrom.setY(y);
+                    scanner.nextLine(); // Очистка буфера
                 } else {
                     System.out.println("Incorrect type! LocationFrom Y must be a float. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
+                    scanner.next();
                     continue;
                 }
 
-                System.out.print("LocationFrom Name (can be empty, length <= 690): ");
-                scanner.nextLine(); // Очистить буфер перед чтением строки
+                System.out.println("LocationFrom Name (can be empty, length <= 690): ");
                 String name = scanner.nextLine();
                 if (name.length() > 690) {
                     System.out.println("Length of name must be less than or equal to 690. Try again.");
@@ -124,9 +120,7 @@ public class CreateRouteUsingScanner {
 
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect input! Try again.");
-                scanner.next(); // Пропустить некорректный ввод
-            } finally {
-                scanner.nextLine(); // Очистить буфер сканера
+                scanner.next();
             }
         }
     }
@@ -135,28 +129,29 @@ public class CreateRouteUsingScanner {
         LocationTo locationTo = new LocationTo();
         while (true) {
             try {
-                System.out.print("LocationTo X (double): ");
+                System.out.println("LocationTo X (double): ");
                 if (scanner.hasNextDouble()) {
                     double x = scanner.nextDouble();
                     locationTo.setX(x);
+                    scanner.nextLine(); // Очистка буфера
                 } else {
                     System.out.println("Incorrect type! LocationTo X must be a double. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
+                    scanner.next();
                     continue;
                 }
 
-                System.out.print("LocationTo Y (double): ");
+                System.out.println("LocationTo Y (double): ");
                 if (scanner.hasNextDouble()) {
                     double y = scanner.nextDouble();
                     locationTo.setY(y);
+                    scanner.nextLine(); // Очистка буфера
                 } else {
                     System.out.println("Incorrect type! LocationTo Y must be a double. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
+                    scanner.next();
                     continue;
                 }
 
-                System.out.print("LocationTo Name (can be empty, length <= 330): ");
-                scanner.nextLine(); // Очистить буфер перед чтением строки
+                System.out.println("LocationTo Name (can be empty, length <= 330): ");
                 String name = scanner.nextLine();
                 if (name.length() > 330) {
                     System.out.println("Length of name must be less than or equal to 330. Try again.");
@@ -166,12 +161,9 @@ public class CreateRouteUsingScanner {
 
                 return locationTo;
 
-
             } catch (InputMismatchException e) {
                 System.out.println("Incorrect input! Try again.");
-                scanner.next(); // Пропустить некорректный ввод
-            } finally {
-                scanner.nextLine(); // Очистить буфер сканера
+                scanner.next();
             }
         }
     }
@@ -179,12 +171,13 @@ public class CreateRouteUsingScanner {
     private double readDistance() {
         while (true) {
             try {
-                System.out.print("Route Distance: ");
+                System.out.println("Route Distance: ");
                 double distance = scanner.nextDouble();
                 if (distance <= 0) {
                     System.out.println("Distance should be positive");
-                    scanner.next();
+                    scanner.nextLine(); // Очистка буфера
                 } else {
+                    scanner.nextLine(); // Очистка буфера
                     return distance;
                 }
             } catch (InputMismatchException e) {
@@ -193,5 +186,4 @@ public class CreateRouteUsingScanner {
             }
         }
     }
-
 }
