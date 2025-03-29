@@ -13,7 +13,6 @@ public class CreateRouteUsingScanner {
 
     public CreateRouteUsingScanner() {
         scanner = new Scanner(System.in);
-        // Устанавливаем локаль, которая понимает и точку, и запятую как разделитель
         scanner.useLocale(Locale.US);
     }
 
@@ -36,6 +35,10 @@ public class CreateRouteUsingScanner {
             } else {
                 return input;
             }
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nEOF detected. Exiting...");
+                System.exit(0);
+            }
         }
     }
 
@@ -47,12 +50,15 @@ public class CreateRouteUsingScanner {
             } else {
                 return input;
             }
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nEOF detected. Exiting...");
+                System.exit(0);
+            }
         }
     }
 
     private double parseDoubleWithCommaSupport(String input) {
         try {
-            // Заменяем запятую на точку перед парсингом
             return Double.parseDouble(input.replace(',', '.'));
         } catch (NumberFormatException e) {
             throw new InputMismatchException("Invalid number format");
@@ -61,7 +67,6 @@ public class CreateRouteUsingScanner {
 
     private float parseFloatWithCommaSupport(String input) {
         try {
-            // Заменяем запятую на точку перед парсингом
             return Float.parseFloat(input.replace(',', '.'));
         } catch (NumberFormatException e) {
             throw new InputMismatchException("Invalid number format");
@@ -108,6 +113,10 @@ public class CreateRouteUsingScanner {
             } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
             }
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nEOF detected. Exiting...");
+                System.exit(0);
+            }
         }
     }
 
@@ -151,6 +160,10 @@ public class CreateRouteUsingScanner {
 
             } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
+            }
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nEOF detected. Exiting...");
+                System.exit(0);
             }
         }
     }
@@ -196,6 +209,10 @@ public class CreateRouteUsingScanner {
             } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
             }
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nEOF detected. Exiting...");
+                System.exit(0);
+            }
         }
     }
 
@@ -220,6 +237,10 @@ public class CreateRouteUsingScanner {
                 }
             } catch (Exception e) {
                 System.out.println("Incorrect input! Try again.");
+            }
+            if (!scanner.hasNextLine()) {
+                System.out.println("\nEOF detected. Exiting...");
+                System.exit(0);
             }
         }
     }
