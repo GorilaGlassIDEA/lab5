@@ -4,6 +4,8 @@ import by.dima.model.data.CollectionController;
 import by.dima.model.data.abstracts.model.Models;
 import by.dima.model.data.command.model.CommandManager;
 import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
+import by.dima.model.request.ClientRequestUDP;
+import by.dima.model.request.Clientable;
 import by.dima.model.service.files.io.ScannerWrapper;
 import by.dima.model.service.files.io.create.Creatable;
 import by.dima.model.service.files.io.create.CreateFile;
@@ -59,9 +61,14 @@ public class Main {
             ScannerWrapper scannerWrapper = new ScannerWrapper();
             CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, parserToJson, idGenerateble);
 
+
+            Clientable clientable = new ClientRequestUDP();
+            byte[] randomBytes = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
             try {
                 while (true) {
                     manager.executeCommand();
+                    clientable.makePost(randomBytes);
                 }
             } catch (NoSuchElementException e) {
                 System.err.println("Program stopped!");
