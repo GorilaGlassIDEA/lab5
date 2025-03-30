@@ -1,29 +1,40 @@
 package by.dima.model.request;
 
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 
 public class ClientRequestUDP implements Clientable {
 
 
+    public void say() throws IOException {
+
+        byte[] dataOutput = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int port = 80;
+        InetAddress host = InetAddress.getLocalHost();
+        DatagramSocket socket;
+        DatagramPacket packet;
+
+        socket = new DatagramSocket(100);
+        packet = new DatagramPacket(dataOutput, dataOutput.length, host, port);
+        socket.send(packet);
+
+        dataOutput = new byte[10];
+        packet = new DatagramPacket(dataOutput, dataOutput.length);
+        socket.receive(packet);
+
+    }
+
     @Override
     public void makePost(byte[] data) {
-        try {
-        DatagramSocket datagramSocket = new DatagramSocket();
-        int len = data.length;
-            DatagramPacket datagramPacket = new DatagramPacket(data, len, InetAddress.getLocalHost(), 80);
-            datagramSocket.send(datagramPacket);
-        } catch (IOException e) {
-            System.err.println("Не удалость отпарвить пакет с данными!");
-        }
+
+
     }
 
     @Override
     public byte[] makeGet() {
-
         return null;
     }
 }
