@@ -4,12 +4,16 @@ import by.dima.model.request.ClientRequestUDP;
 import by.dima.model.request.Clientable;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 public class Client {
 
     public static void start() throws IOException {
 
-        ClientRequestUDP client = new ClientRequestUDP();
-        client.say();
+        Clientable client = new ClientRequestUDP();
+        client.makePost("Hello".getBytes());
+        byte[] data = client.makeGet();
+        System.out.println(new String(data, Charset.defaultCharset()));
+
     }
 }

@@ -7,34 +7,40 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class ClientRequestUDP implements Clientable {
+    byte[] dataOutput = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int port = 80;
+    InetAddress host;
+    DatagramSocket socket;
+    DatagramPacket packet;
 
-
-    public void say() throws IOException {
-
-        byte[] dataOutput = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        int port = 80;
-        InetAddress host = InetAddress.getLocalHost();
-        DatagramSocket socket;
-        DatagramPacket packet;
-
-        socket = new DatagramSocket(100);
-        packet = new DatagramPacket(dataOutput, dataOutput.length, host, port);
-        socket.send(packet);
-
-        dataOutput = new byte[10];
-        packet = new DatagramPacket(dataOutput, dataOutput.length);
-        socket.receive(packet);
-
+    public ClientRequestUDP() throws IOException {
+        host = InetAddress.getLocalHost();
+        socket = new DatagramSocket();
     }
 
     @Override
     public void makePost(byte[] data) {
-
-
+        try {
+            socket = new DatagramSocket();
+            packet = new DatagramPacket(data, data.length, host, port);
+            socket.send(packet);
+            System.out.println("Запрос отправлен!");
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось отправить данные с сервера");
+        }
     }
 
     @Override
     public byte[] makeGet() {
-        return null;
+
+        try {
+            dataOutput = new byte[10];
+            packet = new DatagramPacket(dataOutput, dataOutput.length);
+            socket.receive(packet);
+            System.out.println("Запрос принят!");
+            return dataOutput;
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось получить данные с сервера!");
+        }
     }
 }
