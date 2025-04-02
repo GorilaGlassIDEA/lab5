@@ -1,5 +1,6 @@
 package by.dima.model;
 
+import by.dima.model.request.ClientRequestTCP;
 import by.dima.model.request.ClientRequestUDP;
 import by.dima.model.request.Clientable;
 
@@ -10,10 +11,11 @@ public class Client {
 
     public static void start() throws IOException {
 
-        Clientable client = new ClientRequestUDP();
-        client.makePost("Hello".getBytes());
-        byte[] data = client.makeGet();
-        System.out.println(new String(data, Charset.defaultCharset()));
+        Clientable client = new ClientRequestTCP();
+        client.say();
+//        client.makePost("Hello".getBytes());
+//        byte[] data = client.makeGet();
+//        System.out.println(new String(data, Charset.defaultCharset()));
 
     }
 }

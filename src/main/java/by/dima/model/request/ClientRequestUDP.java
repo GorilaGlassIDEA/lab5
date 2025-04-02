@@ -8,10 +8,15 @@ import java.net.InetAddress;
 
 public class ClientRequestUDP implements Clientable {
     byte[] dataOutput = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int port = 80;
+    int port = 65000;
     InetAddress host;
     DatagramSocket socket;
     DatagramPacket packet;
+
+    public void say() {
+    }
+
+    ;
 
     public ClientRequestUDP() throws IOException {
         host = InetAddress.getLocalHost();
