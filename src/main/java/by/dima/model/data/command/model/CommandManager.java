@@ -74,18 +74,33 @@ public class CommandManager {
      * {@link Long} и {@link Command}. Ключ получается с ввода в консоли через класс {@link ScannerWrapper}
      */
     public void executeCommand() {
-        String[] arrArgs = scannerWrapper.newLine();
+        String[] arrArgs = scannerWrapper.newLineSplitSpace();
+        // запрос новой строки в виде массива строк разделенных по пробелу
+
         List<String> args = new ArrayList<>(List.of(arrArgs));
+        // переделываем в динамический массив
+
         try {
             String key = args.get(0);
+            // получение ключа, то есть первого аргумента в строке
+
             Command thisCommand = commandMap.get(key);
+            // получаем команду из структуры Map<String, Command
+
             thisCommand.setArgs(GetSecondArgFromArgsUtil.getSecondArg(arrArgs));
+            // вызываем метод setArgs у команды, которая реализована по умолчанию,
+            // как ничего не делающая, но в некоторых командах insert {id} update {id} и тд она
+            // передает id элемента
+
             thisCommand.execute();
+            // запускаем выполенение команды
+
             if (!(thisCommand instanceof HistoryCommand))
                 historyCommandQueue.addLast(key);
             if (historyCommandQueue.size() > 8) {
                 historyCommandQueue.removeFirst();
             }
+
         } catch (NullPointerException e) {
             System.err.println("Incorrect command or you dont write any args!" + " NULL POINTER");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -102,19 +117,15 @@ public class CommandManager {
      */
 
     public void executeCommand(String... commands) {
-        String thisCommandString = "";
         int count = commands.length;
         while (count > 0) {
             try {
                 for (String keyCommand : commands) {
                     count -= 1;
                     commandMap.get(keyCommand).execute();
-                    System.out.println("Command: " + keyCommand + " completed!");
-                    System.out.println("---------------------------------------");
-
                 }
             } catch (NoSuchElementException e) {
-                System.err.println("Command " + thisCommandString + " is not found");
+                System.err.println("Command is not found");
             }
         }
     }

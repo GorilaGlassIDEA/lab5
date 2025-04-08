@@ -35,3 +35,16 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
 разобраться с javadoc
 
 ошибка permission denied при запросе на любой порт - решить!
+    InetAddress host = Stream.of(hostPort)
+                    .map(s -> s.split("="))
+                    .filter(s -> s.length >= 2)
+                    .map(s -> s[1])
+                    .map(s -> {
+                        try {
+                            return InetAddress.getByName(s);
+                        } catch (UnknownHostException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Адрес не найден"));

@@ -9,7 +9,7 @@ public class ScannerWrapper {
 
     private Scanner scanner;
 
-    public String[] newLine() {
+    public String[] newLineSplitSpace() {
         scanner = new Scanner(System.in);
         String nextLine = scanner.nextLine().trim();
         return nextLine.split(" ");

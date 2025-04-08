@@ -1,14 +1,37 @@
 package by.dima.model;
 
 
+import by.dima.model.data.CollectionController;
+import by.dima.model.data.abstracts.model.Models;
+import by.dima.model.data.command.model.CommandManager;
+import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
+import by.dima.model.service.files.io.ScannerWrapper;
+import by.dima.model.service.files.io.create.Creatable;
+import by.dima.model.service.files.io.create.CreateFile;
+import by.dima.model.service.files.io.read.ReadFileBufferReader;
+import by.dima.model.service.files.io.read.ReadableFile;
+import by.dima.model.service.files.io.write.WriteFileOutputStreamWriter;
+import by.dima.model.service.files.io.write.WriteableFile;
+import by.dima.model.service.files.parser.string.impl.ParserFromJsonJacksonImpl;
+import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
+import by.dima.model.service.files.parser.string.model.ParserFromJson;
+import by.dima.model.service.files.parser.string.model.ParserToJson;
+import by.dima.model.service.generate.id.IdGenerateMy;
+import by.dima.model.service.generate.id.IdGenerateble;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 public class Main {
     public static String FILE_PATH;
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
+
         Client.start();
-//
+
 //        if (System.getenv("FILE_PATH") == null) {
 //            FILE_PATH = System.getProperty("user.dir") + '/' + "save";
 //        } else {
