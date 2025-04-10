@@ -1,0 +1,34 @@
+package by.dima.model.logging.factory;
+
+
+import java.io.IOException;
+import java.util.logging.*;
+
+public class LoggingFactoryForBeanSpring {
+    public static Logger logger;
+    public static FileHandler fileHandler;
+    public static ConsoleHandler consoleHandler;
+
+
+    public static Logger createLogger() {
+
+        consoleHandler = new ConsoleHandler();
+        logger = Logger.getLogger("client-log");
+        try {
+            fileHandler = new FileHandler("app.log");
+        } catch (IOException e) {
+            System.err.println("Работа вашей программы будет без отслеживания ошибок!");
+        }
+
+        fileHandler.setLevel(Level.INFO);
+        fileHandler.setFormatter(new SimpleFormatter());
+
+        consoleHandler.setLevel(Level.FINE);
+        consoleHandler.setFilter(record -> (record.getLevel() == Level.FINE) || record.getLevel() == Level.INFO);
+        consoleHandler.setFormatter(new SimpleFormatter());
+
+        logger.setLevel(Level.FINE);
+        return logger;
+    }
+
+}

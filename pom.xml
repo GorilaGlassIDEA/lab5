@@ -144,5 +144,12 @@
             <version>5.11.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.1.14</version> <!-- актуальная стабильная версия -->
+        </dependency>
+
     </dependencies>
 </project>

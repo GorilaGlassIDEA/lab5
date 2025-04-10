@@ -26,7 +26,6 @@ public class ClientRequestUDP implements Clientable {
             socket = new DatagramSocket();
             packet = new DatagramPacket(data, data.length, host, port);
             socket.send(packet);
-            System.out.println("Запрос отправлен!");
         } catch (IOException e) {
             throw new RuntimeException("Не удалось отправить данные с сервера");
         }

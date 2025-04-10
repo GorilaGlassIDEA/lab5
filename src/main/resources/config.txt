@@ -48,3 +48,4 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
                     })
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("Адрес не найден"));
+доделать внедрение зависимости через фабричный класс для Logging

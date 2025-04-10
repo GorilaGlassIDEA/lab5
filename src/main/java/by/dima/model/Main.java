@@ -21,6 +21,8 @@ import by.dima.model.service.generate.id.IdGenerateble;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -30,7 +32,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Client.start();
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Client client = (Client) context.getBean("client");
+        client.start();
 
 //        if (System.getenv("FILE_PATH") == null) {
 //            FILE_PATH = System.getProperty("user.dir") + '/' + "save";
