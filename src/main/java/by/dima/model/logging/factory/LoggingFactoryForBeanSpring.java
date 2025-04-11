@@ -1,8 +1,5 @@
 package by.dima.model.logging.factory;
 
-
-import lombok.Getter;
-
 import java.io.IOException;
 import java.util.logging.*;
 
