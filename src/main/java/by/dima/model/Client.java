@@ -3,14 +3,14 @@ package by.dima.model;
 import by.dima.model.dto.CommandDTO;
 import by.dima.model.request.ClientRequestUDP;
 import by.dima.model.request.Clientable;
+import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.*;
 import java.util.logging.*;
 
 @Setter
+@Getter
 public class Client {
     private Logger logger;
 
@@ -27,12 +27,7 @@ public class Client {
             logger.log(Level.INFO, "Пакет ушел на сервер!");
         } catch (NotSerializableException e) {
             logger.log(Level.WARNING, "Класс CommandDTO не сериализуется!");
-        } finally {
-            for (Handler handler : logger.getHandlers()) {
-                handler.close();
-            }
         }
         clientRequestUDP.makePost(buffer);
     }
-
 }

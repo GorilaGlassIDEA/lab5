@@ -1,19 +1,21 @@
 package by.dima.model.logging.factory;
 
 
+import lombok.Getter;
+
 import java.io.IOException;
 import java.util.logging.*;
 
 public class LoggingFactoryForBeanSpring {
-    public static Logger logger;
-    public static FileHandler fileHandler;
-    public static ConsoleHandler consoleHandler;
+    public Logger logger;
+    public FileHandler fileHandler;
+    public ConsoleHandler consoleHandler;
 
 
-    public static Logger createLogger() {
+    public Logger initLogger() {
+        logger = Logger.getLogger("client-log");
 
         consoleHandler = new ConsoleHandler();
-        logger = Logger.getLogger("client-log");
         try {
             fileHandler = new FileHandler("app.log");
         } catch (IOException e) {
@@ -29,6 +31,12 @@ public class LoggingFactoryForBeanSpring {
 
         logger.setLevel(Level.FINE);
         return logger;
+    }
+
+    public void destroyLogger() {
+        System.out.println("Handlers to close: " + logger.getHandlers().length);
+        consoleHandler.close();
+        fileHandler.close();
     }
 
 }

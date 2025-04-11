@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
 public class ClientRequestUDP implements Clientable {
     int port = 80;
     InetAddress host;

@@ -16,10 +16,12 @@ public class CommandDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String nameCommand;
     private String argCommand;
+    private String jsonRouteObj;
 
     public CommandDTO(String nameCommand) {
         this.nameCommand = nameCommand;
         this.argCommand = null;
+        this.jsonRouteObj = null;
     }
 }
 

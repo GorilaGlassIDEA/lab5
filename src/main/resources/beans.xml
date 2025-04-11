@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="logger" class="by.dima.model.logging.factory.LoggingFactoryForBeanSpring" factory-method="createLogger"/>
+    <bean id="loggerBean" class="by.dima.model.logging.factory.LoggingFactoryForBeanSpring" init-method="initLogger"
+          destroy-method="destroyLogger"/>
 
     <bean id="client" class="by.dima.model.Client">
-        <property name="logger" ref="logger"/>
+        <property name="logger" value="#{loggerBean.logger}"/>
     </bean>
-
 
 </beans>
