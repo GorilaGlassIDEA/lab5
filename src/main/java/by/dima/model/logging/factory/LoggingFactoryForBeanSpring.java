@@ -31,7 +31,6 @@ public class LoggingFactoryForBeanSpring {
     }
 
     public void destroyLogger() {
-        System.out.println("Handlers to close: " + logger.getHandlers().length);
         consoleHandler.close();
         fileHandler.close();
     }
