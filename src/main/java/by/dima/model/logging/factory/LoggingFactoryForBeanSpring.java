@@ -1,16 +1,20 @@
 package by.dima.model.logging.factory;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.IOException;
 import java.util.logging.*;
 
 public class LoggingFactoryForBeanSpring {
+    private FileHandler fileHandler;
     public Logger logger;
-    public FileHandler fileHandler;
-    public ConsoleHandler consoleHandler;
+    private ConsoleHandler consoleHandler;
 
 
     public Logger initLogger() {
         logger = Logger.getLogger("client-log");
+        logger.setUseParentHandlers(false);
 
         consoleHandler = new ConsoleHandler();
         try {
@@ -25,7 +29,8 @@ public class LoggingFactoryForBeanSpring {
         consoleHandler.setLevel(Level.FINE);
         consoleHandler.setFilter(record -> (record.getLevel() == Level.FINE) || record.getLevel() == Level.INFO);
         consoleHandler.setFormatter(new SimpleFormatter());
-
+        logger.addHandler(fileHandler);
+        logger.addHandler(consoleHandler);
         logger.setLevel(Level.FINE);
         return logger;
     }

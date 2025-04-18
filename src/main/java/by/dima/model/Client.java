@@ -1,6 +1,6 @@
 package by.dima.model;
 
-import by.dima.model.dto.CommandDTO;
+import by.dima.model.common.CommandDTO;
 import by.dima.model.request.ClientRequestUDP;
 import by.dima.model.request.Clientable;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class Client {
 
 
     public void start() throws IOException {
-        CommandDTO commandDTO = new CommandDTO("insert");
+        CommandDTO commandDTO = new CommandDTO("show");
         Clientable clientRequestUDP = new ClientRequestUDP();
 
         byte[] buffer = null;

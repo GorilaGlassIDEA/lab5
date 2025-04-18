@@ -1,4 +1,4 @@
-package by.dima.model.dto;
+package by.dima.model.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
