@@ -1,17 +1,19 @@
 package by.dima.model.logging.factory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.logging.*;
 
-public class LoggingFactoryForBeanSpring {
+@Component
+public class LoggerWrapper {
     private FileHandler fileHandler;
     public Logger logger;
     private ConsoleHandler consoleHandler;
 
-
+    @PostConstruct
     public Logger initLogger() {
         logger = Logger.getLogger("client-log");
         logger.setUseParentHandlers(false);
@@ -35,6 +37,7 @@ public class LoggingFactoryForBeanSpring {
         return logger;
     }
 
+    @PreDestroy
     public void destroyLogger() {
         consoleHandler.close();
         fileHandler.close();

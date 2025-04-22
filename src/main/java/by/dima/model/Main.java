@@ -1,18 +1,25 @@
 package by.dima.model;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import by.dima.model.common.AnswerDTO;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
 
     public static void main(String[] args) throws IOException {
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         Client client = (Client) context.getBean("client");
-        client.start();
-        context.close();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String command = scanner.nextLine();
+            command = command.strip();
+            AnswerDTO answerDTO = client.sendCommandReceiveAnswer(command);
+            System.out.println(answerDTO);
+        }
+
     }
 }

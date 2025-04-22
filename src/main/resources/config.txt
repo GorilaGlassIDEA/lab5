@@ -49,3 +49,4 @@ DATA_FILE=/Users/dmitrijmartynov/Desktop
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("Адрес не найден"));
 доделать внедрение зависимости через фабричный класс для Logging
+добавить поддержку идентификации пользователя при оправке запроса с помощью дополнительного поля в Command DTO
