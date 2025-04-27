@@ -8,6 +8,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.util.Random;
 
 @Component
 public class ClientRequestUDP implements Clientable {
@@ -20,8 +21,8 @@ public class ClientRequestUDP implements Clientable {
     //TODO: сделать порты через файл конфигурации
     public ClientRequestUDP() throws IOException {
         host = InetAddress.getLocalHost();
-        serverPort = 6676;
-        myPort = 1000;
+        serverPort = 8932;
+        myPort = new Random().nextInt(1_001, 65_000);
         socket = new DatagramSocket(myPort);
     }
 

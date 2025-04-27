@@ -19,12 +19,13 @@ public class CommandDTO implements Serializable {
     private String nameCommand;
     private String argCommand;
     private String jsonRouteObj;
+    private Long userID;
 
     public CommandDTO(String nameCommand) {
         this.nameCommand = nameCommand;
-        this.argCommand = null;
-        this.jsonRouteObj = null;
     }
+
 }
+
 
 

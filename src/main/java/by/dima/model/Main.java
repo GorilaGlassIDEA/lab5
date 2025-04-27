@@ -17,8 +17,9 @@ public class Main {
         while (true) {
             String command = scanner.nextLine();
             command = command.strip();
+            System.out.println("Команда которая отправлена: " + command);
             AnswerDTO answerDTO = client.sendCommandReceiveAnswer(command);
-            System.out.println(answerDTO);
+            System.out.println(answerDTO.getAnswer());
         }
 
     }

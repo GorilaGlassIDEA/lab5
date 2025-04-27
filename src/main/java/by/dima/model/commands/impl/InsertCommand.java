@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.IdGenerator;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class InsertCommand implements Command {
     private String key = "insert";
 
     @Autowired
-    public InsertCommand(ScannerBuildRoute builder, RouteParserToJson parser, RouteParserToJson routeParserToJson) {
+    public InsertCommand( ScannerBuildRoute builder, RouteParserToJson parser, RouteParserToJson routeParserToJson) {
         this.builder = builder;
         this.parser = parser;
         this.routeParserToJson = routeParserToJson;
@@ -39,7 +40,7 @@ public class InsertCommand implements Command {
         Route route = builder.getRoute();
         if (route != null) {
             commandDTO = new CommandDTO(key,
-                    arg == null ? "" : arg, parser.getObj(route));
+                    arg == null ? "" : arg, parser.getObj(route), route.getId());
         }
     }
 

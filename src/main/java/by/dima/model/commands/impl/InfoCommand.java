@@ -1,14 +1,11 @@
 package by.dima.model.commands.impl;
 
 import by.dima.model.commands.model.Command;
-import by.dima.model.common.AnswerDTO;
 import by.dima.model.common.CommandDTO;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
