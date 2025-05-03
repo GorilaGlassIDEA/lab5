@@ -14,16 +14,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-
 import java.util.logging.*;
 
 @Setter
 @Getter
-@NoArgsConstructor
-@Component
 public class Client {
     private Logger logger;
     private Clientable clientRequestUDP;
@@ -32,14 +26,15 @@ public class Client {
     private DeserializableAnswerDTO deserializableAnswerDTO;
     private CommandManager manager;
     private CommandDTO commandDTO;
+    private final Long userId;
 
-    @Autowired
     public Client(Logger logger, Clientable clientRequestUDP, SerializableCommandDTO serializableCommandDTO, DeserializableAnswerDTO deserializableAnswerDTO, CommandManager manager) {
         this.logger = logger;
         this.clientRequestUDP = clientRequestUDP;
         this.serializableCommandDTO = serializableCommandDTO;
         this.deserializableAnswerDTO = deserializableAnswerDTO;
         this.manager = manager;
+        this.userId = clientRequestUDP.getUserId();
     }
 
     public AnswerDTO sendCommandReceiveAnswer(String commandString) {

@@ -7,41 +7,55 @@ import by.dima.model.route.builder.ScannerBuildRoute;
 import by.dima.model.route.models.main.Route;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.IdGenerator;
 
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * Команда позволяющая добавлять новые элементы в коллекцию
  */
 @Getter
-@Component
 public class InsertCommand implements Command {
-    private final ScannerBuildRoute builder;
-    private final RouteParserToJson routeParserToJson;
+    private ScannerBuildRoute builder;
+    private final Logger logger;
     private CommandDTO commandDTO;
-    @Setter
     private String arg;
     private final RouteParserToJson parser;
     @Setter
     private String key = "insert";
+    private final Long userId;
 
-    @Autowired
-    public InsertCommand( ScannerBuildRoute builder, RouteParserToJson parser, RouteParserToJson routeParserToJson) {
-        this.builder = builder;
+    public InsertCommand(RouteParserToJson parser, Long userId, Logger logger) {
         this.parser = parser;
-        this.routeParserToJson = routeParserToJson;
+        this.logger = logger;
+        this.builder = new ScannerBuildRoute();
+        this.userId = userId;
     }
 
     @Override
     public void execute() {
-        Route route = builder.getRoute();
+        Long routeId = -1L;
+        if (arg != null) {
+            try {
+                routeId = Long.parseLong(arg);
+            } catch (NumberFormatException e) {
+                logger.log(Level.CONFIG, "Id при создании невозможно преобразовать в long");
+            }
+        }
+
+        Route route = builder.build(routeId);
         if (route != null) {
             commandDTO = new CommandDTO(key,
-                    arg == null ? "" : arg, parser.getObj(route), route.getId());
+                    arg == null ? "" : arg, parser.getObj(route), userId);
         }
+        logger.log(Level.INFO, "Построенная модель: " + route);
+        builder = new ScannerBuildRoute();
+    }
+
+    @Override
+    public void setArgs(String arg) {
+        this.arg = arg;
     }
 
     @Override

@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public interface Clientable {
-    default void say() throws IOException {
+    default Long getUserId() {
+        return -1L;
     }
 
     void makePost(byte[] data);

@@ -1,6 +1,7 @@
 package by.dima.model.request;
 
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -10,10 +11,10 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.Random;
 
-@Component
 public class ClientRequestUDP implements Clientable {
     private final int serverPort;
-    private final int myPort;
+    @Getter
+    private Long userId;
     private final InetAddress host;
     private final DatagramSocket socket;
     private DatagramPacket packet;
@@ -22,8 +23,8 @@ public class ClientRequestUDP implements Clientable {
     public ClientRequestUDP() throws IOException {
         host = InetAddress.getLocalHost();
         serverPort = 8932;
-        myPort = new Random().nextInt(1_001, 65_000);
-        socket = new DatagramSocket(myPort);
+        userId = new Random().nextLong(1_001, 65_000);
+        socket = new DatagramSocket(userId.intValue());
     }
 
     @Override

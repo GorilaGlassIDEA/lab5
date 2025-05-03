@@ -5,195 +5,200 @@ import by.dima.model.route.models.main.Route;
 import by.dima.model.route.models.sub.Coordinates;
 import by.dima.model.route.models.sub.LocationFrom;
 import by.dima.model.route.models.sub.LocationTo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-@Component
 public class ScannerBuildRoute {
+    private final RouteBuilder builder;
     private final Scanner scanner;
 
-    @Autowired
-    public ScannerBuildRoute(Scanner scanner) {
-        this.scanner = scanner;
+    public ScannerBuildRoute() {
+        this.builder = new RouteBuilder();
+        scanner = new Scanner(System.in);
     }
 
-    public Route getRoute() {
-        RouteBuild builder = new RouteBuild();
+    public Route build(Long id) {
         builder.setName(readName());
         builder.setCoordinates(readCoordinates());
         builder.setFrom(readLocationFrom());
         builder.setTo(readLocationTo());
         builder.setDistance(readDistance());
+        builder.setId(id);
         return builder.build();
     }
 
-    private String readName() {
+    public String readName() {
+        System.out.println("Введите имя:");
         while (true) {
-            try {
-                System.out.print("Route name: ");
-                String name = scanner.nextLine();
-                if (name == null || name.isEmpty()) {
-                    System.out.println("Name shouldn't be empty");
-                } else {
-                    return name;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect type! Try again");
-                scanner.next();
+            String line = scanner.nextLine();
+            if (line.isBlank()) {
+                System.out.println("Имя не может быть пустой строкой! Попробуйте ещё раз:");
+            } else {
+                return line.strip();
             }
         }
     }
 
-    private Coordinates readCoordinates() {
-        Coordinates coordinates = new Coordinates();
+    public int readInt(String prompt) {
+        System.out.println(prompt);
         while (true) {
+            String line = scanner.nextLine();
             try {
-                if (coordinates.getX() == 0) {
-                    System.out.print("Coordinate X (int): ");
-                    if (scanner.hasNextInt()) {
-                        int x = scanner.nextInt();
-                        coordinates.setX(x);
-                    } else {
-                        System.out.println("Incorrect type! Coordinate X must be an integer. Try again.");
-                        scanner.next();
-                        continue;
-                    }
-                }
-
-                System.out.print("Coordinate Y (double, greater than -749): ");
-                if (scanner.hasNextDouble()) {
-                    double y = scanner.nextDouble();
-                    if (y <= -749) {
-                        System.out.println("Coordinate Y must be greater than -749. Try again.");
-                        continue;
-                    }
-                    coordinates.setY(y);
-                } else {
-                    System.out.println("Incorrect type! Coordinate Y must be a double. Try again.");
-                    scanner.next();
-                    continue;
-                }
-
-                return coordinates;
-
-
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect input! Try again.");
-                scanner.next();
-            } finally {
-                scanner.nextLine();
+                return Integer.parseInt(line.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите целое число! Попробуйте ещё раз:");
             }
         }
     }
 
-    private LocationFrom readLocationFrom() {
-        LocationFrom locationFrom = new LocationFrom();
+    public double readDouble(String prompt) {
+        System.out.println(prompt);
         while (true) {
+            String line = scanner.nextLine();
             try {
-                System.out.print("LocationFrom X (double): ");
-                if (scanner.hasNextDouble()) {
-                    double x = scanner.nextDouble();
-                    locationFrom.setX(x);
-                } else {
-                    System.out.println("Incorrect type! LocationFrom X must be a double. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
-                    continue;
-                }
-
-                System.out.print("LocationFrom Y (float): ");
-                if (scanner.hasNextFloat()) {
-                    float y = scanner.nextFloat();
-                    locationFrom.setY(y);
-                } else {
-                    System.out.println("Incorrect type! LocationFrom Y must be a float. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
-                    continue;
-                }
-
-                System.out.print("LocationFrom Name (can be empty, length <= 690): ");
-                scanner.nextLine(); // Очистить буфер перед чтением строки
-                String name = scanner.nextLine();
-                if (name.length() > 690) {
-                    System.out.println("Length of name must be less than or equal to 690. Try again.");
-                    continue;
-                }
-                locationFrom.setName(name);
-
-                return locationFrom;
-
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect input! Try again.");
-                scanner.next(); // Пропустить некорректный ввод
-            } finally {
-                scanner.nextLine(); // Очистить буфер сканера
+                return Double.parseDouble(line.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите число с точкой! Попробуйте ещё раз:");
             }
         }
     }
 
-    private LocationTo readLocationTo() {
-        LocationTo locationTo = new LocationTo();
+    public Float readFloat(String prompt) {
+        System.out.println(prompt);
         while (true) {
+            String line = scanner.nextLine();
             try {
-                System.out.print("LocationTo X (double): ");
-                if (scanner.hasNextDouble()) {
-                    double x = scanner.nextDouble();
-                    locationTo.setX(x);
-                } else {
-                    System.out.println("Incorrect type! LocationTo X must be a double. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
-                    continue;
-                }
-
-                System.out.print("LocationTo Y (double): ");
-                if (scanner.hasNextDouble()) {
-                    double y = scanner.nextDouble();
-                    locationTo.setY(y);
-                } else {
-                    System.out.println("Incorrect type! LocationTo Y must be a double. Try again.");
-                    scanner.next(); // Пропустить некорректный ввод
-                    continue;
-                }
-
-                System.out.print("LocationTo Name (can be empty, length <= 330): ");
-                scanner.nextLine(); // Очистить буфер перед чтением строки
-                String name = scanner.nextLine();
-                if (name.length() > 330) {
-                    System.out.println("Length of name must be less than or equal to 330. Try again.");
-                    continue;
-                }
-                locationTo.setName(name);
-
-                return locationTo;
-
-
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect input! Try again.");
-                scanner.next(); // Пропустить некорректный ввод
-            } finally {
-                scanner.nextLine(); // Очистить буфер сканера
+                return Float.parseFloat(line.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите дробное число (float)! Попробуйте ещё раз:");
             }
         }
     }
 
-    private double readDistance() {
+    public Coordinates readCoordinates() {
+        int x;
         while (true) {
+            System.out.println("Введите координату X (целое число):");
+            String line = scanner.nextLine();
             try {
-                System.out.print("Route Distance: ");
-                double distance = scanner.nextDouble();
-                if (distance <= 0) {
-                    System.out.println("Distance should be positive");
-                    scanner.next();
-                } else {
-                    return distance;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Incorrect type! Try again");
-                scanner.next();
+                x = Integer.parseInt(line.trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите корректное целое число!");
             }
         }
+
+        Double y;
+        while (true) {
+            System.out.println("Введите координату Y (дробное число больше -749):");
+            String line = scanner.nextLine();
+            try {
+                y = Double.parseDouble(line.trim());
+                if (y > -749) {
+                    break;
+                } else {
+                    System.out.println("Ошибка: Y должно быть больше -749!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите корректное число!");
+            }
+        }
+
+        return new Coordinates(x, y);
     }
 
+    public LocationFrom readLocationFrom() {
+        double x;
+        while (true) {
+            System.out.println("Введите LocationFrom X (дробное число):");
+            String line = scanner.nextLine();
+            try {
+                x = Double.parseDouble(line.trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите корректное число!");
+            }
+        }
+
+        Float y;
+        while (true) {
+            System.out.println("Введите LocationFrom Y (дробное число):");
+            String line = scanner.nextLine();
+            try {
+                y = Float.parseFloat(line.trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите корректное число!");
+            }
+        }
+
+        String name;
+        while (true) {
+            System.out.println("Введите имя LocationFrom:");
+            name = scanner.nextLine().strip();
+            if (name.isEmpty()) {
+                System.out.println("Имя не может быть пустым! Попробуйте снова:");
+            } else if (name.length() > 690) {
+                System.out.println("Имя слишком длинное! Не более 690 символов:");
+            } else {
+                break;
+            }
+        }
+
+        return new LocationFrom(x, y, name);
+    }
+
+    public LocationTo readLocationTo() {
+        Double x;
+        while (true) {
+            System.out.println("Введите LocationTo X (дробное число):");
+            String line = scanner.nextLine();
+            try {
+                x = Double.parseDouble(line.trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите корректное число!");
+            }
+        }
+
+        Double y;
+        while (true) {
+            System.out.println("Введите LocationTo Y (дробное число):");
+            String line = scanner.nextLine();
+            try {
+                y = Double.parseDouble(line.trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите корректное число!");
+            }
+        }
+
+        String name;
+        while (true) {
+            System.out.println("Введите имя LocationTo:");
+            name = scanner.nextLine().strip();
+            if (name.isEmpty()) {
+                System.out.println("Имя не может быть пустым! Попробуйте снова:");
+            } else if (name.length() > 330) {
+                System.out.println("Имя слишком длинное! Не более 330 символов:");
+            } else {
+                break;
+            }
+        }
+
+        return new LocationTo(x, y, name);
+    }
+
+    public double readDistance() {
+        double distance;
+        while (true) {
+            distance = readDouble("Введите расстояние (положительное число):");
+            if (distance > 0) {
+                break;
+            }
+            System.out.println("Ошибка: расстояние должно быть положительным! Попробуйте ещё раз:");
+        }
+        return distance;
+
+    }
 }

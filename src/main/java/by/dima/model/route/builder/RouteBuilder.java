@@ -6,7 +6,7 @@ import by.dima.model.route.models.sub.Coordinates;
 import by.dima.model.route.models.sub.LocationFrom;
 import by.dima.model.route.models.sub.LocationTo;
 
-public class RouteBuild {
+public class RouteBuilder {
     private long id;
     private String name;
     private Coordinates coordinates;
@@ -14,32 +14,32 @@ public class RouteBuild {
     private LocationTo to;
     private double distance;
 
-    public RouteBuild setId(long id) {
+    public RouteBuilder setId(long id) {
         this.id = id;
         return this;
     }
 
-    public RouteBuild setName(String name) {
+    public RouteBuilder setName(String name) {
         this.name = name;
         return this;
     }
 
-    public RouteBuild setCoordinates(Coordinates coordinates) {
+    public RouteBuilder setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
         return this;
     }
 
-    public RouteBuild setFrom(LocationFrom from) {
+    public RouteBuilder setFrom(LocationFrom from) {
         this.from = from;
         return this;
     }
 
-    public RouteBuild setTo(LocationTo to) {
+    public RouteBuilder setTo(LocationTo to) {
         this.to = to;
         return this;
     }
 
-    public RouteBuild setDistance(double distance) {
+    public RouteBuilder setDistance(double distance) {
         this.distance = distance;
         return this;
     }

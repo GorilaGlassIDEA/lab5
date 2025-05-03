@@ -16,4 +16,8 @@ public class AnswerDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private String answer;
+
+    public AnswerDTO() {
+        answer = "Нет ответа от выполненной команды!";
+    }
 }
