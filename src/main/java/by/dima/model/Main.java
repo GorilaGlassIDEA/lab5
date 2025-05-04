@@ -8,6 +8,7 @@ import by.dima.model.parser.RouteParserToJson;
 import by.dima.model.parser.SerializableCommandDTO;
 import by.dima.model.request.ClientRequestUDP;
 import by.dima.model.request.Clientable;
+import by.dima.model.route.builder.ScannerBuildRoute;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -26,13 +27,16 @@ public class Main {
             mapper.registerModule(new JavaTimeModule());
 
             RouteParserToJson parserToJson = new RouteParserToJson(mapper);
-            Clientable clientable = new ClientRequestUDP();
+            Scanner scanner = new Scanner(System.in);
+
+            Long userId = inputLong();
+
+            Clientable clientable = new ClientRequestUDP(userId);
             CommandManager manager = new CommandManager(parserToJson, clientable.getUserId(), logger);
 
             Client client = new Client(logger, clientable, new SerializableCommandDTO(), new DeserializableAnswerDTO(), manager);
-            System.out.println("Ваш userId для текущей сессии: " + client.getUserId());
+            System.out.println("Клиент запущен!");
 
-            Scanner scanner = new Scanner(System.in);
             while (true) {
                 String command = scanner.nextLine();
                 command = command.strip();
@@ -41,8 +45,7 @@ public class Main {
                 System.out.println(answerDTO.getAnswer());
             }
 
-        } catch (
-                RuntimeException e) {
+        } catch (RuntimeException e) {
 
         } finally {
             for (Handler handler : logger.getHandlers()) {
@@ -50,5 +53,20 @@ public class Main {
             }
         }
 
+    }
+
+    public static Long inputLong() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите свой userId (Long)");
+        while (true) {
+            String userId = scanner.nextLine();
+            try {
+                Long userIdLong = Long.parseLong(userId);
+                System.out.println("Ваш id равен " + userIdLong);
+                return userIdLong;
+            } catch (NumberFormatException e) {
+                System.out.println("Попробуйте еще раз!");
+            }
+        }
     }
 }

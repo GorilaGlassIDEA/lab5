@@ -19,12 +19,13 @@ import java.util.logging.Logger;
 public class InsertCommand implements Command {
     private ScannerBuildRoute builder;
     private final Logger logger;
+    @Setter
     private CommandDTO commandDTO;
     private String arg;
     private final RouteParserToJson parser;
     @Setter
     private String key = "insert";
-    private final Long userId;
+    private Long userId;
 
     public InsertCommand(RouteParserToJson parser, Long userId, Logger logger) {
         this.parser = parser;

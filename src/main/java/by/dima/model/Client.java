@@ -50,6 +50,7 @@ public class Client {
                 Command command = manager.getCommandMap().get(commandStringClean);
                 commandDTO = manager.execute(command);
             }
+            logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + commandDTO);
             clientRequestUDP.makePost(serializableCommandDTO.serial(commandDTO));
             answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
             return answerDTO;

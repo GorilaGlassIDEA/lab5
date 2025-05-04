@@ -1,6 +1,8 @@
 package by.dima.model.commands.model;
 
 
+import by.dima.model.common.CommandDTO;
+
 import javax.naming.Name;
 
 /**
@@ -9,6 +11,8 @@ import javax.naming.Name;
 public interface Command extends GetableCommandDTO, Nameable {
     default void execute() {
     }
+
+    void setCommandDTO(CommandDTO commandDTO);
 
     default void setArgs(String arg) {
     }
