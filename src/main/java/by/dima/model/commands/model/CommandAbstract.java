@@ -22,6 +22,7 @@ public abstract class CommandAbstract implements Command {
         }
         commandDTO.setUserID(userId);
         commandDTO.setNameCommand(key);
+        commandDTO.setArgCommand(getArg());
     }
 
     @Override
