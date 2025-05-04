@@ -1,15 +1,11 @@
 package by.dima.model.parser;
 
 import by.dima.model.route.models.main.Route;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
 public class RouteParserToJson {
 
     private final ObjectMapper mapper;

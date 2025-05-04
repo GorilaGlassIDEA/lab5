@@ -25,7 +25,7 @@ public class CommandManager {
         Command printAscendingCommand = new PrintAscending(userId);
         Command updateCommand = new UpdateCommand(parser, userId);
         Command removeKeyCommand = new RemoveKeyCommand(userId);
-
+        Command replaceIfLoweCommand = new ReplaceIfLoweCommand(parser, userId);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -35,7 +35,7 @@ public class CommandManager {
         commandMap.put(printAscendingCommand.getKey(), printAscendingCommand);
         commandMap.put(updateCommand.getKey(), updateCommand);
         commandMap.put(removeKeyCommand.getKey(), removeKeyCommand);
-
+        commandMap.put(replaceIfLoweCommand.getKey(), replaceIfLoweCommand);
 
     }
 
