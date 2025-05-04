@@ -1,6 +1,5 @@
-package by.dima.model.commands.impl;
+package by.dima.model.commands.model;
 
-import by.dima.model.commands.model.Command;
 import by.dima.model.common.CommandDTO;
 import lombok.Data;
 
