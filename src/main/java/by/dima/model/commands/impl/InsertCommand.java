@@ -25,7 +25,7 @@ public class InsertCommand implements Command {
     private final RouteParserToJson parser;
     @Setter
     private String key = "insert";
-    private Long userId;
+    private final Long userId;
 
     public InsertCommand(RouteParserToJson parser, Long userId, Logger logger) {
         this.parser = parser;
@@ -59,8 +59,4 @@ public class InsertCommand implements Command {
         this.arg = arg;
     }
 
-    @Override
-    public CommandDTO getCommandDTO() {
-        return commandDTO;
-    }
 }

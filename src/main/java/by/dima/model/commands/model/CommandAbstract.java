@@ -8,6 +8,7 @@ public abstract class CommandAbstract implements Command {
     private final Long userId;
     private CommandDTO commandDTO;
     private String key;
+    private String arg;
 
     public CommandAbstract(Long userId, String key) {
         this.userId = userId;
@@ -21,5 +22,10 @@ public abstract class CommandAbstract implements Command {
         }
         commandDTO.setUserID(userId);
         commandDTO.setNameCommand(key);
+    }
+
+    @Override
+    public void setArgs(String arg) {
+        this.arg = arg;
     }
 }

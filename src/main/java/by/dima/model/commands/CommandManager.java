@@ -22,7 +22,8 @@ public class CommandManager {
         Command clearCommand = new ClearCommand(userId);
         Command showCommand = new ShowCommand(userId);
         Command helpCommand = new HelpCommand(userId);
-        Command printAscending = new PrintAscending(userId);
+        Command printAscendingCommand = new PrintAscending(userId);
+        Command updateCommand = new UpdateCommand(parser, userId);
 
 
         commandMap.put(insertCommand.getKey(), insertCommand);
@@ -30,8 +31,8 @@ public class CommandManager {
         commandMap.put(clearCommand.getKey(), clearCommand);
         commandMap.put(showCommand.getKey(), showCommand);
         commandMap.put(helpCommand.getKey(), helpCommand);
-        commandMap.put(printAscending.getKey(), printAscending);
-
+        commandMap.put(printAscendingCommand.getKey(), printAscendingCommand);
+        commandMap.put(updateCommand.getKey(), updateCommand);
 
 
     }
