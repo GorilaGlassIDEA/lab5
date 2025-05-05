@@ -36,14 +36,15 @@ public class Main {
 
             Client client = new Client(logger, clientable, new SerializableCommandDTO(), new DeserializableAnswerDTO(), manager);
             System.out.println("Клиент запущен!");
-
-            while (true) {
-                String command = scanner.nextLine();
+            String command = scanner.nextLine();
+            while (!command.equals("exit")) {
                 command = command.strip();
                 System.out.println("Команда которая отправлена: " + command);
                 AnswerDTO answerDTO = client.sendCommandReceiveAnswer(command);
                 System.out.println(answerDTO.getAnswer());
+                command = scanner.nextLine();
             }
+            System.out.println("Работа завершена!");
 
         } catch (RuntimeException e) {
 
