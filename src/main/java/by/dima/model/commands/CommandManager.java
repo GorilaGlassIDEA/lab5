@@ -26,6 +26,8 @@ public class CommandManager {
         Command updateCommand = new UpdateCommand(parser, userId);
         Command removeKeyCommand = new RemoveKeyCommand(userId);
         Command replaceIfLoweCommand = new ReplaceIfLoweCommand(parser, userId);
+        Command removeLowerKeyCommand = new RemoveLowerKeyCommand(userId);
+        Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(userId);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -36,7 +38,8 @@ public class CommandManager {
         commandMap.put(updateCommand.getKey(), updateCommand);
         commandMap.put(removeKeyCommand.getKey(), removeKeyCommand);
         commandMap.put(replaceIfLoweCommand.getKey(), replaceIfLoweCommand);
-
+        commandMap.put(printFieldDescendingDistanceCommand.getKey(), printFieldDescendingDistanceCommand);
+        commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
     }
 
     public CommandDTO execute(Command command) {
