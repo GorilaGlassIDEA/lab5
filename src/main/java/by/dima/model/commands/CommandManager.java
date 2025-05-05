@@ -28,6 +28,8 @@ public class CommandManager {
         Command replaceIfLoweCommand = new ReplaceIfLoweCommand(parser, userId);
         Command removeLowerKeyCommand = new RemoveLowerKeyCommand(userId);
         Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(userId);
+        Command groupCountingByIdCommand = new GroupCountingByIdCommand(userId);
+        Command historyCommand = new HistoryCommand(userId);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -40,6 +42,9 @@ public class CommandManager {
         commandMap.put(replaceIfLoweCommand.getKey(), replaceIfLoweCommand);
         commandMap.put(printFieldDescendingDistanceCommand.getKey(), printFieldDescendingDistanceCommand);
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
+        commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
+        commandMap.put(historyCommand.getKey(), historyCommand);
+
     }
 
     public CommandDTO execute(Command command) {
