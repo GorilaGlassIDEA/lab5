@@ -1,8 +1,10 @@
 package by.dima.model.commands;
 
+import by.dima.model.Client;
 import by.dima.model.commands.impl.*;
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.CommandDTO;
+import by.dima.model.io.ReadableFile;
 import by.dima.model.parser.RouteParserToJson;
 import lombok.Getter;
 
@@ -15,7 +17,7 @@ public class CommandManager {
     private final Map<String, Command> commandMap = new HashMap<>();
     private final Long userId;
 
-    public CommandManager(RouteParserToJson parser, Long userId, Logger logger) {
+    public CommandManager(ReadableFile readableFile, String filePath, RouteParserToJson parser, Long userId, Logger logger) {
         this.userId = userId;
         Command insertCommand = new InsertCommand(parser, userId, logger);
         Command infoCommand = new InfoCommand(userId);
@@ -30,6 +32,7 @@ public class CommandManager {
         Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(userId);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(userId);
         Command historyCommand = new HistoryCommand(userId);
+        Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -44,6 +47,8 @@ public class CommandManager {
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
         commandMap.put(historyCommand.getKey(), historyCommand);
+        commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
+
 
     }
 
@@ -51,5 +56,6 @@ public class CommandManager {
         command.execute();
         return command.getCommandDTO();
     }
+
 
 }

@@ -23,7 +23,7 @@ public class LoggerWrapper {
             System.err.println("Работа вашей программы будет без отслеживания ошибок!");
         }
 
-        fileHandler.setLevel(Level.INFO);
+        fileHandler.setLevel(Level.ALL);
         fileHandler.setFormatter(new SimpleFormatter());
 
         consoleHandler.setLevel(Level.FINE);
@@ -31,7 +31,7 @@ public class LoggerWrapper {
         consoleHandler.setFormatter(new SimpleFormatter());
         logger.addHandler(fileHandler);
         logger.addHandler(consoleHandler);
-        logger.setLevel(Level.FINE);
+        logger.setLevel(Level.ALL);
         return logger;
     }
 

@@ -41,7 +41,7 @@ public class ClientRequestUDP implements Clientable {
 
     @Override
     public ByteBuffer makeGet() {
-        byte[] data = new byte[1024];
+        byte[] data = new byte[100000];
         ByteBuffer buffer;
         try {
             packet = new DatagramPacket(data, data.length);
