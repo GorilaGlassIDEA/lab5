@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.util.Random;
+import java.util.concurrent.TimeoutException;
 
 public class ClientRequestUDP implements Clientable {
     private final int serverPort;
@@ -27,6 +29,7 @@ public class ClientRequestUDP implements Clientable {
         this.userId = userId;
         myPort = new Random().nextLong(1_001, 65_000);
         socket = new DatagramSocket(myPort.intValue());
+        socket.setSoTimeout(5000);
     }
 
     @Override
@@ -40,7 +43,7 @@ public class ClientRequestUDP implements Clientable {
     }
 
     @Override
-    public ByteBuffer makeGet() {
+    public ByteBuffer makeGet() throws SocketTimeoutException {
         byte[] data = new byte[100000];
         ByteBuffer buffer;
         try {

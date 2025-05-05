@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.net.SocketTimeoutException;
 import java.util.logging.*;
 
 @Setter
@@ -37,7 +38,7 @@ public class Client {
         this.userId = clientRequestUDP.getUserId();
     }
 
-    public AnswerDTO sendCommandReceiveAnswer(String commandString) {
+    public AnswerDTO sendCommandReceiveAnswer(String commandString) throws RuntimeException {
         String commandStringClean = GetSecondArgFromArgsUtil.getFirstArg(commandString);
         String commandArg = GetSecondArgFromArgsUtil.getSecondArg(commandString);
 
@@ -51,8 +52,12 @@ public class Client {
                 commandDTO = manager.execute(command);
             }
             logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + commandDTO);
-            clientRequestUDP.makePost(serializableCommandDTO.serial(commandDTO));
-            answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
+            try {
+                clientRequestUDP.makePost(serializableCommandDTO.serial(commandDTO));
+                answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
+            } catch (NullPointerException|SocketTimeoutException e) {
+                throw new RuntimeException();
+            }
             return answerDTO;
         } else {
             return new AnswerDTO("Не удалось найти команду с именем: " + commandStringClean);

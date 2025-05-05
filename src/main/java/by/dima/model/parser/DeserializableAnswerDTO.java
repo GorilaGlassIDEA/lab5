@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.nio.ByteBuffer;
 
-@Component
 public class DeserializableAnswerDTO {
     public AnswerDTO deserial(ByteBuffer buffer) {
         try (
@@ -15,7 +14,7 @@ public class DeserializableAnswerDTO {
                 ObjectInputStream ois = new ObjectInputStream(bis)) {
             return (AnswerDTO) ois.readObject();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Буффер пуст!");
         }
         return null;
     }

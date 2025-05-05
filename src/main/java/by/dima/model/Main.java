@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -53,8 +54,10 @@ public class Main {
             CommandManager manager = new CommandManager(readableFile, filePath, parserToJson, clientable.getUserId(), logger);
 
             Client client = new Client(logger, clientable, new SerializableCommandDTO(), new DeserializableAnswerDTO(), manager);
-            System.out.println("Клиент запущен!");
+            System.out.println("Клиент запущен! Введите команду: ");
             String command = scanner.nextLine();
+
+
             while (!command.equals("exit")) {
                 command = command.strip();
                 System.out.println("Команда которая отправлена: " + command);
@@ -63,9 +66,8 @@ public class Main {
                 command = scanner.nextLine();
             }
             System.out.println("Работа завершена!");
-
         } catch (RuntimeException e) {
-
+            System.out.println("Превышено время ожидания данных от сервера!");
         } finally {
             for (Handler handler : logger.getHandlers()) {
                 handler.close();
