@@ -27,7 +27,7 @@ public class LoggerWrapper {
         fileHandler.setFormatter(new SimpleFormatter());
 
         consoleHandler.setLevel(Level.FINE);
-        consoleHandler.setFilter(record -> (record.getLevel() == Level.FINE) || record.getLevel() == Level.INFO);
+        consoleHandler.setFilter(record -> (record.getLevel() == Level.FINE));
         consoleHandler.setFormatter(new SimpleFormatter());
         logger.addHandler(fileHandler);
         logger.addHandler(consoleHandler);
