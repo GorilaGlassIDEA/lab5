@@ -31,7 +31,7 @@ public class CommandManager {
         Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(userId);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(userId);
         Command historyCommand = new HistoryCommand(userId);
-        Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile);
+        Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile, commandMap);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);

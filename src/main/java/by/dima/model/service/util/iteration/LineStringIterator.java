@@ -1,6 +1,10 @@
 package by.dima.model.service.util.iteration;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class LineStringIterator implements Iterator<String> {
     private final String[] textArr;
