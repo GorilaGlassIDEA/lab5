@@ -47,8 +47,7 @@ public class InsertCommand implements Command {
 
         Route route = builder.build(routeId);
         if (route != null) {
-            commandDTO = new CommandDTO(key,
-                    arg == null ? "" : arg, parser.getObj(route), userId);
+            commandDTO = new CommandDTO(key, routeId.toString(), parser.getObj(route), userId);
         }
         logger.log(Level.INFO, "Построенная модель: " + route);
         builder = new ScannerBuildRoute();
