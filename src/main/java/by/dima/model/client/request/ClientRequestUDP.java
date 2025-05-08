@@ -1,4 +1,4 @@
-package by.dima.model.request;
+package by.dima.model.client.request;
 
 
 import lombok.Getter;
@@ -10,7 +10,6 @@ import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.util.Random;
-import java.util.concurrent.TimeoutException;
 
 public class ClientRequestUDP implements Clientable {
     private final int serverPort;

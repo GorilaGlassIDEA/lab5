@@ -1,4 +1,4 @@
-package by.dima.model.logging.factory;
+package by.dima.model.service.logger.factory;
 
 import org.springframework.stereotype.Component;
 

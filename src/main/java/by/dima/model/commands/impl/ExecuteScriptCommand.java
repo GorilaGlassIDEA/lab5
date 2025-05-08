@@ -1,15 +1,11 @@
 package by.dima.model.commands.impl;
 
-import by.dima.model.Client;
-import by.dima.model.commands.CommandManager;
 import by.dima.model.commands.model.CommandAbstract;
-import by.dima.model.io.ReadableFile;
-import by.dima.model.request.Clientable;
-import by.dima.model.util.iteration.TextIterable;
+import by.dima.model.service.io.ReadableFile;
+import by.dima.model.service.util.iteration.TextIterable;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -36,23 +32,7 @@ public class ExecuteScriptCommand extends CommandAbstract {
 
     @Override
     public void execute() {
-        builder = new StringBuilder();
         super.execute();
-        String content = tryReadFile(filePath);
-        this.content = content;
-        if (content != null) {
-            this.textIterable = new TextIterable(content);
-            for (String command : textIterable) {
-                if (!(command.isBlank() || command.split(" ").length > 1 || command.equals("insert") || command.equals("update") || command.equals("remove_key") || command.equals("remove_lower_key") || command.equals("exit"))) {
-                    command = command.strip();
-                    System.out.println("Команда из файла: " + command);
-                    builder.append(command).append("\n");
-                }
-            }
-            getCommandDTO().setArgCommand(new String(builder).strip());
-        } else {
-            System.out.println("Не получилось открыть файл по заданному пути!");
-        }
     }
 
     /**

@@ -1,24 +1,22 @@
 package by.dima.model;
 
+import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
-import by.dima.model.commands.impl.ExecuteScriptCommand;
 import by.dima.model.common.AnswerDTO;
-import by.dima.model.io.Creatable;
-import by.dima.model.io.CreateFileFiles;
-import by.dima.model.io.ReadFileBufferedReader;
-import by.dima.model.io.ReadableFile;
-import by.dima.model.logging.factory.LoggerWrapper;
-import by.dima.model.parser.DeserializableAnswerDTO;
-import by.dima.model.parser.RouteParserToJson;
-import by.dima.model.parser.SerializableCommandDTO;
-import by.dima.model.request.ClientRequestUDP;
-import by.dima.model.request.Clientable;
-import by.dima.model.route.builder.ScannerBuildRoute;
+import by.dima.model.service.io.Creatable;
+import by.dima.model.service.io.CreateFileFiles;
+import by.dima.model.service.io.ReadFileBufferedReader;
+import by.dima.model.service.io.ReadableFile;
+import by.dima.model.service.logger.factory.LoggerWrapper;
+import by.dima.model.client.parser.DeserializableAnswerDTO;
+import by.dima.model.client.parser.RouteParserToJson;
+import by.dima.model.client.parser.SerializableCommandDTO;
+import by.dima.model.client.request.ClientRequestUDP;
+import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;

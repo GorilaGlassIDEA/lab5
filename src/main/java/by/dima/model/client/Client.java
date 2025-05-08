@@ -1,16 +1,15 @@
-package by.dima.model;
+package by.dima.model.client;
 
 import by.dima.model.commands.CommandManager;
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.AnswerDTO;
 import by.dima.model.common.CommandDTO;
-import by.dima.model.parser.DeserializableAnswerDTO;
-import by.dima.model.parser.SerializableCommandDTO;
-import by.dima.model.request.Clientable;
-import by.dima.model.util.GetSecondArgFromArgsUtil;
+import by.dima.model.client.parser.DeserializableAnswerDTO;
+import by.dima.model.client.parser.SerializableCommandDTO;
+import by.dima.model.client.request.Clientable;
+import by.dima.model.service.util.GetSecondArgFromArgsUtil;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 

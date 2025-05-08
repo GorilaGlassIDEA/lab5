@@ -2,7 +2,7 @@ package by.dima.model.commands.impl;
 
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.CommandDTO;
-import by.dima.model.parser.RouteParserToJson;
+import by.dima.model.client.parser.RouteParserToJson;
 import by.dima.model.route.builder.ScannerBuildRoute;
 import by.dima.model.route.models.main.Route;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package by.dima.model.util.iteration;
+package by.dima.model.service.util.iteration;
 
 import java.util.Iterator;
 

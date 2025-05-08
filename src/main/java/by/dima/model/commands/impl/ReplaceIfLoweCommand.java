@@ -1,7 +1,7 @@
 package by.dima.model.commands.impl;
 
 import by.dima.model.commands.model.CommandAbstract;
-import by.dima.model.parser.RouteParserToJson;
+import by.dima.model.client.parser.RouteParserToJson;
 import by.dima.model.route.builder.ScannerBuildRoute;
 
 public class ReplaceIfLoweCommand extends CommandAbstract {

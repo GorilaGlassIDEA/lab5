@@ -1,0 +1,12 @@
+insert
+RouteId=1;
+RouteName=NewRoute;
+CoordinateIntX=10;
+CoordinateDoubleY=1.2;
+LocationFromDouble=102.4;
+LocationFromFloat=12332.3;
+LocationFromString="Saint-Petersburg";
+LocationToDouble=123.2;
+LocationToDouble=122.4;
+LocationToString="Moscow Red Square";
+Distance=100;

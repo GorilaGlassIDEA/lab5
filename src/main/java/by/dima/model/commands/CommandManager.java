@@ -1,11 +1,10 @@
 package by.dima.model.commands;
 
-import by.dima.model.Client;
 import by.dima.model.commands.impl.*;
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.CommandDTO;
-import by.dima.model.io.ReadableFile;
-import by.dima.model.parser.RouteParserToJson;
+import by.dima.model.service.io.ReadableFile;
+import by.dima.model.client.parser.RouteParserToJson;
 import lombok.Getter;
 
 import java.util.HashMap;

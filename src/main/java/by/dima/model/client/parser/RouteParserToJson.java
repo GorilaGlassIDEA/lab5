@@ -1,4 +1,4 @@
-package by.dima.model.parser;
+package by.dima.model.client.parser;
 
 import by.dima.model.route.models.main.Route;
 import com.fasterxml.jackson.databind.ObjectMapper;
