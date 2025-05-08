@@ -1,7 +1,7 @@
 package by.dima.model.parser;
 
 import by.dima.model.common.AnswerDTO;
-import org.springframework.stereotype.Component;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
