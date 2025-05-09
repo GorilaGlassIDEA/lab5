@@ -9,7 +9,6 @@ public class TextIterable implements Iterable<String> {
         if (text != null) {
             text = text.strip();
             iterator = new LineStringIterator(text);
-
         }
     }
 

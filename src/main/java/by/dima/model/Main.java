@@ -29,7 +29,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Logger logger = LoggerWrapper.getLogger();
-        String filePath = System.getProperty("user.dir") + "/execute.txt";
+        String filePath = System.getProperty("user.dir") + "/execute.json";
         Creatable creatable = new CreateFileFiles();
         try {
 
@@ -49,7 +49,7 @@ public class Main {
             Long userId = inputLong();
 
             Clientable clientable = new ClientRequestUDP(userId);
-            CommandManager manager = new CommandManager(readableFile, filePath, parserToJson, clientable.getUserId(), logger);
+            CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
 
             Client client = new Client(logger, clientable, new SerializableCommandDTO(), new DeserializableAnswerDTO(), manager);
             System.out.println("Клиент запущен! Введите команду: ");

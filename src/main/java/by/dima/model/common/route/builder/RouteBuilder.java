@@ -1,10 +1,10 @@
-package by.dima.model.route.builder;
+package by.dima.model.common.route.builder;
 
 
-import by.dima.model.route.models.main.Route;
-import by.dima.model.route.models.sub.Coordinates;
-import by.dima.model.route.models.sub.LocationFrom;
-import by.dima.model.route.models.sub.LocationTo;
+import by.dima.model.common.route.main.Route;
+import by.dima.model.common.route.sub.Coordinates;
+import by.dima.model.common.route.sub.LocationFrom;
+import by.dima.model.common.route.sub.LocationTo;
 
 public class RouteBuilder {
     private long id;

@@ -1,18 +1,15 @@
 package by.dima.model.commands.impl;
 
-import by.dima.model.commands.CommandManager;
-import by.dima.model.commands.model.Command;
+import by.dima.model.client.parser.ExecuteDTOParserFromJson;
 import by.dima.model.commands.model.CommandAbstract;
-import by.dima.model.route.builder.RouteBuilder;
+import by.dima.model.common.ExecuteDTO;
 import by.dima.model.service.io.ReadableFile;
 import by.dima.model.service.util.iteration.TextIterable;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Данная команда позволяет запускать другие команды с помощью текстовых файлов, содержащих последовательность
@@ -26,27 +23,32 @@ public class ExecuteScriptCommand extends CommandAbstract {
     private final ReadableFile readableFile;
     private final String filePath;
     private StringBuilder builder;
-    private RouteBuilder routeBuilder;
-    private final Map<String, Command> commandMap;
+    private final ObjectMapper mapper;
+    private final ExecuteDTOParserFromJson parserFromJson;
 
-
-    public ExecuteScriptCommand(Long userId, String filePath, ReadableFile readableFile, Map<String, Command> commandMap) {
+    public ExecuteScriptCommand(Long userId, String filePath, ReadableFile readableFile, ObjectMapper mapper) {
         super(userId, "execute_script");
         this.readableFile = readableFile;
         this.filePath = filePath;
+        this.mapper = mapper;
         builder = new StringBuilder();
-        this.commandMap = commandMap;
-        routeBuilder = new RouteBuilder();
+        parserFromJson = new ExecuteDTOParserFromJson(mapper);
     }
 
 
     @Override
     public void execute() {
         super.execute();
-        String content = tryReadFile(filePath);
-        if (content != null) {
-            TextIterable iterable = new TextIterable(content);
 
+        String content = tryReadFile(filePath);
+        if (content != null || !content.isBlank()) {
+            //TODO: сделать проверку на корректность данных);
+            try {
+                getCommandDTO().setExecuteDTO(parserFromJson.getObj(content));
+            } catch (IOException e) {
+                System.out.println("Не удалось преобразовать файл в команды, проверьте ввод!");
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Некорректный ввод!");
         }

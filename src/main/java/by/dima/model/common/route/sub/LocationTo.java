@@ -1,16 +1,21 @@
-package by.dima.model.route.models.sub;
+package by.dima.model.common.route.sub;
 
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.security.SecureRandomParameters;
+
 @Data
 @NoArgsConstructor
-public class LocationTo {
+public class LocationTo implements Serializable {
     private Double x;
     private Double y;
     private String name;
-
+    @Serial
+    private static final long serialVersionUID = 1L;
     public LocationTo(Double x, Double y, String name) {
         if (x == null || y == null || name == null || name.length() > 330) {
             //TODO: сделать Logger

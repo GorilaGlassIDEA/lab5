@@ -1,10 +1,13 @@
-package by.dima.model.route.models.main;
+package by.dima.model.common.route.main;
 
-import by.dima.model.route.models.sub.*;
+
+import by.dima.model.common.route.sub.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Route implements Comparable<Route> {
+public class Route implements Comparable<Route>, Serializable {
     private long id;
     private String name;
     private Coordinates coordinates;
@@ -20,6 +23,8 @@ public class Route implements Comparable<Route> {
     private LocationFrom from;
     private LocationTo to;
     private double distance;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public Route(long id, String name, Coordinates coordinates, LocationFrom from, LocationTo to, double distance) {
         this.name = name;

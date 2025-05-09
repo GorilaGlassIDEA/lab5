@@ -1,8 +1,9 @@
-package by.dima.model.route.models.sub;
+package by.dima.model.common.route.sub;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface NormalisationValue {
+public interface NormalisationValue extends Serializable {
     double normalize(Number number);
 
     void setNumbers(List<Number> numbers);

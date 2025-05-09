@@ -5,6 +5,7 @@ import by.dima.model.commands.model.Command;
 import by.dima.model.common.CommandDTO;
 import by.dima.model.service.io.ReadableFile;
 import by.dima.model.client.parser.RouteParserToJson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class CommandManager {
     private final Map<String, Command> commandMap = new HashMap<>();
     private final Long userId;
 
-    public CommandManager(ReadableFile readableFile, String filePath, RouteParserToJson parser, Long userId, Logger logger) {
+    public CommandManager(ObjectMapper mapper, ReadableFile readableFile, String filePath, RouteParserToJson parser, Long userId, Logger logger) {
         this.userId = userId;
         Command insertCommand = new InsertCommand(parser, userId, logger);
         Command infoCommand = new InfoCommand(userId);
@@ -31,7 +32,7 @@ public class CommandManager {
         Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(userId);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(userId);
         Command historyCommand = new HistoryCommand(userId);
-        Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile, commandMap);
+        Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile, mapper);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);

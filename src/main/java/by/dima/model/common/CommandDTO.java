@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Трансферный объект для передачи команд по сети
@@ -21,7 +22,7 @@ public class CommandDTO implements Serializable {
     private String argCommand;
     private String jsonRouteObj;
     private Long userID;
-    private HashMap<String, String> executeScriptArgs;
+    private ExecuteDTO executeDTO;
 
     public CommandDTO(String nameCommand, String argCommand, String jsonRouteObj, Long userID) {
         this.nameCommand = nameCommand;

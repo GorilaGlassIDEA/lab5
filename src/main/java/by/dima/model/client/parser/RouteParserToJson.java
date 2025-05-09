@@ -1,6 +1,6 @@
 package by.dima.model.client.parser;
 
-import by.dima.model.route.models.main.Route;
+import by.dima.model.common.route.main.Route;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
