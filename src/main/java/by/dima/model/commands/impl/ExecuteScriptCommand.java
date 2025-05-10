@@ -47,7 +47,6 @@ public class ExecuteScriptCommand extends CommandAbstract {
                 getCommandDTO().setExecuteDTO(parserFromJson.getObj(content));
             } catch (IOException e) {
                 System.out.println("Не удалось преобразовать файл в команды, проверьте ввод!");
-                e.printStackTrace();
             }
         } else {
             System.out.println("Некорректный ввод!");
