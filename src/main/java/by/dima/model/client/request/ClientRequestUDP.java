@@ -42,7 +42,7 @@ public class ClientRequestUDP implements Clientable {
     }
 
     @Override
-    public ByteBuffer makeGet() throws SocketTimeoutException {
+    public ByteBuffer makeGet() {
         byte[] data = new byte[100000];
         ByteBuffer buffer;
         try {

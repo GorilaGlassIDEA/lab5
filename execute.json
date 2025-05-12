@@ -1,6 +1,6 @@
 {
   "commandsForExecuteScript": {
-    "insrt": [
+    "execute_script": [
       {
         "id": 1,
         "name": "Маршрут из Москвы в Санкт-Петербург",
@@ -42,9 +42,9 @@
         "distance": 634.0
       }
     ],
-    "update": [
+    "insert": [
       {
-        "id": 2,
+        "id": 3,
         "name": "Маршрут из Минска в Киев",
         "coordinates": {
           "x": 53,
