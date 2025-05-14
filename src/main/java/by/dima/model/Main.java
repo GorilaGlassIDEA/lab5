@@ -1,66 +1,91 @@
 package by.dima.model;
 
-import by.dima.model.data.CollectionController;
-import by.dima.model.data.abstracts.model.Models;
-import by.dima.model.data.command.model.CommandManager;
-import by.dima.model.data.route.model.main.CreateRouteUsingScanner;
-import by.dima.model.service.files.io.ScannerWrapper;
-import by.dima.model.service.files.io.create.Creatable;
-import by.dima.model.service.files.io.create.CreateFile;
-import by.dima.model.service.files.io.read.ReadFileBufferReader;
-import by.dima.model.service.files.io.read.ReadableFile;
-import by.dima.model.service.files.io.write.WriteFileOutputStreamWriter;
-import by.dima.model.service.files.io.write.WriteableFile;
-import by.dima.model.service.files.parser.string.impl.ParserFromJsonJacksonImpl;
-import by.dima.model.service.files.parser.string.impl.ParserToJsonJacksonImpl;
-import by.dima.model.service.files.parser.string.model.ParserFromJson;
-import by.dima.model.service.files.parser.string.model.ParserToJson;
-import by.dima.model.service.generate.id.IdGenerateMy;
-import by.dima.model.service.generate.id.IdGenerateble;
+import by.dima.model.client.Client;
+import by.dima.model.commands.CommandManager;
+import by.dima.model.common.AnswerDTO;
+import by.dima.model.service.io.Creatable;
+import by.dima.model.service.io.CreateFileFiles;
+import by.dima.model.service.io.ReadFileBufferedReader;
+import by.dima.model.service.io.ReadableFile;
+import by.dima.model.service.logger.factory.LoggerWrapper;
+import by.dima.model.client.parser.DeserializableAnswerDTO;
+import by.dima.model.client.parser.RouteParserToJson;
+import by.dima.model.client.parser.SerializableCommandDTO;
+import by.dima.model.client.request.ClientRequestUDP;
+import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.util.NoSuchElementException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
-    public static void main(String[] args) {
-        final String FILE_PATH;
-
-        if (System.getenv("DATA_FILE") == null) {
-            FILE_PATH = "~/";
-        } else {
-            FILE_PATH = System.getenv("DATA_FILE");
-        }
-        ReadableFile readableFile = new ReadFileBufferReader(FILE_PATH);
-        WriteableFile writeableFile = new WriteFileOutputStreamWriter(FILE_PATH);
-        Creatable creatable = new CreateFile(writeableFile);
-        creatable.fileCreator();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        mapper.registerModule(new JavaTimeModule());
-        ParserFromJson<Models> parserFromJson = new ParserFromJsonJacksonImpl(mapper);
-        ParserToJson parserToJson = new ParserToJsonJacksonImpl(mapper);
-
-        String jsonContent = readableFile.getContent();
-        Models models = parserFromJson.getModels(jsonContent);
 
 
-        CollectionController collectionController = new CollectionController(models, writeableFile, parserToJson);
-        IdGenerateble idGenerateble = new IdGenerateMy(collectionController);
-        CreateRouteUsingScanner routeCreator = new CreateRouteUsingScanner();
-
-        ScannerWrapper scannerWrapper = new ScannerWrapper();
-        CommandManager manager = new CommandManager(collectionController, scannerWrapper, routeCreator, parserToJson, idGenerateble);
-
+    public static void main(String[] args) throws IOException {
+        Logger logger = LoggerWrapper.getLogger();
+        String filePath = System.getProperty("user.dir") + "/execute.json";
+        Creatable creatable = new CreateFileFiles();
         try {
-            while (true) {
-                manager.executeCommand();
+
+            if (!Files.exists(Path.of(filePath))) {
+                creatable.fileCreator(filePath);
+                logger.log(Level.FINEST, "Создан файл по пути: " + filePath);
             }
-        } catch (NoSuchElementException e) {
-            System.err.println("Program stopped!");
+
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+
+            RouteParserToJson parserToJson = new RouteParserToJson(mapper);
+            ReadableFile readableFile = new ReadFileBufferedReader();
+            Scanner scanner = new Scanner(System.in);
+
+            Long userId = inputLong();
+
+            Clientable clientable = new ClientRequestUDP(userId);
+            CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
+
+            Client client = new Client(logger, clientable, new SerializableCommandDTO(), new DeserializableAnswerDTO(), manager);
+            System.out.println("Клиент запущен! Введите команду: ");
+            String command = scanner.nextLine();
+
+
+            while (!command.equals("exit")) {
+                command = command.strip();
+                System.out.println("Команда которая отправлена: " + command);
+                AnswerDTO answerDTO = client.sendCommandReceiveAnswer(command);
+                System.out.println(answerDTO.getAnswer());
+                command = scanner.nextLine();
+            }
+            System.out.println("Работа завершена!");
+        } catch (RuntimeException e) {
+            System.out.println("Превышено время ожидания данных от сервера!");
+        } finally {
+            for (Handler handler : logger.getHandlers()) {
+                handler.close();
+            }
         }
 
+    }
 
+    public static Long inputLong() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите свой userId (Long)");
+        while (true) {
+            String userId = scanner.nextLine();
+            try {
+                Long userIdLong = Long.parseLong(userId);
+                System.out.println("Ваш id равен " + userIdLong);
+                return userIdLong;
+            } catch (NumberFormatException e) {
+                System.out.println("Попробуйте еще раз!");
+            }
+        }
     }
 }

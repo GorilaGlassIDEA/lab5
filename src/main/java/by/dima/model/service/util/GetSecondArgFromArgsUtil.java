@@ -1,7 +1,8 @@
 package by.dima.model.service.util;
 
 public class GetSecondArgFromArgsUtil {
-    public static String getSecondArg(String[] args) {
+    public static String getSecondArg(String stringArgs) {
+        String[] args = stringArgs.split(" ");
         if (args.length > 1) {
             if (args.length > 2) {
                 System.err.println("Incorrect input!");
@@ -10,6 +11,14 @@ public class GetSecondArgFromArgsUtil {
             }
         }
         return "";
+    }
 
+    public static String getFirstArg(String stringArgs) {
+        String[] args = stringArgs.split(" ");
+        if (args.length > 0) {
+            return args[0];
+        } else {
+            return "";
+        }
     }
 }
