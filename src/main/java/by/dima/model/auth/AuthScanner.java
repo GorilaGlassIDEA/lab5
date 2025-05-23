@@ -1,28 +1,27 @@
 package by.dima.model.auth;
 
+
 import java.util.Scanner;
 
-public class Authentication {
+public class AuthScanner {
 
     private String username;
-    private String name;
     private String password;
-    private ScannerService scannerService;
+    private final ScannerService scannerService;
     private boolean registerFlag = false;
 
-    public Authentication(Scanner scanner) {
+    public AuthScanner(Scanner scanner) {
         this.scannerService = new ScannerService(scanner);
     }
 
     public void setData() {
-        if (username == null && name == null && password == null) {
-            name = scannerService.getString("Введите свое имя",
-                    "Некорректный ввод, попробуйте еще раз!");
+        if (username == null && password == null) {
+            System.out.println("------Вход в систему------");
             username = scannerService.getString("Введите логин",
                     "Некорректный ввод, попробуйте еще раз!");
             password = scannerService.getString("Введите пароль для логина",
                     "Некорректный ввод, попробуйте еще раз!");
-            if (name != null && username != null && password != null) registerFlag = true;
+            if (username != null && password != null) registerFlag = true;
         }
     }
 
@@ -33,12 +32,6 @@ public class Authentication {
         return null;
     }
 
-    public String getName() {
-        if (registerFlag) {
-            return name;
-        }
-        return null;
-    }
 
     public String getPassword() {
         if (registerFlag) {

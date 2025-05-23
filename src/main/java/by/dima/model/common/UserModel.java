@@ -12,7 +12,6 @@ import java.io.Serializable;
 public final class UserModel implements Serializable {
     private Integer id;
     private String username;
-    private String name;
     private String password;
 
     /**

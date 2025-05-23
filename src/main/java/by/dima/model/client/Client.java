@@ -8,6 +8,7 @@ import by.dima.model.common.CommandDTO;
 import by.dima.model.client.parser.DeserializableAnswerDTO;
 import by.dima.model.client.parser.SerializableObject;
 import by.dima.model.client.request.Clientable;
+import by.dima.model.common.UserModel;
 import by.dima.model.util.util.GetSecondArgFromArgsUtil;
 
 import lombok.Getter;
@@ -26,13 +27,14 @@ public class Client {
     private SerializableObject<AuthorizationRequestDTO> serializableObject;
     private DeserializableAnswerDTO deserializableAnswerDTO;
     private CommandManager manager;
+    private UserModel userModel;
 
     private CommandDTO commandDTO;
     private AuthorizationRequestDTO authorizationRequest;
 
     private final Long userId;
 
-    public Client(Logger logger, Clientable clientRequestUDP, SerializableObject<AuthorizationRequestDTO> serializableObject, DeserializableAnswerDTO deserializableAnswerDTO, CommandManager manager) {
+    public Client(UserModel userModel, Logger logger, Clientable clientRequestUDP, SerializableObject<AuthorizationRequestDTO> serializableObject, DeserializableAnswerDTO deserializableAnswerDTO, CommandManager manager) {
         this.logger = logger;
         this.clientRequestUDP = clientRequestUDP;
         this.serializableObject = serializableObject;
@@ -40,6 +42,7 @@ public class Client {
         this.manager = manager;
         this.userId = clientRequestUDP.getUserId();
         this.authorizationRequest = new AuthorizationRequestDTO();
+        this.userModel = userModel;
     }
 
     public AnswerDTO sendCommandReceiveAnswer(String commandString) throws RuntimeException {
@@ -57,6 +60,7 @@ public class Client {
             }
             // добавляем в объект с авторизацией ссылку на CommandDTO
             authorizationRequest.setCommandDTO(commandDTO);
+            authorizationRequest.setUserModel(userModel == null ? new UserModel() : userModel);
             logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + commandDTO);
             try {
                 clientRequestUDP.makePost(serializableObject.serial(authorizationRequest));
@@ -67,6 +71,19 @@ public class Client {
             return answerDTO;
         } else {
             return new AnswerDTO("Не удалось найти команду с именем: " + commandStringClean);
+        }
+    }
+
+    public boolean checkAuth() {
+        authorizationRequest.setUserModel(userModel);
+        authorizationRequest.setCommandDTO(new CommandDTO());
+        try {
+            clientRequestUDP.makePost(serializableObject.serial(authorizationRequest));
+            answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
+            return answerDTO.getAuth();
+        } catch (NullPointerException | SocketTimeoutException e) {
+            logger.log(Level.WARNING, "Не удалось авторизоваться!");
+            return false;
         }
     }
 }

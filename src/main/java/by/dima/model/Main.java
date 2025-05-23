@@ -1,8 +1,11 @@
 package by.dima.model;
 
+import by.dima.model.auth.AuthScanner;
+import by.dima.model.auth.ScannerService;
 import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.common.AnswerDTO;
+import by.dima.model.common.UserModel;
 import by.dima.model.util.io.Creatable;
 import by.dima.model.util.io.CreateFileFiles;
 import by.dima.model.util.io.ReadFileBufferedReader;
@@ -45,13 +48,17 @@ public class Main {
             RouteParserToJson parserToJson = new RouteParserToJson(mapper);
             ReadableFile readableFile = new ReadFileBufferedReader();
             Scanner scanner = new Scanner(System.in);
-
+            AuthScanner authScanner = new AuthScanner(scanner);
+            UserModel userModel = auth(authScanner);
             Long userId = inputLong();
 
             Clientable clientable = new ClientRequestUDP(userId);
             CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
 
-            Client client = new Client(logger, clientable, new SerializableObject(), new DeserializableAnswerDTO(), manager);
+            Client client = new Client(userModel, logger, clientable, new SerializableObject<>(), new DeserializableAnswerDTO(), manager);
+            if (client.checkAuth()){
+                logger.log(Level.FINE,"Авторизация успешно выполнена!");
+            }
             System.out.println("Клиент запущен! Введите команду: ");
             String command = scanner.nextLine();
 
@@ -72,6 +79,11 @@ public class Main {
             }
         }
 
+    }
+
+    public static UserModel auth(AuthScanner authScanner) {
+        authScanner.setData();
+        return new UserModel(authScanner.getUsername(), authScanner.getPassword());
     }
 
     public static Long inputLong() {
