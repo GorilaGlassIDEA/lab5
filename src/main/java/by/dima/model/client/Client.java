@@ -3,9 +3,10 @@ package by.dima.model.client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.AnswerDTO;
+import by.dima.model.common.AuthorizationRequestDTO;
 import by.dima.model.common.CommandDTO;
 import by.dima.model.client.parser.DeserializableAnswerDTO;
-import by.dima.model.client.parser.SerializableCommandDTO;
+import by.dima.model.client.parser.SerializableObject;
 import by.dima.model.client.request.Clientable;
 import by.dima.model.service.util.GetSecondArgFromArgsUtil;
 
@@ -22,19 +23,23 @@ public class Client {
     private Logger logger;
     private Clientable clientRequestUDP;
     private AnswerDTO answerDTO;
-    private SerializableCommandDTO serializableCommandDTO;
+    private SerializableObject<AuthorizationRequestDTO> serializableObject;
     private DeserializableAnswerDTO deserializableAnswerDTO;
     private CommandManager manager;
+
     private CommandDTO commandDTO;
+    private AuthorizationRequestDTO authorizationRequest;
+
     private final Long userId;
 
-    public Client(Logger logger, Clientable clientRequestUDP, SerializableCommandDTO serializableCommandDTO, DeserializableAnswerDTO deserializableAnswerDTO, CommandManager manager) {
+    public Client(Logger logger, Clientable clientRequestUDP, SerializableObject<AuthorizationRequestDTO> serializableObject, DeserializableAnswerDTO deserializableAnswerDTO, CommandManager manager) {
         this.logger = logger;
         this.clientRequestUDP = clientRequestUDP;
-        this.serializableCommandDTO = serializableCommandDTO;
+        this.serializableObject = serializableObject;
         this.deserializableAnswerDTO = deserializableAnswerDTO;
         this.manager = manager;
         this.userId = clientRequestUDP.getUserId();
+        this.authorizationRequest = new AuthorizationRequestDTO();
     }
 
     public AnswerDTO sendCommandReceiveAnswer(String commandString) throws RuntimeException {
@@ -50,11 +55,13 @@ public class Client {
                 Command command = manager.getCommandMap().get(commandStringClean);
                 commandDTO = manager.execute(command);
             }
+            // добавляем в объект с авторизацией ссылку на CommandDTO
+            authorizationRequest.setCommandDTO(commandDTO);
             logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + commandDTO);
             try {
-                clientRequestUDP.makePost(serializableCommandDTO.serial(commandDTO));
+                clientRequestUDP.makePost(serializableObject.serial(authorizationRequest));
                 answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
-            } catch (NullPointerException|SocketTimeoutException e) {
+            } catch (NullPointerException | SocketTimeoutException e) {
                 throw new RuntimeException();
             }
             return answerDTO;

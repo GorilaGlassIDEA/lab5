@@ -10,7 +10,7 @@ import by.dima.model.service.io.ReadableFile;
 import by.dima.model.service.logger.factory.LoggerWrapper;
 import by.dima.model.client.parser.DeserializableAnswerDTO;
 import by.dima.model.client.parser.RouteParserToJson;
-import by.dima.model.client.parser.SerializableCommandDTO;
+import by.dima.model.client.parser.SerializableObject;
 import by.dima.model.client.request.ClientRequestUDP;
 import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,7 +51,7 @@ public class Main {
             Clientable clientable = new ClientRequestUDP(userId);
             CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
 
-            Client client = new Client(logger, clientable, new SerializableCommandDTO(), new DeserializableAnswerDTO(), manager);
+            Client client = new Client(logger, clientable, new SerializableObject(), new DeserializableAnswerDTO(), manager);
             System.out.println("Клиент запущен! Введите команду: ");
             String command = scanner.nextLine();
 
