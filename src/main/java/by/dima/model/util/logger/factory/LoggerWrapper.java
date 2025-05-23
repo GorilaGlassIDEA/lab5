@@ -1,9 +1,5 @@
-package by.dima.model.service.logger.factory;
+package by.dima.model.util.logger.factory;
 
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.logging.*;
 

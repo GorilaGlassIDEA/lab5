@@ -8,7 +8,7 @@ import by.dima.model.common.CommandDTO;
 import by.dima.model.client.parser.DeserializableAnswerDTO;
 import by.dima.model.client.parser.SerializableObject;
 import by.dima.model.client.request.Clientable;
-import by.dima.model.service.util.GetSecondArgFromArgsUtil;
+import by.dima.model.util.util.GetSecondArgFromArgsUtil;
 
 import lombok.Getter;
 import lombok.Setter;

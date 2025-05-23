@@ -2,9 +2,8 @@ package by.dima.model.commands.impl;
 
 import by.dima.model.client.parser.ExecuteDTOParserFromJson;
 import by.dima.model.commands.model.CommandAbstract;
-import by.dima.model.common.ExecuteDTO;
-import by.dima.model.service.io.ReadableFile;
-import by.dima.model.service.util.iteration.TextIterable;
+import by.dima.model.util.io.ReadableFile;
+import by.dima.model.util.util.iteration.TextIterable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package by.dima.model.service.util;
+package by.dima.model.util.util;
 
 public class GetSecondArgFromArgsUtil {
     public static String getSecondArg(String stringArgs) {

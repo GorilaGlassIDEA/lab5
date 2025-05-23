@@ -1,4 +1,4 @@
-package by.dima.model.service.io;
+package by.dima.model.util.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

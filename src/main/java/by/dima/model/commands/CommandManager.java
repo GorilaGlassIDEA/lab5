@@ -3,7 +3,7 @@ package by.dima.model.commands;
 import by.dima.model.commands.impl.*;
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.CommandDTO;
-import by.dima.model.service.io.ReadableFile;
+import by.dima.model.util.io.ReadableFile;
 import by.dima.model.client.parser.RouteParserToJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
