@@ -1,19 +1,21 @@
 package by.dima.model;
 
 import by.dima.model.auth.AuthScanner;
-import by.dima.model.auth.ScannerService;
+import by.dima.model.auth.AuthService;
 import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.common.AnswerDTO;
+import by.dima.model.common.AuthList;
 import by.dima.model.common.UserModel;
+import by.dima.model.util.RequestFacade;
 import by.dima.model.util.io.Creatable;
 import by.dima.model.util.io.CreateFileFiles;
 import by.dima.model.util.io.ReadFileBufferedReader;
 import by.dima.model.util.io.ReadableFile;
 import by.dima.model.util.logger.factory.LoggerWrapper;
-import by.dima.model.client.parser.DeserializableAnswerDTO;
+import by.dima.model.client.parser.ForDeserializableAnswerDTO;
 import by.dima.model.client.parser.RouteParserToJson;
-import by.dima.model.client.parser.SerializableObject;
+import by.dima.model.client.parser.ForSerializableObject;
 import by.dima.model.client.request.ClientRequestUDP;
 import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,17 +50,27 @@ public class Main {
             RouteParserToJson parserToJson = new RouteParserToJson(mapper);
             ReadableFile readableFile = new ReadFileBufferedReader();
             Scanner scanner = new Scanner(System.in);
-            AuthScanner authScanner = new AuthScanner(scanner);
-            UserModel userModel = auth(authScanner);
-            Long userId = inputLong();
 
+            Long userId = inputLong();
             Clientable clientable = new ClientRequestUDP(userId);
+
+            //переписать все под RequestFacade
+            RequestFacade requestFacade = new RequestFacade(new ForDeserializableAnswerDTO<>(), new ForSerializableObject<>(), clientable);
+
+
+            AuthScanner authScanner = new AuthScanner(scanner);
+            AuthService authService = new AuthService(requestFacade);
+            AuthList clientStatus = authService.getClientStatus(authScanner.inputUserDataFromKeyboard());
+            System.out.println("Статус клиента: " + clientStatus);
+
+
             CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
 
-            Client client = new Client(userModel, logger, clientable, new SerializableObject<>(), new DeserializableAnswerDTO(), manager);
-            if (client.checkAuth()){
-                logger.log(Level.FINE,"Авторизация успешно выполнена!");
-            }
+
+            //TODO: убрать new UserDTO()
+            Client client = new Client(new UserModel(), logger, clientable, new ForSerializableObject<>(), new ForDeserializableAnswerDTO<>(), manager);
+
+
             System.out.println("Клиент запущен! Введите команду: ");
             String command = scanner.nextLine();
 
@@ -81,10 +93,6 @@ public class Main {
 
     }
 
-    public static UserModel auth(AuthScanner authScanner) {
-        authScanner.setData();
-        return new UserModel(authScanner.getUsername(), authScanner.getPassword());
-    }
 
     public static Long inputLong() {
         Scanner scanner = new Scanner(System.in);

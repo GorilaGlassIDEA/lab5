@@ -2,20 +2,16 @@ package by.dima.model.client;
 
 import by.dima.model.commands.CommandManager;
 import by.dima.model.commands.model.Command;
-import by.dima.model.common.AnswerDTO;
-import by.dima.model.common.AuthorizationRequestDTO;
-import by.dima.model.common.CommandDTO;
-import by.dima.model.client.parser.DeserializableAnswerDTO;
-import by.dima.model.client.parser.SerializableObject;
+import by.dima.model.common.*;
+import by.dima.model.client.parser.ForDeserializableAnswerDTO;
+import by.dima.model.client.parser.ForSerializableObject;
 import by.dima.model.client.request.Clientable;
-import by.dima.model.common.UserModel;
 import by.dima.model.util.util.GetSecondArgFromArgsUtil;
 
 import lombok.Getter;
 import lombok.Setter;
 
 
-import java.net.SocketTimeoutException;
 import java.util.logging.*;
 
 @Setter
@@ -24,48 +20,44 @@ public class Client {
     private Logger logger;
     private Clientable clientRequestUDP;
     private AnswerDTO answerDTO;
-    private SerializableObject<AuthorizationRequestDTO> serializableObject;
-    private DeserializableAnswerDTO deserializableAnswerDTO;
+    private ForSerializableObject<AuthRequestDTO> forSerializableObject;
+    private ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO;
     private CommandManager manager;
-    private UserModel userModel;
 
     private CommandDTO commandDTO;
-    private AuthorizationRequestDTO authorizationRequest;
+    private final UserModel userModel;
 
     private final Long userId;
 
-    public Client(UserModel userModel, Logger logger, Clientable clientRequestUDP, SerializableObject<AuthorizationRequestDTO> serializableObject, DeserializableAnswerDTO deserializableAnswerDTO, CommandManager manager) {
+    public Client(UserModel userModel, Logger logger, Clientable clientRequestUDP, ForSerializableObject<AuthRequestDTO> forSerializableObject, ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO, CommandManager manager) {
         this.logger = logger;
         this.clientRequestUDP = clientRequestUDP;
-        this.serializableObject = serializableObject;
+        this.forSerializableObject = forSerializableObject;
         this.deserializableAnswerDTO = deserializableAnswerDTO;
         this.manager = manager;
         this.userId = clientRequestUDP.getUserId();
-        this.authorizationRequest = new AuthorizationRequestDTO();
         this.userModel = userModel;
     }
 
     public AnswerDTO sendCommandReceiveAnswer(String commandString) throws RuntimeException {
         String commandStringClean = GetSecondArgFromArgsUtil.getFirstArg(commandString);
         String commandArg = GetSecondArgFromArgsUtil.getSecondArg(commandString);
+        AuthRequestDTO authorizationRequest = new AuthRequestDTO(userModel);
 
         if (manager.getCommandMap().containsKey(commandStringClean)) {
+            Command command = manager.getCommandMap().get(commandStringClean);
             if (!commandArg.isBlank()) {
-                Command command = manager.getCommandMap().get(commandStringClean);
                 command.setArgs(commandArg);
-                commandDTO = manager.execute(command);
-            } else {
-                Command command = manager.getCommandMap().get(commandStringClean);
-                commandDTO = manager.execute(command);
             }
+            commandDTO = manager.execute(command);
+
             // добавляем в объект с авторизацией ссылку на CommandDTO
             authorizationRequest.setCommandDTO(commandDTO);
-            authorizationRequest.setUserModel(userModel == null ? new UserModel() : userModel);
             logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + commandDTO);
             try {
-                clientRequestUDP.makePost(serializableObject.serial(authorizationRequest));
+                clientRequestUDP.makePost(forSerializableObject.serial(authorizationRequest));
                 answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
-            } catch (NullPointerException | SocketTimeoutException e) {
+            } catch (NullPointerException e) {
                 throw new RuntimeException();
             }
             return answerDTO;
@@ -74,16 +66,14 @@ public class Client {
         }
     }
 
-    public boolean checkAuth() {
-        authorizationRequest.setUserModel(userModel);
-        authorizationRequest.setCommandDTO(new CommandDTO());
+    public AuthList checkAuth(AuthRequestDTO authorizationRequest) {
         try {
-            clientRequestUDP.makePost(serializableObject.serial(authorizationRequest));
+            clientRequestUDP.makePost(forSerializableObject.serial(authorizationRequest));
             answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
             return answerDTO.getAuth();
-        } catch (NullPointerException | SocketTimeoutException e) {
-            logger.log(Level.WARNING, "Не удалось авторизоваться!");
-            return false;
+        } catch (NullPointerException e) {
+            logger.log(Level.INFO, "Не удалось обработать команду! Она пустая");
         }
+        return AuthList.UNAUTHENTICATED;
     }
 }

@@ -8,8 +8,8 @@ public interface Clientable {
         return -1L;
     }
 
-    void makePost(byte[] data) throws SocketTimeoutException;
+    void makePost(byte[] data);
 
-    ByteBuffer makeGet() throws SocketTimeoutException;
+    ByteBuffer makeGet();
 
 }

@@ -9,6 +9,9 @@ public class LoggerWrapper {
     private static ConsoleHandler consoleHandler;
 
     public static Logger getLogger() {
+        if (logger != null) {
+            return logger;
+        }
         logger = Logger.getLogger("client-log");
         logger.setUseParentHandlers(false);
 
@@ -23,7 +26,7 @@ public class LoggerWrapper {
         fileHandler.setFormatter(new SimpleFormatter());
 
         consoleHandler.setLevel(Level.FINE);
-        consoleHandler.setFilter(record -> (record.getLevel() == Level.FINE));
+//        consoleHandler.setFilter(record -> (record.getLevel() == Level.FINE));
         consoleHandler.setFormatter(new SimpleFormatter());
         logger.addHandler(fileHandler);
         logger.addHandler(consoleHandler);

@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class SerializableObject<T> {
+public class ForSerializableObject<T> {
 
 
     public byte[] serial(T t) {
