@@ -57,18 +57,21 @@ public class Main {
             //переписать все под RequestFacade
             RequestFacade requestFacade = new RequestFacade(new ForDeserializableAnswerDTO<>(), new ForSerializableObject<>(), clientable);
 
-
             AuthScanner authScanner = new AuthScanner(scanner);
             AuthService authService = new AuthService(requestFacade);
-            AuthList clientStatus = authService.getClientStatus(authScanner.inputUserDataFromKeyboard());
+            UserModel userModel = authScanner.inputUserDataFromKeyboard();
+            AuthList clientStatus = authService.getClientStatus(userModel);
+            while (clientStatus != AuthList.AUTHORIZATION) {
+                System.out.println("Пользователь не авторизован!");
+                clientStatus = authService.getClientStatus(userModel = authScanner.inputUserDataFromKeyboard());
+            }
             System.out.println("Статус клиента: " + clientStatus);
 
 
             CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
 
 
-            //TODO: убрать new UserDTO()
-            Client client = new Client(new UserModel(), logger, clientable, new ForSerializableObject<>(), new ForDeserializableAnswerDTO<>(), manager);
+            Client client = new Client(userModel, logger, clientable, new ForSerializableObject<>(), new ForDeserializableAnswerDTO<>(), manager);
 
 
             System.out.println("Клиент запущен! Введите команду: ");

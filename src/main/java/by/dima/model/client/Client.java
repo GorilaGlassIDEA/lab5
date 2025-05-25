@@ -28,6 +28,7 @@ public class Client {
     private final UserModel userModel;
 
     private final Long userId;
+    private final AuthRequestDTO authorizationRequest;
 
     public Client(UserModel userModel, Logger logger, Clientable clientRequestUDP, ForSerializableObject<AuthRequestDTO> forSerializableObject, ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO, CommandManager manager) {
         this.logger = logger;
@@ -37,12 +38,12 @@ public class Client {
         this.manager = manager;
         this.userId = clientRequestUDP.getUserId();
         this.userModel = userModel;
+        this.authorizationRequest = AuthRequestDTO.getInstance(userModel);
     }
 
     public AnswerDTO sendCommandReceiveAnswer(String commandString) throws RuntimeException {
         String commandStringClean = GetSecondArgFromArgsUtil.getFirstArg(commandString);
         String commandArg = GetSecondArgFromArgsUtil.getSecondArg(commandString);
-        AuthRequestDTO authorizationRequest = new AuthRequestDTO(userModel);
 
         if (manager.getCommandMap().containsKey(commandStringClean)) {
             Command command = manager.getCommandMap().get(commandStringClean);
@@ -53,7 +54,7 @@ public class Client {
 
             // добавляем в объект с авторизацией ссылку на CommandDTO
             authorizationRequest.setCommandDTO(commandDTO);
-            logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + commandDTO);
+            logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + authorizationRequest);
             try {
                 clientRequestUDP.makePost(forSerializableObject.serial(authorizationRequest));
                 answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
@@ -66,14 +67,4 @@ public class Client {
         }
     }
 
-    public AuthList checkAuth(AuthRequestDTO authorizationRequest) {
-        try {
-            clientRequestUDP.makePost(forSerializableObject.serial(authorizationRequest));
-            answerDTO = deserializableAnswerDTO.deserial(clientRequestUDP.makeGet());
-            return answerDTO.getAuth();
-        } catch (NullPointerException e) {
-            logger.log(Level.INFO, "Не удалось обработать команду! Она пустая");
-        }
-        return AuthList.UNAUTHENTICATED;
-    }
 }
