@@ -20,7 +20,7 @@ public class AuthRequestDTO implements Serializable {
     private final UserModel userModel;
     private CommandDTO commandDTO;
     private static AuthRequestDTO authRequestDTO;
-    private boolean isAuthenticated;
+    private boolean isAuthenticated = true;
 
     public static AuthRequestDTO getInstance(UserModel userModel) {
         if (authRequestDTO == null) {

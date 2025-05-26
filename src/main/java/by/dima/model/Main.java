@@ -66,16 +66,17 @@ public class Main {
             while (scanner.hasNextLine()) {
                 String mode = scanner.nextLine();
                 try {
+                    //TODO: при регистрации если введен логин который уже существует писать обратную связь о существовании username
                     Long longMode = Long.parseLong(mode);
                     userModel = authScanner.inputUserDataFromKeyboard();
                     AuthList clientStatus = authService.getClientStatus(userModel);
                     if (longMode == 1) {
-                        authorizedStatusControl(clientStatus, userModel, authScanner, authService);
-                        System.out.println("Статус клиента " + userModel + clientStatus);
+                        clientStatus = authorizedStatusControl(clientStatus, userModel, authScanner, authService);
+                        System.out.println("Статус клиента " + userModel + " " + clientStatus);
                         break;
                     } else if (longMode == 0) {
-                        authenticationStatusControl(clientStatus, userModel, authScanner, authService);
-                        System.out.println("Статус клиента " + userModel + clientStatus);
+                        clientStatus = authenticationStatusControl(clientStatus, userModel, authScanner, authService);
+                        System.out.println("Статус клиента " + userModel + " " + clientStatus);
                         break;
                     } else {
                         System.out.println("Некорректный ввод!");
@@ -128,19 +129,22 @@ public class Main {
         }
     }
 
-    public static void authorizedStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
-        while (clientStatus == AuthList.UNAUTHORIZED) {
+    public static AuthList authorizedStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
+        while (clientStatus != AuthList.AUTHORIZATION) {
             System.out.println("Неправильно введен логин или пароль!");
             userModel = authScanner.inputUserDataFromKeyboard();
             clientStatus = authService.getClientStatus(userModel);
         }
+        return clientStatus;
     }
 
-    public static void authenticationStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
-        while (clientStatus == AuthList.UNAUTHENTICATED) {
+    public static AuthList authenticationStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
+        while (clientStatus != AuthList.AUTHORIZATION) {
             userModel = authScanner.inputUserDataFromKeyboard();
             authService.authentication(userModel);
             clientStatus = authService.getClientStatus(userModel);
         }
+        return clientStatus;
+
     }
 }
