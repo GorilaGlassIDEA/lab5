@@ -6,6 +6,7 @@ import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.common.AnswerDTO;
 import by.dima.model.common.AuthList;
+import by.dima.model.common.AuthRequestDTO;
 import by.dima.model.common.UserModel;
 import by.dima.model.util.RequestFacade;
 import by.dima.model.util.io.Creatable;
@@ -20,6 +21,7 @@ import by.dima.model.client.request.ClientRequestUDP;
 import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sun.jdi.VoidType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -59,18 +61,32 @@ public class Main {
 
             AuthScanner authScanner = new AuthScanner(scanner);
             AuthService authService = new AuthService(requestFacade);
-            UserModel userModel = authScanner.inputUserDataFromKeyboard();
-            AuthList clientStatus = authService.getClientStatus(userModel);
-            while (clientStatus != AuthList.AUTHORIZATION) {
-                System.out.println("Пользователь не авторизован!");
-                clientStatus = authService.getClientStatus(userModel = authScanner.inputUserDataFromKeyboard());
+            UserModel userModel = new UserModel();
+            System.out.println("(Регистрация - 0, Вход в систему - 1");
+            while (scanner.hasNextLine()) {
+                String mode = scanner.nextLine();
+                try {
+                    Long longMode = Long.parseLong(mode);
+                    userModel = authScanner.inputUserDataFromKeyboard();
+                    AuthList clientStatus = authService.getClientStatus(userModel);
+                    if (longMode == 1) {
+                        authorizedStatusControl(clientStatus, userModel, authScanner, authService);
+                        System.out.println("Статус клиента " + userModel + clientStatus);
+                        break;
+                    } else if (longMode == 0) {
+                        authenticationStatusControl(clientStatus, userModel, authScanner, authService);
+                        System.out.println("Статус клиента " + userModel + clientStatus);
+                        break;
+                    } else {
+                        System.out.println("Некорректный ввод!");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Некорректный ввод!");
+                }
             }
-            System.out.println("Статус клиента: " + clientStatus);
 
 
             CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
-
-
             Client client = new Client(userModel, logger, clientable, new ForSerializableObject<>(), new ForDeserializableAnswerDTO<>(), manager);
 
 
@@ -109,6 +125,22 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Попробуйте еще раз!");
             }
+        }
+    }
+
+    public static void authorizedStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
+        while (clientStatus == AuthList.UNAUTHORIZED) {
+            System.out.println("Неправильно введен логин или пароль!");
+            userModel = authScanner.inputUserDataFromKeyboard();
+            clientStatus = authService.getClientStatus(userModel);
+        }
+    }
+
+    public static void authenticationStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
+        while (clientStatus == AuthList.UNAUTHENTICATED) {
+            userModel = authScanner.inputUserDataFromKeyboard();
+            authService.authentication(userModel);
+            clientStatus = authService.getClientStatus(userModel);
         }
     }
 }

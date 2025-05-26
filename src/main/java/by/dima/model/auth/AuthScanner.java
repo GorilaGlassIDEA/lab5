@@ -1,15 +1,15 @@
 package by.dima.model.auth;
 
 
-import by.dima.model.common.AuthList;
-import by.dima.model.common.UserModel;
-import lombok.Data;
+import by.dima.model.common.UserModel;;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Scanner;
 
-@Data
 public class AuthScanner {
-
+    @Getter
+    @Setter
     private UserModel userModel;
     private final ScannerService scannerService;
 
@@ -24,6 +24,11 @@ public class AuthScanner {
         userModel.setPassword(scannerService.getString("Введите пароль для логина",
                 "Некорректный ввод, попробуйте еще раз!"));
         return userModel;
+    }
+
+    public String getPassword(String login) {
+        return scannerService.getString("Введите пароль для логина\n-------" + login + "--------",
+                "Некорректный ввод, попробуйте еще раз!");
     }
 
 

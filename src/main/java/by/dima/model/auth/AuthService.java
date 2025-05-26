@@ -26,4 +26,19 @@ public class AuthService {
         return answerDTO.getAuth();
     }
 
+    public AuthRequestDTO authentication(UserModel userModel) {
+        AnswerDTO answerDTO;
+        AuthRequestDTO authRequestDTO = new AuthRequestDTO(userModel);
+        if (getClientStatus(userModel) == AuthList.UNAUTHENTICATED) {
+            authRequestDTO.setAuthenticated(false);
+            answerDTO = requestFacade.getAnswer(authRequestDTO);
+            if (answerDTO.getAuth() != AuthList.UNAUTHENTICATED) {
+                authRequestDTO.setAuthenticated(true);
+                System.out.println("Регистрация выполнена успешно!");
+            }
+        }
+        //TODO: потенциальный предвестник проблем с регистрацией проверить код если возникнут ошибки!
+        return authRequestDTO;
+    }
+
 }
