@@ -22,6 +22,7 @@ import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sun.jdi.VoidType;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -68,15 +69,11 @@ public class Main {
                 try {
                     //TODO: при регистрации если введен логин который уже существует писать обратную связь о существовании username
                     Long longMode = Long.parseLong(mode);
-                    userModel = authScanner.inputUserDataFromKeyboard();
-                    AuthList clientStatus = authService.getClientStatus(userModel);
                     if (longMode == 1) {
-                        clientStatus = authorizedStatusControl(clientStatus, userModel, authScanner, authService);
-                        System.out.println("Статус клиента " + userModel + " " + clientStatus);
+                        userModel = authorizedStatusControl(authScanner, authService);
                         break;
                     } else if (longMode == 0) {
-                        clientStatus = authenticationStatusControl(clientStatus, userModel, authScanner, authService);
-                        System.out.println("Статус клиента " + userModel + " " + clientStatus);
+                        userModel = authenticationStatusControl(authScanner, authService);
                         break;
                     } else {
                         System.out.println("Некорректный ввод!");
@@ -129,22 +126,24 @@ public class Main {
         }
     }
 
-    public static AuthList authorizedStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
-        while (clientStatus != AuthList.AUTHORIZATION) {
-            System.out.println("Неправильно введен логин или пароль!");
+    public static UserModel authorizedStatusControl(AuthScanner authScanner, AuthService authService) {
+        UserModel userModel = authScanner.inputUserDataFromKeyboard();
+        AuthRequestDTO authRequestDTO = authService.authorization(userModel);
+        while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
             userModel = authScanner.inputUserDataFromKeyboard();
-            clientStatus = authService.getClientStatus(userModel);
+            authRequestDTO = authService.authorization(userModel);
         }
-        return clientStatus;
+        return userModel;
     }
 
-    public static AuthList authenticationStatusControl(AuthList clientStatus, UserModel userModel, AuthScanner authScanner, AuthService authService) {
-        while (clientStatus != AuthList.AUTHORIZATION) {
-            userModel = authScanner.inputUserDataFromKeyboard();
-            authService.authentication(userModel);
-            clientStatus = authService.getClientStatus(userModel);
-        }
-        return clientStatus;
+    public static UserModel authenticationStatusControl(AuthScanner authScanner, AuthService authService) {
+        UserModel userModel = authScanner.inputUserDataFromKeyboard();
+        AuthRequestDTO authRequestDTO = authService.authentication(userModel);
 
+        while (authRequestDTO.getAuthList() != AuthList.UNAUTHORIZED) {
+            userModel = authScanner.inputUserDataFromKeyboard();
+            authRequestDTO = authService.authentication(userModel);
+        }
+        return userModel;
     }
 }

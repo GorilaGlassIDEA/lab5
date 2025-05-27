@@ -21,7 +21,9 @@ public class AuthService {
     }
 
     public AuthList getClientStatus(UserModel userModel) throws NullPointerException {
-        AnswerDTO answerDTO = requestFacade.getAnswer(new AuthRequestDTO(userModel));
+        AuthRequestDTO authRequestDTO = new AuthRequestDTO(userModel);
+        authRequestDTO.setAuthList(AuthList.GET_STATUS);
+        AnswerDTO answerDTO = requestFacade.getAnswer(authRequestDTO);
         logger.log(Level.INFO, "Текущий статус пользователя: " + answerDTO.getAuth());
         return answerDTO.getAuth();
     }
@@ -29,16 +31,35 @@ public class AuthService {
     public AuthRequestDTO authentication(UserModel userModel) {
         AnswerDTO answerDTO;
         AuthRequestDTO authRequestDTO = new AuthRequestDTO(userModel);
-        if (getClientStatus(userModel) == AuthList.UNAUTHENTICATED) {
-            authRequestDTO.setAuthenticated(false);
-            answerDTO = requestFacade.getAnswer(authRequestDTO);
-            if (answerDTO.getAuth() != AuthList.UNAUTHENTICATED) {
-                authRequestDTO.setAuthenticated(true);
-                System.out.println("Регистрация выполнена успешно!");
-            }
+        authRequestDTO.setAuthList(AuthList.REQUEST_REGISTER);
+        answerDTO = requestFacade.getAnswer(authRequestDTO);
+        authRequestDTO.setAuthList(answerDTO.getAuth());
+        if (authRequestDTO.getAuthList() == AuthList.IS_EXIST) {
+            System.out.println("Пользователь с таким логином уже существует!");
         }
-        //TODO: потенциальный предвестник проблем с регистрацией проверить код если возникнут ошибки!
+        if (authRequestDTO.getAuthList() == AuthList.UNAUTHORIZED) {
+            System.out.println("Пользователь успешно создан!");
+        }
         return authRequestDTO;
     }
 
+    public AuthRequestDTO authorization(UserModel userModel) {
+        AuthRequestDTO authRequestDTO = new AuthRequestDTO(userModel);
+        authRequestDTO.setAuthList(AuthList.UNAUTHORIZED);
+        AnswerDTO answerDTO = requestFacade.getAnswer(authRequestDTO);
+        authRequestDTO.setAuthList(answerDTO.getAuth());
+
+        if (authRequestDTO.getAuthList() == AuthList.AUTHORIZATION) {
+            System.out.println(answerDTO.getAnswer());
+        } else if (authRequestDTO.getAuthList() == AuthList.IS_EXIST || authRequestDTO.getAuthList() == AuthList.UNAUTHORIZED) {
+            authRequestDTO.setAuthList(AuthList.UNAUTHORIZED);
+            answerDTO = requestFacade.getAnswer(authRequestDTO);
+            authRequestDTO.setAuthList(answerDTO.getAuth());
+            System.out.println(answerDTO.getAnswer());
+        } else {
+            System.out.println(answerDTO.getAnswer());
+        }
+
+        return authRequestDTO;
+    }
 }
