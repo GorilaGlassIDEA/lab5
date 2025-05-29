@@ -19,8 +19,8 @@ public class AuthRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private final UserModel userModel;
     private CommandDTO commandDTO;
+    private AuthList authList;
     private static AuthRequestDTO authRequestDTO;
-    private AuthList authList ;
 
     public static AuthRequestDTO getInstance(UserModel userModel) {
         if (authRequestDTO == null) {
@@ -28,6 +28,5 @@ public class AuthRequestDTO implements Serializable {
         }
         return authRequestDTO;
     }
-
 }
 

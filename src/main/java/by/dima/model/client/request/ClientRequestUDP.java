@@ -14,18 +14,15 @@ import java.util.Random;
 public class ClientRequestUDP implements Clientable {
     private final int serverPort;
     @Getter
-    private final Long userId;
-    @Getter
     private final Long myPort;
     private final InetAddress host;
     private final DatagramSocket socket;
     private DatagramPacket packet;
 
     //TODO: сделать порты через файл конфигурации
-    public ClientRequestUDP(Long userId) throws IOException {
+    public ClientRequestUDP() throws IOException {
         host = InetAddress.getLocalHost();
         serverPort = 8932;
-        this.userId = userId;
         myPort = new Random().nextLong(1_001, 65_000);
         socket = new DatagramSocket(myPort.intValue());
         socket.setSoTimeout(5000);

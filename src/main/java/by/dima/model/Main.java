@@ -21,8 +21,6 @@ import by.dima.model.client.request.ClientRequestUDP;
 import by.dima.model.client.request.Clientable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sun.jdi.VoidType;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -54,8 +52,7 @@ public class Main {
             ReadableFile readableFile = new ReadFileBufferedReader();
             Scanner scanner = new Scanner(System.in);
 
-            Long userId = inputLong();
-            Clientable clientable = new ClientRequestUDP(userId);
+            Clientable clientable = new ClientRequestUDP();
 
             //переписать все под RequestFacade
             RequestFacade requestFacade = new RequestFacade(new ForDeserializableAnswerDTO<>(), new ForSerializableObject<>(), clientable);
@@ -83,8 +80,13 @@ public class Main {
                 }
             }
 
+            if (userModel.getId() == null) {
+                userModel.setId(-1);
+            }
 
-            CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, clientable.getUserId(), logger);
+            System.out.println(userModel);
+
+            CommandManager manager = new CommandManager(mapper, readableFile, filePath, parserToJson, (long) userModel.getId(), logger);
             Client client = new Client(userModel, logger, clientable, new ForSerializableObject<>(), new ForDeserializableAnswerDTO<>(), manager);
 
 
@@ -133,6 +135,7 @@ public class Main {
             userModel = authScanner.inputUserDataFromKeyboard();
             authRequestDTO = authService.authorization(userModel);
         }
+        System.out.println("Класс Main метод авторизации" + authRequestDTO);
         return userModel;
     }
 
@@ -140,7 +143,7 @@ public class Main {
         UserModel userModel = authScanner.inputUserDataFromKeyboard();
         AuthRequestDTO authRequestDTO = authService.authentication(userModel);
 
-        while (authRequestDTO.getAuthList() != AuthList.UNAUTHORIZED) {
+        while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
             userModel = authScanner.inputUserDataFromKeyboard();
             authRequestDTO = authService.authentication(userModel);
         }

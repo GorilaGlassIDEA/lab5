@@ -33,11 +33,13 @@ public class AuthService {
         AuthRequestDTO authRequestDTO = new AuthRequestDTO(userModel);
         authRequestDTO.setAuthList(AuthList.REQUEST_REGISTER);
         answerDTO = requestFacade.getAnswer(authRequestDTO);
+
         authRequestDTO.setAuthList(answerDTO.getAuth());
+        authRequestDTO.getUserModel().setId(answerDTO.getUserModel().getId());
         if (authRequestDTO.getAuthList() == AuthList.IS_EXIST) {
             System.out.println("Пользователь с таким логином уже существует!");
         }
-        if (authRequestDTO.getAuthList() == AuthList.UNAUTHORIZED) {
+        if (authRequestDTO.getAuthList() == AuthList.AUTHORIZATION) {
             System.out.println("Пользователь успешно создан!");
         }
         return authRequestDTO;
@@ -49,8 +51,10 @@ public class AuthService {
         AnswerDTO answerDTO = requestFacade.getAnswer(authRequestDTO);
         authRequestDTO.setAuthList(answerDTO.getAuth());
 
+
         if (authRequestDTO.getAuthList() == AuthList.AUTHORIZATION) {
             System.out.println(answerDTO.getAnswer());
+            userModel.setId(answerDTO.getUserModel().getId());
         } else if (authRequestDTO.getAuthList() == AuthList.IS_EXIST || authRequestDTO.getAuthList() == AuthList.UNAUTHORIZED) {
             authRequestDTO.setAuthList(AuthList.UNAUTHORIZED);
             answerDTO = requestFacade.getAnswer(authRequestDTO);

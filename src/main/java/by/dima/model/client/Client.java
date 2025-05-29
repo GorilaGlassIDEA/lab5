@@ -54,6 +54,7 @@ public class Client {
 
             // добавляем в объект с авторизацией ссылку на CommandDTO
             authorizationRequest.setCommandDTO(commandDTO);
+            authorizationRequest.setAuthList(AuthList.AUTHORIZATION);
             logger.log(Level.INFO, "CommandDTO для отправки на сервер: " + authorizationRequest);
             try {
                 clientRequestUDP.makePost(forSerializableObject.serial(authorizationRequest));
