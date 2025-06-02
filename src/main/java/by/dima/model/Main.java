@@ -8,6 +8,7 @@ import by.dima.model.common.AnswerDTO;
 import by.dima.model.common.AuthList;
 import by.dima.model.common.AuthRequestDTO;
 import by.dima.model.common.UserModel;
+import by.dima.model.util.PasswordHasher;
 import by.dima.model.util.RequestFacade;
 import by.dima.model.util.io.Creatable;
 import by.dima.model.util.io.CreateFileFiles;
@@ -130,9 +131,11 @@ public class Main {
 
     public static UserModel authorizedStatusControl(AuthScanner authScanner, AuthService authService) {
         UserModel userModel = authScanner.inputUserDataFromKeyboard();
+        userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
         AuthRequestDTO authRequestDTO = authService.authorization(userModel);
         while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
             userModel = authScanner.inputUserDataFromKeyboard();
+            userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
             authRequestDTO = authService.authorization(userModel);
         }
         System.out.println("Класс Main метод авторизации" + authRequestDTO);
@@ -141,10 +144,12 @@ public class Main {
 
     public static UserModel authenticationStatusControl(AuthScanner authScanner, AuthService authService) {
         UserModel userModel = authScanner.inputUserDataFromKeyboard();
+        userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
         AuthRequestDTO authRequestDTO = authService.authentication(userModel);
 
         while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
             userModel = authScanner.inputUserDataFromKeyboard();
+            userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
             authRequestDTO = authService.authentication(userModel);
         }
         return userModel;

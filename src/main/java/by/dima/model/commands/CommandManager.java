@@ -33,6 +33,7 @@ public class CommandManager {
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(userId);
         Command historyCommand = new HistoryCommand(userId);
         Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile, mapper);
+        Command showAllCommand = new ShowAllCommand(userId);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
         commandMap.put(infoCommand.getKey(), infoCommand);
@@ -48,6 +49,7 @@ public class CommandManager {
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
         commandMap.put(historyCommand.getKey(), historyCommand);
         commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
+        commandMap.put(showAllCommand.getKey(), showAllCommand);
 
 
     }
