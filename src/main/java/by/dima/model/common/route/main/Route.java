@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Route implements Comparable<Route>, Serializable {
-    private long id;
+    private Long id;
     private String name;
     private Coordinates coordinates;
     private ZonedDateTime creationDate;
