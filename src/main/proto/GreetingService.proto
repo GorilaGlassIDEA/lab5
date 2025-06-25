@@ -1,0 +1,30 @@
+syntax="proto3";
+package com.example.grpc;
+
+/**
+Запрос который клиент пересылает серверу
+ */
+message HelloRequest{
+
+  string name = 1;
+  repeated string hobbies = 2;
+
+}
+
+/**
+Ответ который сервер посылает клиенту
+ */
+message HelloResponse{
+  string greeting = 1;
+}
+
+
+/**
+Создаем сервис для работы с RPC (remote procedure call), где сервис это логическая
+структура, объединяющая несколько удаленных методов
+ */
+service GreetingService{
+  rpc greeting(HelloRequest) returns (HelloResponse);
+}
+
+
