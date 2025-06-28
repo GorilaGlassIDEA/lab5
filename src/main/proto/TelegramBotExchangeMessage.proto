@@ -1,0 +1,32 @@
+syntax = "proto3";
+package com.example.grpc;
+
+/**
+Запрос который клиент пересылает серверу
+ */
+message UserRequest{
+
+  string username = 1;
+  string surname = 2;
+  string message = 3;
+  int64 telegramId = 4;
+}
+
+/**
+Ответ который сервер посылает клиенту
+ */
+message ClientLayerResponse{
+  string answer = 1;
+  int64 telegramId = 2;
+}
+
+
+/**
+Создаем сервис для работы с RPC (remote procedure call), где сервис это логическая
+структура, объединяющая несколько удаленных методов
+ */
+service TelegramBotService{
+  rpc getResponse(UserRequest) returns (ClientLayerResponse);
+}
+
+
