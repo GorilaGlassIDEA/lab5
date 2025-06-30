@@ -1,34 +1,37 @@
 package by.dima.model.auth.mode;
 
-import by.dima.model.Main;
-import by.dima.model.auth.AuthScanner;
+import by.dima.model.auth.AuthUtils;
+import by.dima.model.auth.read.data.CLIReadData;
+import by.dima.model.auth.read.data.ReadUserData;
 import by.dima.model.auth.AuthService;
+import by.dima.model.auth.read.data.ReadableData;
 import by.dima.model.common.UserModel;
 
 import java.util.Scanner;
 
-public class CLIMode implements ChooseAuthMode {
-    private final Scanner scanner;
+public class InputMode {
     private UserModel userModel = new UserModel();
-    private final AuthScanner authScanner;
+    private final Scanner scanner;
     private final AuthService authService;
+    private final ReadableData readableData;
 
-    public CLIMode(Scanner scanner, AuthService authService) {
-        this.scanner = scanner;
-        this.authScanner = new AuthScanner(scanner);
+    public InputMode(AuthService authService, ReadableData readableData) {
         this.authService = authService;
+        this.scanner = new Scanner(System.in);
+        this.readableData = readableData;
     }
 
     public UserModel getAnswer() {
+        ReadUserData readUserData = new ReadUserData(readableData);
         while (scanner.hasNextLine()) {
             String mode = scanner.nextLine();
             try {
                 Long longMode = Long.parseLong(mode);
                 if (longMode == 1) {
-                    userModel = Main.authorizedStatusControl(authScanner, authService);
+                    userModel = AuthUtils.authorizedStatusControl(readUserData, authService);
                     break;
                 } else if (longMode == 0) {
-                    userModel = Main.authenticationStatusControl(authScanner, authService);
+                    userModel = AuthUtils.authenticationStatusControl(readUserData, authService);
                     break;
                 } else {
                     System.out.println("Некорректный ввод!");
@@ -39,4 +42,6 @@ public class CLIMode implements ChooseAuthMode {
         }
         return userModel;
     }
+
+
 }

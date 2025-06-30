@@ -1,16 +1,12 @@
 package by.dima.model;
 
-import by.dima.model.auth.AuthScanner;
 import by.dima.model.auth.AuthService;
-import by.dima.model.auth.mode.CLIMode;
-import by.dima.model.auth.mode.ChooseAuthMode;
+import by.dima.model.auth.mode.InputMode;
+import by.dima.model.auth.read.data.CLIReadData;
 import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.common.AnswerDTO;
-import by.dima.model.common.AuthList;
-import by.dima.model.common.AuthRequestDTO;
 import by.dima.model.common.UserModel;
-import by.dima.model.util.PasswordHasher;
 import by.dima.model.util.RequestFacade;
 import by.dima.model.util.io.Creatable;
 import by.dima.model.util.io.CreateFileFiles;
@@ -63,8 +59,8 @@ public class Main {
             AuthService authService = new AuthService(requestFacade);
             System.out.println("(Регистрация - 0, Вход в систему - 1");
 
-            ChooseAuthMode chooseAuthMode = new CLIMode(scanner, authService);
-            UserModel userModel = chooseAuthMode.getAnswer();
+            InputMode inputMode = new InputMode(authService,new CLIReadData());
+            UserModel userModel = inputMode.getAnswer();
 
 
             if (userModel.getId() == null) {
@@ -100,45 +96,5 @@ public class Main {
     }
 
 
-    public static Long inputLong() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите свой userId (Long)");
-        while (true) {
-            String userId = scanner.nextLine();
-            try {
-                Long userIdLong = Long.parseLong(userId);
-                System.out.println("Ваш id равен " + userIdLong);
-                return userIdLong;
-            } catch (NumberFormatException e) {
-                System.out.println("Попробуйте еще раз!");
-            }
-        }
-    }
-
-    public static UserModel authorizedStatusControl(AuthScanner authScanner, AuthService authService) {
-        UserModel userModel = authScanner.inputUserDataFromKeyboard();
-        userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
-        AuthRequestDTO authRequestDTO = authService.authorization(userModel);
-        while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
-            userModel = authScanner.inputUserDataFromKeyboard();
-            userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
-            authRequestDTO = authService.authorization(userModel);
-        }
-        System.out.println("Класс Main метод авторизации" + authRequestDTO);
-        return userModel;
-    }
-
-    public static UserModel authenticationStatusControl(AuthScanner authScanner, AuthService authService) {
-        UserModel userModel = authScanner.inputUserDataFromKeyboard();
-        userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
-        AuthRequestDTO authRequestDTO = authService.authentication(userModel);
-
-        while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
-            userModel = authScanner.inputUserDataFromKeyboard();
-            userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
-            authRequestDTO = authService.authentication(userModel);
-        }
-        return userModel;
-    }
 }
 
