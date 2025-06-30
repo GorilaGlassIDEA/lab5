@@ -9,7 +9,7 @@ import by.dima.model.util.PasswordHasher;
 public class AuthUtils {
     public static UserModel authorizedStatusControl(ReadUserData readUserData, AuthService authService) {
         UserModel userModel = readUserData.read();
-        userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
+        userModel.setPassword(userModel.getPassword());
         AuthRequestDTO authRequestDTO = authService.authorization(userModel);
         while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
             userModel = readUserData.read();
@@ -22,7 +22,7 @@ public class AuthUtils {
 
     public static UserModel authenticationStatusControl(ReadUserData authScanner, AuthService authService) {
         UserModel userModel = authScanner.read();
-        userModel.setPassword(PasswordHasher.hashPasswordSHA1(userModel.getPassword()));
+        userModel.setPassword(userModel.getPassword());
         AuthRequestDTO authRequestDTO = authService.authentication(userModel);
 
         while (authRequestDTO.getAuthList() != AuthList.AUTHORIZATION) {
