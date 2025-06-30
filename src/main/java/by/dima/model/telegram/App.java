@@ -1,12 +1,22 @@
 package by.dima.model.telegram;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.grpc.BindableService;
+import lombok.extern.slf4j.Slf4j;
 
-@SpringBootApplication
+import java.io.IOException;
+
+@Slf4j
 public class App {
+    public static void main(String[] args) throws Exception {
 
-    public static void main(String[] args) {
-        SpringApplication.run(App.class);
+        RequestManager requestManager = new RequestManager();
+        BindableService service = new MessageExchangeService(requestManager);
+        try (ServerGrpc serverGrpc = new ServerGrpc(service)) {
+            serverGrpc.startServer();
+        } catch (IOException e) {
+            System.out.println("Сервер не смог запуститься!");
+            log.warn(e.getMessage());
+        }
+
     }
 }

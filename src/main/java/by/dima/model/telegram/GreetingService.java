@@ -3,14 +3,13 @@ package by.dima.model.telegram;
 import com.example.grpc.GreetingServiceGrpc;
 import com.example.grpc.GreetingServiceOuterClass;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-@Component
+@Slf4j
 class GreetingService extends GreetingServiceGrpc.GreetingServiceImplBase {
     private final RequestManager requestManager;
 
-    @Autowired
     public GreetingService(RequestManager requestManager) {
         this.requestManager = requestManager;
     }
@@ -19,7 +18,12 @@ class GreetingService extends GreetingServiceGrpc.GreetingServiceImplBase {
     public void greeting(
             GreetingServiceOuterClass.HelloRequest request,
             StreamObserver<GreetingServiceOuterClass.HelloResponse> responseObserver) {
-        responseObserver.onNext(requestManager.execute(request));
+
+        GreetingServiceOuterClass.HelloResponse helloResponse = requestManager.execute(request);
+
+        log.info(helloResponse.toString());
+
+        responseObserver.onNext(helloResponse);
         responseObserver.onCompleted();
     }
 

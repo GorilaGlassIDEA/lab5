@@ -2,6 +2,8 @@ package by.dima.model;
 
 import by.dima.model.auth.AuthScanner;
 import by.dima.model.auth.AuthService;
+import by.dima.model.auth.mode.CLIMode;
+import by.dima.model.auth.mode.ChooseAuthMode;
 import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.common.AnswerDTO;
@@ -58,28 +60,12 @@ public class Main {
             //переписать все под RequestFacade
             RequestFacade requestFacade = new RequestFacade(new ForDeserializableAnswerDTO<>(), new ForSerializableObject<>(), clientable);
 
-            AuthScanner authScanner = new AuthScanner(scanner);
             AuthService authService = new AuthService(requestFacade);
-            UserModel userModel = new UserModel();
             System.out.println("(Регистрация - 0, Вход в систему - 1");
-            while (scanner.hasNextLine()) {
-                String mode = scanner.nextLine();
-                try {
-                    //TODO: при регистрации если введен логин который уже существует писать обратную связь о существовании username
-                    Long longMode = Long.parseLong(mode);
-                    if (longMode == 1) {
-                        userModel = authorizedStatusControl(authScanner, authService);
-                        break;
-                    } else if (longMode == 0) {
-                        userModel = authenticationStatusControl(authScanner, authService);
-                        break;
-                    } else {
-                        System.out.println("Некорректный ввод!");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Некорректный ввод!");
-                }
-            }
+
+            ChooseAuthMode chooseAuthMode = new CLIMode(scanner, authService);
+            UserModel userModel = chooseAuthMode.getAnswer();
+
 
             if (userModel.getId() == null) {
                 userModel.setId(-1);
@@ -155,3 +141,4 @@ public class Main {
         return userModel;
     }
 }
+

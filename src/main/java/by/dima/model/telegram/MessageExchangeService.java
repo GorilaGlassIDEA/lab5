@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
 public class MessageExchangeService extends TelegramBotServiceGrpc.TelegramBotServiceImplBase {
     private final RequestManager requestManager;
 
-    @Autowired
     public MessageExchangeService(RequestManager requestManager) {
         this.requestManager = requestManager;
     }
