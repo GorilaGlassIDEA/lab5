@@ -6,7 +6,7 @@ import by.dima.model.common.AuthRequestDTO;
 import by.dima.model.common.UserModel;
 import by.dima.model.util.PasswordHasher;
 
-public class AuthUtils {
+public class  AuthUtils {
     public static UserModel authorizedStatusControl(ReadUserData readUserData, AuthService authService) {
         UserModel userModel = readUserData.read();
         userModel.setPassword(userModel.getPassword());
