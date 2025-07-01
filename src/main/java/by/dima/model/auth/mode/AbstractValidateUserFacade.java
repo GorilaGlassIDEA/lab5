@@ -4,16 +4,18 @@ import by.dima.model.auth.AuthService;
 import by.dima.model.auth.ControlAuthStatusService;
 import by.dima.model.auth.read.data.ReadableData;
 import by.dima.model.common.UserModel;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Iterator;
 
-public abstract class AbstractValidateUserFacade implements GetableValidateUserModel {
+@Slf4j
+abstract class AbstractValidateUserFacade implements GetableValidateUserModel {
 
     private final Iterator<String> iterator;
     private final ControlAuthStatusService authStatusService;
 
-    public AbstractValidateUserFacade(Iterator<String> iterator, AuthService authService) {
-        this.iterator = iterator;
+    AbstractValidateUserFacade(AuthService authService) {
+        this.iterator = getIterator();
         this.authStatusService = new ControlAuthStatusService(getReadableData(), authService);
     }
 
@@ -31,14 +33,16 @@ public abstract class AbstractValidateUserFacade implements GetableValidateUserM
                     userModel = authStatusService.authenticationStatusControl();
                     break;
                 } else {
-                    System.out.println("Некорректный ввод!");
+                    log.info("Нельзя вводить другие числа!");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Некорректный ввод!");
+                log.info("Некорректный ввод числа!");
             }
         }
         return userModel;
     }
 
     public abstract ReadableData getReadableData();
+
+    public abstract Iterator<String> getIterator();
 }

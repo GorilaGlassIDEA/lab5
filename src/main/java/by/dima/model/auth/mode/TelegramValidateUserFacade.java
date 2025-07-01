@@ -1,26 +1,26 @@
 package by.dima.model.auth.mode;
 
 import by.dima.model.auth.AuthService;
-import by.dima.model.auth.read.data.CLIReadData;
 import by.dima.model.auth.read.data.ReadableData;
 
 import java.util.Iterator;
-import java.util.Scanner;
 
-public class ScannerValidateUserFacade extends AbstractValidateUserFacade {
+public class TelegramValidateUserFacade extends AbstractValidateUserFacade {
 
-    public ScannerValidateUserFacade(AuthService authService) {
+
+    public TelegramValidateUserFacade(AuthService authService) {
         super(authService);
     }
 
     @Override
     public ReadableData getReadableData() {
-        return new CLIReadData();
+        return null;
     }
 
     @Override
     public Iterator<String> getIterator() {
-        return new Scanner(System.in);
+        return null;
     }
+
 
 }
