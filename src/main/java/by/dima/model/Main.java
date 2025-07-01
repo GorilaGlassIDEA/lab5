@@ -1,8 +1,8 @@
 package by.dima.model;
 
 import by.dima.model.auth.AuthService;
-import by.dima.model.auth.mode.InputMode;
-import by.dima.model.auth.read.data.CLIReadData;
+import by.dima.model.auth.mode.GetableValidateUserModel;
+import by.dima.model.auth.mode.ScannerValidateUserFacade;
 import by.dima.model.client.Client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.common.AnswerDTO;
@@ -59,8 +59,9 @@ public class Main {
             AuthService authService = new AuthService(requestFacade);
             System.out.println("(Регистрация - 0, Вход в систему - 1");
 
-            InputMode inputMode = new InputMode(authService,new CLIReadData());
-            UserModel userModel = inputMode.getAnswer();
+
+            GetableValidateUserModel inputMode = new ScannerValidateUserFacade(authService);
+            UserModel userModel = inputMode.getValidateUser();
 
 
             if (userModel.getId() == null) {
