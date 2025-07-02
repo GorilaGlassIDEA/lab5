@@ -1,6 +1,6 @@
 package by.dima.model.auth;
 
-import by.dima.model.auth.read.data.ReadableData;
+import by.dima.model.auth.read.ReadableData;
 import by.dima.model.common.AuthList;
 import by.dima.model.common.AuthRequestDTO;
 import by.dima.model.common.UserModel;

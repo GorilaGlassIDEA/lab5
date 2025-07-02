@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ServerGrpc implements AutoCloseable {
     private final Integer port = 1230;
-    private BindableService service;
+    private final BindableService service;
     private Server server;
 
     public ServerGrpc(BindableService service) {

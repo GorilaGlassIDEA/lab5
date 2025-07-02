@@ -4,8 +4,6 @@ import com.example.grpc.TelegramBotExchangeMessage;
 import com.example.grpc.TelegramBotServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Slf4j
 public class MessageExchangeService extends TelegramBotServiceGrpc.TelegramBotServiceImplBase {
@@ -21,7 +19,7 @@ public class MessageExchangeService extends TelegramBotServiceGrpc.TelegramBotSe
 
         log.info("От телеграм бота пришло сообщение: " + request);
 
-        TelegramBotExchangeMessage.ClientLayerResponse response = requestManager.executeUserRequest(request);
+        TelegramBotExchangeMessage.ClientLayerResponse response = requestManager.answerOnUserRequest(request);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

@@ -2,7 +2,7 @@ package by.dima.model.auth.mode;
 
 import by.dima.model.auth.AuthService;
 import by.dima.model.auth.ControlAuthStatusService;
-import by.dima.model.auth.read.data.ReadableData;
+import by.dima.model.auth.read.ReadableData;
 import by.dima.model.common.UserModel;
 import lombok.extern.slf4j.Slf4j;
 

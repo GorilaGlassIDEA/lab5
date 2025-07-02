@@ -1,4 +1,6 @@
-package by.dima.model.auth.read.data;
+package by.dima.model.auth.read.impl;
+
+import by.dima.model.auth.read.ReadableData;
 
 import java.util.Scanner;
 
@@ -24,10 +26,5 @@ public class CLIReadData implements ReadableData {
         }
     }
 
-    @Override
-    public String getPassword(String login) {
-        return getString("Введите пароль для логина\n-------" + login + "--------",
-                "Некорректный ввод, попробуйте еще раз!");
-    }
 
 }
