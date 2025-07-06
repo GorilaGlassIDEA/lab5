@@ -3,10 +3,14 @@ package by.dima.model.telegram;
 import io.grpc.BindableService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 
+@PropertySource("classpath:application.properties")
 public class ServerGrpc implements AutoCloseable {
+    @Value("${this.opened.client.port}")
     private final Integer port = 1230;
     private final BindableService service;
     private Server server;

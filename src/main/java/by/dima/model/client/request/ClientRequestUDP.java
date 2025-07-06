@@ -2,6 +2,8 @@ package by.dima.model.client.request;
 
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -11,7 +13,10 @@ import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.util.Random;
 
+@PropertySource("classpath:application.properties")
 public class ClientRequestUDP implements Clientable {
+
+    @Value("${remote.server.port}")
     private final int serverPort;
     @Getter
     private final Long myPort;
