@@ -17,8 +17,7 @@ public class MessageExchangeService extends TelegramBotServiceGrpc.TelegramBotSe
     public void getResponse(TelegramBotExchangeMessage.UserRequest request,
                             StreamObserver<TelegramBotExchangeMessage.ClientLayerResponse> responseObserver) {
 
-        log.info("От телеграм бота пришло сообщение: " + request);
-
+        log.info("От телеграм бота пришло сообщение: " + request.getTelegramId());
         TelegramBotExchangeMessage.ClientLayerResponse response = requestManager.answerOnUserRequest(request);
         responseObserver.onNext(response);
         responseObserver.onCompleted();

@@ -16,7 +16,7 @@ import java.util.logging.*;
 
 @Setter
 @Getter
-public class Client {
+public class ClientController {
     private Logger logger;
     private Clientable clientRequestUDP;
     private AnswerDTO answerDTO;
@@ -30,7 +30,7 @@ public class Client {
     private final Long userId;
     private final AuthRequestDTO authorizationRequest;
 
-    public Client(UserModel userModel, Logger logger, Clientable clientRequestUDP, ForSerializableObject<AuthRequestDTO> forSerializableObject, ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO, CommandManager manager) {
+    public ClientController(UserModel userModel, Logger logger, Clientable clientRequestUDP, ForSerializableObject<AuthRequestDTO> forSerializableObject, ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO, CommandManager manager) {
         this.logger = logger;
         this.clientRequestUDP = clientRequestUDP;
         this.forSerializableObject = forSerializableObject;
