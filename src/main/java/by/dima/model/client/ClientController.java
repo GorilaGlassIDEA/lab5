@@ -3,7 +3,7 @@ package by.dima.model.client;
 import by.dima.model.commands.CommandManager;
 import by.dima.model.commands.model.Command;
 import by.dima.model.common.*;
-import by.dima.model.client.parser.ForDeserializableAnswerDTO;
+import by.dima.model.client.parser.ForDeserializable;
 import by.dima.model.client.parser.ForSerializableObject;
 import by.dima.model.client.request.Clientable;
 import by.dima.model.util.util.GetSecondArgFromArgsUtil;
@@ -21,7 +21,7 @@ public class ClientController {
     private Clientable clientRequestUDP;
     private AnswerDTO answerDTO;
     private ForSerializableObject<AuthRequestDTO> forSerializableObject;
-    private ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO;
+    private ForDeserializable<AnswerDTO> deserializableAnswerDTO;
     private CommandManager manager;
 
     private CommandDTO commandDTO;
@@ -30,8 +30,7 @@ public class ClientController {
     private final Long userId;
     private final AuthRequestDTO authorizationRequest;
 
-    public ClientController(UserModel userModel, Logger logger, Clientable clientRequestUDP, ForSerializableObject<AuthRequestDTO> forSerializableObject, ForDeserializableAnswerDTO<AnswerDTO> deserializableAnswerDTO, CommandManager manager) {
-        this.logger = logger;
+    public ClientController(UserModel userModel, Clientable clientRequestUDP, ForSerializableObject<AuthRequestDTO> forSerializableObject, ForDeserializable<AnswerDTO> deserializableAnswerDTO, CommandManager manager) {
         this.clientRequestUDP = clientRequestUDP;
         this.forSerializableObject = forSerializableObject;
         this.deserializableAnswerDTO = deserializableAnswerDTO;

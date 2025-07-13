@@ -17,9 +17,9 @@ public class CommandManager {
     private final Map<String, Command> commandMap = new HashMap<>();
     private final Long userId;
 
-    public CommandManager(ObjectMapper mapper, ReadableFile readableFile, String filePath, RouteParserToJson parser, Long userId, Logger logger) {
+    public CommandManager(RouteParserToJson parser, Long userId) {
         this.userId = userId;
-        Command insertCommand = new InsertCommand(parser, userId, logger);
+        Command insertCommand = new InsertCommand(parser, userId);
         Command infoCommand = new InfoCommand(userId);
         Command clearCommand = new ClearCommand(userId);
         Command showCommand = new ShowCommand(userId);
@@ -32,7 +32,6 @@ public class CommandManager {
         Command printFieldDescendingDistanceCommand = new PrintFieldDescendingDistanceCommand(userId);
         Command groupCountingByIdCommand = new GroupCountingByIdCommand(userId);
         Command historyCommand = new HistoryCommand(userId);
-        Command executeScriptCommand = new ExecuteScriptCommand(userId, filePath, readableFile, mapper);
         Command showAllCommand = new ShowAllCommand(userId);
 
         commandMap.put(insertCommand.getKey(), insertCommand);
@@ -48,7 +47,6 @@ public class CommandManager {
         commandMap.put(removeLowerKeyCommand.getKey(), removeLowerKeyCommand);
         commandMap.put(groupCountingByIdCommand.getKey(), groupCountingByIdCommand);
         commandMap.put(historyCommand.getKey(), historyCommand);
-        commandMap.put(executeScriptCommand.getKey(), executeScriptCommand);
         commandMap.put(showAllCommand.getKey(), showAllCommand);
 
 
